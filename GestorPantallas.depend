@@ -453,17 +453,18 @@
 	"botonera.h"
 	"GestorPantallas.h"
 
-1781793775 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.h
+1781812974 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"botonera.h"
 	"PanelTexto.h"
+	"ArchivoPartidas.h"
 
 1781805102 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacueva.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 
-1781808529 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
+1781811140 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
@@ -476,13 +477,15 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1781809589 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1781812069 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"ventanaExplor.h"
 	"botonera.h"
 	"datosFuentes.h"
 	"PanelTexto.h"
 	"datosVenEx.h"
 	"datosBotonExplor.h"
+	"ArchivoInventario.h"
+	"ArchivoPartidas.h"
 	<iostream>
 
 1781793539 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
@@ -492,13 +495,15 @@
 	"datosBotonIntro.h"
 	<iostream>
 
-1781798173 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
+1781813202 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
+	"datosArchivos.h"
 	"ventanaJugad.h"
 	"botonera.h"
 	"datosBotonJug.h"
 	"datosPanelJug.h"
 	"datosVenJug.h"
 	"PanelTexto.h"
+	"ArchivoPartidas.h"
 	<iostream>
 
 1781535091 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\botonera.cpp
@@ -551,7 +556,7 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1781796318 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospaneljug.cpp
+1781812813 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospaneljug.cpp
 	"datosPanelJug.h"
 
 1781795975 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospaneljug.h
@@ -600,4 +605,63 @@
 
 1781808254 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenex.h
 	<SFML/Graphics.hpp>
+
+1781552156 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivoinventario.cpp
+	"ArchivoInventario.h"
+	<cstdio>
+
+1781552162 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivoinventario.h
+	"inventario.h"
+
+1781565162 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.h
+	<string>
+	"archivos.h"
+
+1781562828 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivopartidas.cpp
+	"ArchivoPartidas.h"
+	<cstdio>
+
+1781556965 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivopartidas.h
+	"partidas.h"
+
+1781562799 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
+
+1781584416 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.cpp
+	"inventario.h"
+	"items_juego.h"
+	<iostream>
+	<cstring>
+	<sstream>
+	<iomanip>
+	<iostream>
+	"inventario.h"
+
+1781585247 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.h
+	"item.h"
+
+1780867752 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\item.h
+
+1781203285 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventariocueva.cpp
+	"inventarioCueva.h"
+	<cstdlib>
+	<ctime>
+	<iostream>
+	<sstream>
+	<cstring>
+
+1781195958 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventariocueva.h
+	<string>
+	"inventario.h"
+
+1780866891 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\item.cpp
+	<iostream>
+	"item.h"
+	<cstring>
+
+1780895921 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.cpp
+	"items_juego.h"
+
+1781811552 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
+	"partidas.h"
+	<iostream>
 

@@ -11,8 +11,8 @@ const sf::Color CLR_RECUA_PA_JUG_RES = sf::Color::Yellow;
 const float GROS_RECUA_PA_JUG=3.f;
 
 
-extern const char* RUTA_JUG_1="recursos/imag/Jugadores/Cabeza_jugador1.png";
-extern const char* RUTA_JUG_2="recursos/imag/Jugadores/Cabeza_jugador2.png";
+const char* RUTA_JUG_1="recursos/imag/Jugadores/Cabeza_jugador1.png";
+const char* RUTA_JUG_2="recursos/imag/Jugadores/Cabeza_jugador2.png";
 
 const char* ERROR_JUG = "No se pudo cargar la imagen";
 

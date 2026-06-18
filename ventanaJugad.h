@@ -4,6 +4,8 @@
 #include "GestorPantallas.h"
 #include "botonera.h"
 #include "PanelTexto.h"
+#include "ArchivoPartidas.h"
+//#include "datosArchivos.h"
 
 class VentanaJug : public Pantalla
 {
@@ -18,6 +20,8 @@ public:
     void ejecutarAccion(int i);
     void manejarEvento(const sf::Event& evento) override;
     void CargarJugadores();
+    void cargarPartidas();
+
 private:
     GestorPantallas& m_gestor;
     sf::Font m_fuente;
@@ -34,7 +38,7 @@ private:
     sf::Sprite spriteJug2;
     sf::Text nombreJug2;
 
-
+    ArchivoPartidas archivoPartidas;
     Botonera botonera;
     Panel panelJug1;
     Panel panelJug2;

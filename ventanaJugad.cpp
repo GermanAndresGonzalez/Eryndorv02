@@ -1,16 +1,18 @@
+#include "datosArchivos.h"
 #include "ventanaJugad.h"
 #include "botonera.h"
 #include "datosBotonJug.h"
 #include "datosPanelJug.h"
 #include "datosVenJug.h"
 #include "PanelTexto.h"
+#include "ArchivoPartidas.h"
 
 
 
 #include <iostream>
 
 
-VentanaJug::VentanaJug(GestorPantallas& gestor): m_gestor(gestor)
+VentanaJug::VentanaJug(GestorPantallas& gestor): m_gestor(gestor),archivoPartidas(RUTA_DAT_PART)
 {
     m_fuente.loadFromFile(FUENTE_JUG);
     m_texto.setFont(m_fuente);
@@ -37,8 +39,21 @@ VentanaJug::VentanaJug(GestorPantallas& gestor): m_gestor(gestor)
 
     Botonera botonera;
     cargarRec();
+    cargarPartidas();
     CargarJugadores();
 }
+
+void VentanaJug::cargarPartidas()
+{
+    int noPartida = archivoPartidas.generarID();
+    if (noPartida > 0)
+    {
+        Partida* datos = m_gestor.obtenerPartida();
+        datos->partida = noPartida;
+        std::cout << "\nPartida: " << datos->partida << std::endl;  // ← adentro
+    }
+}
+
 
 void VentanaJug::alMostrar()
 {

@@ -19,6 +19,7 @@ public:
     void CargarJugadores();
     void ejecutarAccion(int i);
     void manejarEvento(const sf::Event& evento);
+    void ManejoPartida();
 
     Panel panelJug;
     Panel panelCueva;

@@ -5,6 +5,9 @@
 #include "PanelTexto.h"
 #include "datosVenEx.h"
 #include "datosBotonExplor.h"
+#include "ArchivoInventario.h"
+#include "ArchivoPartidas.h"
+
 
 
 #include <iostream>
@@ -35,6 +38,7 @@ VentanaExplo::VentanaExplo(GestorPantallas& gestor): m_gestor(gestor)
 
     Botonera botonera;
     cargarRec();
+    ManejoPartida();
     CargarJugadores();
 }
 
@@ -56,6 +60,21 @@ void VentanaExplo::actualizar(float dt)
         m_gestor.mostrar("intro");
     }
 }
+
+void VentanaExplo::ManejoPartida()
+{
+    Partida* datos = m_gestor.obtenerPartida();
+    std::cout << datos->partida <<std::endl;
+    std::cout << datos->nivel<<std::endl;
+    std::cout << datos->id<<std::endl;
+    std::cout << datos->turnoJugador<<std::endl;
+    std::cout << datos->turnoComput<<std::endl;
+
+
+}
+
+
+
 void VentanaExplo::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
