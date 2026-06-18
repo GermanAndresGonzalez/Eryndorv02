@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GestorPantallas" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/GestorPantallas" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/GestorPantallas" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="SFML/include" />
+		</Compiler>
+		<Linker>
+			<Add library="sfml-audio" />
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+			<Add directory="SFML/lib" />
+		</Linker>
+		<Unit filename="GestorPantallas.cpp">
+			<Option virtualFolder="GestorPantallas/" />
+		</Unit>
+		<Unit filename="GestorPantallas.h">
+			<Option virtualFolder="GestorPantallas/" />
+		</Unit>
+		<Unit filename="PanelTexto.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="PanelTexto.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="Pantalla.h" />
+		<Unit filename="Partida.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="Partida.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="botonera.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="botonera.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="datosArchivos.cpp">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosArchivos.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosBotonExplor.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonExplor.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonIntro.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonIntro.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonJug.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonJug.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonera.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonera.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosFuentes.cpp">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosFuentes.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPanel.cpp">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPanel.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPanelIntro.cpp">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPanelIntro.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPanelJug.cpp">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPanelJug.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosVenCueva.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCueva.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenEx.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenEx.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenIntro.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenIntro.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenJug.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenJug.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVentana.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVentana.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="ventanaCueva.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaCueva.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaExplor.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaExplor.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaIntrod.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaIntrod.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaJugad.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaJugad.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaPrincipal.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaPrincipal.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

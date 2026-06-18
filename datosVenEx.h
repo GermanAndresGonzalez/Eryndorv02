@@ -1,0 +1,21 @@
+#ifndef DATOS_VEN_EX_H
+#define DATOS_VEN_EX_H
+#include <SFML/Graphics.hpp>
+
+extern const unsigned int TAM_CAR_PARR_EX;
+extern const sf::Color CLR_RECUA_PA_EX;
+extern const sf::Color CLR_RECUA_PA_EX_RES;
+
+extern const char* RUTA_FONDO_EX;
+extern const char* ERROR_FONDO_EX;
+
+
+
+
+
+
+
+
+
+
+#endif
