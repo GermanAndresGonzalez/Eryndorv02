@@ -52,6 +52,7 @@ public:
 	float getPosInternaY();
 
     sf::FloatRect obtenerLimites() const;
+    sf::FloatRect getLocalBounds() const;
 
 	//const sf::FloatRect obtPosicion(sf::RenderWindow& ventana) const;
 };

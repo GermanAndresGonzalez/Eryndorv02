@@ -114,4 +114,9 @@ sf::FloatRect Panel::obtenerLimites() const
     return _Panel.getGlobalBounds();
 }
 
+sf::FloatRect Panel::getLocalBounds() const
+{
+    return _Panel.getLocalBounds();
+}
+
 

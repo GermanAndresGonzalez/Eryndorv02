@@ -4,6 +4,8 @@
 #include "GestorPantallas.h"
 #include "PanelTexto.h"
 #include "botonera.h"
+#include "inventario.h"
+#include "inventarioCueva.h"
 
 
 class VentanaExplo : public Pantalla
@@ -23,6 +25,8 @@ public:
 
     Panel panelJug;
     Panel panelCueva;
+
+
 private:
     GestorPantallas& m_gestor;
     Botonera botonera;
@@ -33,7 +37,15 @@ private:
     sf::Font m_fuente;
     sf::Text m_texto;
     sf::Text m_turnos;
+    sf::Text nombreJug;
+    sf::Text nombreCue;
     sf::Text txtPanelJug;
     sf::Text txtPanelCue;
+    std::string nomcadJug;
+    std::string nomcadCueva;
+
+    InventarioCueva cueva;
+    Inventario inventJugad;
+
 
 };

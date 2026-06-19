@@ -1,5 +1,6 @@
 
 #include "salida.h"
+#include "centrar.h"
 #include "ventanaExplor.h"
 #include "botonera.h"
 #include "PanelTexto.h"
@@ -16,25 +17,29 @@
 
 
 #include <iostream>
-VentanaExplo::VentanaExplo(GestorPantallas& gestor): m_gestor(gestor)
+VentanaExplo::VentanaExplo(GestorPantallas& gestor): m_gestor(gestor), cueva(999,999,999),inventJugad()
 {
-
-
+    nomcadCueva ="Cueva";
     Botonera botonera;
     cargarRec();
     ManejoPartida();
     CargarJugadores();
+
 }
 
 
 void VentanaExplo::alMostrar()
 {
-    std::cout << "VentanaExplo: ahora visible\n";
+    Partida* datos = m_gestor.obtenerPartida();
+    nomcadJug = datos->nombre;
+    nombreJug.setString(nomcadJug);
+
+    Centrado::centrar(nombreJug,panelJug.obtenerLimites() ,panelJug.getPosInternaY()+20);
 
 }
 void VentanaExplo::alOcultar()
 {
-    std::cout << "VentanaExplo: ahora oculta\n";
+    //std::cout << "VentanaExplo: ahora oculta\n";
 }
 void VentanaExplo::actualizar(float dt)
 {
@@ -49,10 +54,12 @@ void VentanaExplo::actualizar(float dt)
 void VentanaExplo::ManejoPartida()
 {
     Partida* datos = m_gestor.obtenerPartida();
-    std::cout << "Partida\n";
+    std::cout << "Pantalla Exploración\n";
+
     std::cout << "Partida: " <<datos->partida <<std::endl;
     std::cout << "Nivel: " <<datos->nivel<<std::endl;
     std::cout << "ID: " <<datos->id<<std::endl;
+    std::cout << "Nombre: " <<datos->nombre<<std::endl;
     std::cout << "Turno jug: " <<datos->turnoJugador<<std::endl;
     std::cout << "Turno pc: " <<datos->turnoComput<<std::endl<<std::endl;;
 
@@ -65,12 +72,13 @@ void VentanaExplo::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
-    ventana.draw(txtPanelJug);
-    ventana.draw(txtPanelCue);
+
     ventana.draw(m_turnos);
 
     panelJug.dibujar(m_gestor.obtenerVentana());
     panelCueva.dibujar(m_gestor.obtenerVentana());
+    ventana.draw(nombreJug);
+    ventana.draw(nombreCue);
 
     //ventana.draw(spriteJug1);
     //ventana.draw(spriteJug2);
@@ -103,24 +111,11 @@ void VentanaExplo::cargarRec()
     m_turnos.setCharacterSize(35);
     m_turnos.setColor(CLR_RECUA_PA_EX_RES);
 
-    rect=m_turnos.getLocalBounds();
-    m_turnos.setOrigin(rect.left+rect.width/2.0f,rect.top+rect.height/2.0f);
-    m_turnos.setPosition(sf::Vector2f(m_gestor.obtenerVentana().getSize().x / 2.0f, 120.f));
+    Centrado::centrar(m_turnos,m_gestor.obtenerVentana(), 120.f);
 
     panelJug=Panel(160.f,200.f,300.f,400.f);
     panelCueva=Panel(490.f,200.f,300.f,400.f);
 
-    txtPanelJug.setFont(m_fuente);
-    txtPanelJug.setString("");
-    txtPanelJug.setCharacterSize(TAM_CAR_PARR_EX);
-    txtPanelJug.setPosition(352.f, 525.f);
-    txtPanelJug.setColor(CLR_RECUA_PA_EX);
-
-    txtPanelCue.setFont(m_fuente);
-    txtPanelCue.setString("");
-    txtPanelCue.setCharacterSize(TAM_CAR_PARR_EX);
-    txtPanelCue.setPosition(760.f, 525.f);//688
-    txtPanelCue.setColor(CLR_RECUA_PA_EX);
 
 
     if (!texturaFondo.loadFromFile(RUTA_FONDO_EX))
@@ -143,14 +138,40 @@ void VentanaExplo::cargarRec()
     botonera.inicializarEtiquetas(ETI_BOTONES_EXP,CANT_BOTONES_EXP);
     botonera.inicializarBotones(posBotonX_EXP,posBotonY_EXP);
 
-    InventarioCueva cueva(999,999,999);
+    nombreJug.setFont(m_fuente);
+
+    nombreJug.setCharacterSize(TAM_CAR_PARR_EX);
+    /*
+    nombreJug.setPosition(panelJug.getPosInternaX()+10, panelJug.getPosInternaY()+10);
+
+
+    sf::FloatRect bounds = panelJug.obtenerLimites();
+
+    std::cout << "Left: "   << bounds.left
+              << ", Top: "    << bounds.top
+              << ", Width: "  << bounds.width
+              << ", Height: " << bounds.height << std::endl;
+    */
+
+    //Centrado::centrar(nombreJug,panelJug.obtenerLimites() ,panelJug.getPosInternaY());
+
+    nombreJug.setColor(CLR_RECUA_PA_EX);
+
+    nombreCue.setFont(m_fuente);
+        nombreCue.setCharacterSize(TAM_CAR_PARR_EX);
+    nombreCue.setString(nomcadCueva);
+    Centrado::centrar(nombreCue,panelCueva.obtenerLimites() ,panelCueva.getPosInternaY()+20);
+    //nombreCue.setPosition(panelCueva.getPosInternaX()+10,panelCueva.getPosInternaY()+10);//688
+    nombreCue.setColor(CLR_RECUA_PA_EX);
+
 
 
 }
 
 void VentanaExplo::CargarJugadores()
 {
-    std::cout << "Jugadores";
+
+
 
 
 
@@ -223,8 +244,8 @@ void VentanaExplo::manejarEvento(const sf::Event& evento)
         if (panelJug.obtenerLimites().contains(static_cast<float>(evento.mouseMove.x), static_cast<float>(evento.mouseMove.y)))
         {
             //panelJug.setBordeX(2.f);
-            panelJug.setColor(CLR_RECUA_PA_EX_RES);
-            panelJug.setColContorno(CLR_RECUA_PA_EX_RES);
+            //panelJug.setColor(CLR_RECUA_PA_EX_RES);
+            //panelJug.setColContorno(CLR_RECUA_PA_EX_RES);
 
 
         }
@@ -232,23 +253,23 @@ void VentanaExplo::manejarEvento(const sf::Event& evento)
         else
         {
             //panelJug.setBordeX(2.f);
-            txtPanelJug.setColor(CLR_RECUA_PA_EX);
-            panelJug.setColContorno(CLR_RECUA_PA_EX);
+            //nombreJug.setColor(CLR_RECUA_PA_EX);
+            //panelJug.setColContorno(CLR_RECUA_PA_EX);
 
         }
 
         if (panelCueva.obtenerLimites().contains(static_cast<float>(evento.mouseMove.x), static_cast<float>(evento.mouseMove.y)))
         {
-            txtPanelCue.setColor(CLR_RECUA_PA_EX_RES);
+            //nombreCue.setColor(CLR_RECUA_PA_EX_RES);
             //panelCueva.setBordeX(2.f);
-            panelCueva.setColContorno(CLR_RECUA_PA_EX_RES);
+            //panelCueva.setColContorno(CLR_RECUA_PA_EX_RES);
 
         }
         else
         {
             //panelCueva.setBordeX(2.f);
-            txtPanelCue.setColor(CLR_RECUA_PA_EX);
-            panelCueva.setColContorno(CLR_RECUA_PA_EX);
+            //nombreCue.setColor(CLR_RECUA_PA_EX);
+            //panelCueva.setColContorno(CLR_RECUA_PA_EX);
 
         }
     }

@@ -71,12 +71,18 @@
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
 		<Unit filename="Partida.h">
-			<Option virtualFolder="Auxiliares/" />
+			<Option virtualFolder="GestorPantallas/" />
 		</Unit>
 		<Unit filename="botonera.cpp">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
 		<Unit filename="botonera.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="centrar.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="centrar.h">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
 		<Unit filename="datosArchivos.cpp">
@@ -189,6 +195,12 @@
 		</Unit>
 		<Unit filename="main.cpp">
 			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="nombres.cpp">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="nombres.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
 		<Unit filename="partidas.cpp">
 			<Option virtualFolder="Auxiliares/" />

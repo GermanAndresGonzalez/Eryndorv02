@@ -234,16 +234,18 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         {
             m_gestor.obtenerPartida()->id = 1;
             Partida* datos = m_gestor.obtenerPartida();
-            std::strcpy(datos->nombre,NOMBRES[0].c_str());
-            std::cout << "Partida.id = 1" << std::endl;
+            std::strncpy(datos->nombre,NOMBRES[0].c_str(),49);
+            datos->nombre[49] = '\0';
+
         }
 
         if (panelJug2.obtenerLimites().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
         {
             m_gestor.obtenerPartida()->id = 2;
             Partida* datos = m_gestor.obtenerPartida();
-            std::strcpy(datos->nombre,NOMBRES[1].c_str());
-            std::cout << "Partida.id = 2" << std::endl;
+            std::strncpy(datos->nombre,NOMBRES[1].c_str(),49);
+            datos->nombre[49] = '\0';
+
         }
     }
 }
