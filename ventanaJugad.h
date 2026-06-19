@@ -24,6 +24,7 @@ public:
     void cargarPartidas();
 
 private:
+    bool primera=true;
     GestorPantallas& m_gestor;
     sf::Font m_fuente;
     sf::Text m_texto;
@@ -38,6 +39,7 @@ private:
     sf::Texture texturaJug2;
     sf::Sprite spriteJug2;
     sf::Text nombreJug2;
+    sf::Text jugadElegido;
 
     ArchivoPartidas archivoPartidas;
     Botonera botonera;

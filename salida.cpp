@@ -29,4 +29,15 @@ bool Salida::Volver(GestorPantallas& gestor)
 }
 
 
+bool Salida::Mensaje(GestorPantallas& gestor,std::string tit,std::string mensaje)
+{
+    VentanaConfirmacion dialogo(tit, mensaje,1);
 
+    // Ahora usamos 'gestor' (el parámetro) en lugar de 'm_gestor'
+    bool respuesta = dialogo.mostrar(gestor.obtenerVentana());
+    if (respuesta)
+    {
+        return true;
+    }
+    return false;
+}

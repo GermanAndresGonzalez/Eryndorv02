@@ -3,7 +3,8 @@
 
 class VentanaConfirmacion {
 public:
-    VentanaConfirmacion(const std::string& titulo, const std::string& mensaje);
+    VentanaConfirmacion(const std::string& titulo, const std::string& mensaje,int cantBotones=0);
+
 
     // Devuelve true si el usuario presiona "Sí", false si "No" o cierra
     bool mostrar(sf::RenderWindow& window);

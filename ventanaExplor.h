@@ -22,6 +22,9 @@ public:
     void ejecutarAccion(int i);
     void manejarEvento(const sf::Event& evento);
     void ManejoPartida();
+    void actualizarNombreJug(const std::string& nombre);
+
+    void encontrarRecursos();
 
     Panel panelJug;
     Panel panelCueva;

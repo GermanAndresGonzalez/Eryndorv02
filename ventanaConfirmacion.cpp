@@ -2,7 +2,7 @@
 #include "VentanaConfirmacion.h"
 #include <iostream>
 
-VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::string& mensaje)
+VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::string& mensaje,int cantBotones)
 {
     if (!fondoTexture.loadFromFile("recursos/imag/Cueva/cueva_1280x720.png"))
     {
@@ -54,19 +54,23 @@ VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::s
 
     centrarTexto(textoSi, botonSi);
 
+    if (cantBotones==0)
+    {
+        botonNo.setSize(sf::Vector2f(120.f, 50.f));
+
+        botonNo.setFillColor(sf::Color(50, 58, 122));
+        botonNo.setOutlineColor(sf::Color(50, 58, 122));
+        botonNo.setOutlineThickness(2.f);
+        botonNo.setPosition(fondo.getPosition().x + 380.f, fondo.getPosition().y + 200.f);
+
+        textoNo.setFont(font);
+        textoNo.setString("No");
+        textoNo.setCharacterSize(22);
+        textoNo.setFillColor(sf::Color::White);
+        centrarTexto(textoNo, botonNo);
+    }
     // Botón No
-    botonNo.setSize(sf::Vector2f(120.f, 50.f));
 
-    botonNo.setFillColor(sf::Color(50, 58, 122));
-    botonNo.setOutlineColor(sf::Color(50, 58, 122));
-    botonNo.setOutlineThickness(2.f);
-    botonNo.setPosition(fondo.getPosition().x + 380.f, fondo.getPosition().y + 200.f);
-
-    textoNo.setFont(font);
-    textoNo.setString("No");
-    textoNo.setCharacterSize(22);
-    textoNo.setFillColor(sf::Color::White);
-    centrarTexto(textoNo, botonNo);
 
 
 

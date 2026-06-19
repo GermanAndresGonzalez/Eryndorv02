@@ -14,13 +14,6 @@ void Centrado::centrar(sf::Text& texto, const sf::RenderWindow& ventana, float p
 void Centrado::centrar(sf::Text& texto, const sf::FloatRect& rect, float posY)
 {
     sf::FloatRect limites = texto.getLocalBounds();
-
-    // Debug: ver qué valores tenemos
-
-    std::cout << "Texto localBounds  left=" << limites.left << " width=" << limites.width << "\n";
-    std::cout << "Rect               left=" << rect.left    << " width=" << rect.width    << "\n";
-    std::cout << "Centro calculado X=" << rect.left + rect.width / 2.0f << "\n";
-
     texto.setOrigin(limites.left + limites.width  / 2.0f,
                     limites.top  + limites.height / 2.0f);
     texto.setPosition(rect.left + rect.width / 2.0f, posY);

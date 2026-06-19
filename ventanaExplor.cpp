@@ -14,6 +14,8 @@
 #include "ArchivoPartidas.h"
 #include "inventarioCueva.h"
 
+#include "inventarioCueva.h"
+
 
 
 #include <iostream>
@@ -32,10 +34,18 @@ void VentanaExplo::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
-    nombreJug.setString(nomcadJug);
-
+    nombreJug.setString(datos->nombre);
     Centrado::centrar(nombreJug,panelJug.obtenerLimites() ,panelJug.getPosInternaY()+20);
+    std::cout << "\n\n\n\n" << "nomcadJug: " << nomcadJug << std::endl;
+    actualizarNombreJug(datos->nombre);
 
+
+}
+
+void VentanaExplo::actualizarNombreJug(const std::string& nombre)
+{
+    nombreJug.setString(nombre);  // 1° cambiás el texto
+    Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10); // 2° recentrás
 }
 void VentanaExplo::alOcultar()
 {
@@ -78,6 +88,7 @@ void VentanaExplo::dibujar(sf::RenderWindow& ventana)
     panelJug.dibujar(m_gestor.obtenerVentana());
     panelCueva.dibujar(m_gestor.obtenerVentana());
     ventana.draw(nombreJug);
+    //ventana.draw(nombreJug);
     ventana.draw(nombreCue);
 
     //ventana.draw(spriteJug1);
@@ -141,36 +152,21 @@ void VentanaExplo::cargarRec()
     nombreJug.setFont(m_fuente);
 
     nombreJug.setCharacterSize(TAM_CAR_PARR_EX);
-    /*
-    nombreJug.setPosition(panelJug.getPosInternaX()+10, panelJug.getPosInternaY()+10);
-
-
-    sf::FloatRect bounds = panelJug.obtenerLimites();
-
-    std::cout << "Left: "   << bounds.left
-              << ", Top: "    << bounds.top
-              << ", Width: "  << bounds.width
-              << ", Height: " << bounds.height << std::endl;
-    */
-
-    //Centrado::centrar(nombreJug,panelJug.obtenerLimites() ,panelJug.getPosInternaY());
-
     nombreJug.setColor(CLR_RECUA_PA_EX);
 
     nombreCue.setFont(m_fuente);
-        nombreCue.setCharacterSize(TAM_CAR_PARR_EX);
+    nombreCue.setCharacterSize(TAM_CAR_PARR_EX);
     nombreCue.setString(nomcadCueva);
     Centrado::centrar(nombreCue,panelCueva.obtenerLimites() ,panelCueva.getPosInternaY()+20);
-    //nombreCue.setPosition(panelCueva.getPosInternaX()+10,panelCueva.getPosInternaY()+10);//688
     nombreCue.setColor(CLR_RECUA_PA_EX);
 
 
 
 }
 
-void VentanaExplo::CargarJugadores()
+void VentanaExplo::encontrarRecursos()
 {
-
+    //cueva.descubrirItemCueva()
 
 
 
@@ -203,11 +199,12 @@ void VentanaExplo::ejecutarAccion(int i)
         m_gestor.mostrar("explorar");
         break;
     case 3:
-        if (Salida::Volver(m_gestor))
-        {
+        //if (Salida::Volver(m_gestor))
+        //{
+            m_gestor.obtenerPartida()->id =0;
             m_gestor.ocultar("explorar");
             m_gestor.mostrar("jugador");
-        }
+        //}
         break;
     }
 }

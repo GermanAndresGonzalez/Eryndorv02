@@ -11,6 +11,7 @@ public:
     // Cambiado de Salida() a Salir() y agregando el parámetro del gestor
     static void Salir(GestorPantallas& gestor);
     static bool Volver(GestorPantallas& gestor);
+    static bool Mensaje(GestorPantallas& gestor,std::string tit,std::string mensaje);
 
 };
 

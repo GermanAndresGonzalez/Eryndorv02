@@ -1,3 +1,4 @@
+#include "centrar.h"
 #include "datosArchivos.h"
 #include "ventanaJugad.h"
 #include "botonera.h"
@@ -7,7 +8,9 @@
 #include "PanelTexto.h"
 #include "ArchivoPartidas.h"
 #include "nombres.h"
+#include "salida.h"
 #include <cstring>
+
 
 
 #include <iostream>
@@ -19,7 +22,14 @@ VentanaJug::VentanaJug(GestorPantallas& gestor): m_gestor(gestor),archivoPartida
     m_texto.setFont(m_fuente);
     m_texto.setString("Hace click en el personaje con el que quieres jugar");
     m_texto.setCharacterSize(40);
-    m_texto.setPosition(210.f, 50.f);
+    Centrado::centrar(m_texto,m_gestor.obtenerVentana(),60.f);
+    jugadElegido.setFont(m_fuente);
+    jugadElegido.setCharacterSize(30);
+    jugadElegido.setString("Todavia no se eligio un jugador");
+    jugadElegido.setColor(CLR_RECUA_PA_JUG_RES);
+    Centrado::centrar(jugadElegido,m_gestor.obtenerVentana(),100.f);
+
+
 
     panelJug1=Panel(300.f,210.f,292.f,303.f);
     //panelJug1.setColor(CLR_RECUA_PA_JUG);
@@ -57,17 +67,27 @@ void VentanaJug::cargarPartidas()
         std::cout << "\nPartida: " << datos->partida << std::endl;  // ← adentro
         std::cout << "\nNombre del jugador: " << datos->nombre << std::endl;  // ← adentro
     }
+    //Partida* datos = m_gestor.obtenerPartida();
+    //datos->nombre[0] = '\0';
 }
 
 
 void VentanaJug::alMostrar()
 {
     std::cout << "VentanaJug: ahora visible\n";
-
+    jugadElegido.setString("Todavia no se eligio un jugador");
+    Partida* datos = m_gestor.obtenerPartida();
+    datos->id = 0;
+    datos->nombre[0] = '\0';
 }
 void VentanaJug::alOcultar()
 {
     std::cout << "VentanaJug: ahora oculta\n";
+
+
+    //Partida* datos = m_gestor.obtenerPartida();
+    //std::strncpy(datos->nombre,"",49);
+    //datos->nombre[0] = '\0';
 }
 void VentanaJug::actualizar(float dt)
 {
@@ -84,6 +104,7 @@ void VentanaJug::dibujar(sf::RenderWindow& ventana)
     ventana.draw(m_texto);
     ventana.draw(nombreJug1);
     ventana.draw(nombreJug2);
+    ventana.draw(jugadElegido);
 
     panelJug1.dibujar(m_gestor.obtenerVentana());
     panelJug2.dibujar(m_gestor.obtenerVentana());
@@ -156,9 +177,27 @@ void VentanaJug::ejecutarAccion(int i)
         break;
 
     case 1:
-        cargarPartidas();
-        m_gestor.ocultar("jugador");
-        m_gestor.mostrar("explorar");
+
+        Partida* datos = m_gestor.obtenerPartida();
+        if (datos->id==0)
+        {
+            if (Salida::Mensaje(m_gestor,"Error","No hay jugador elegido."))
+            {
+            m_gestor.ocultar("explorar");
+            m_gestor.mostrar("jugador");
+            }
+        }
+        else
+        {
+            cargarPartidas();
+            jugadElegido.setString("Todavia no se eligio un jugador");
+            m_gestor.ocultar("jugador");
+            m_gestor.mostrar("explorar");
+        }
+
+
+
+
         break;
     }
 
@@ -166,6 +205,8 @@ void VentanaJug::ejecutarAccion(int i)
 
 void VentanaJug::manejarEvento(const sf::Event& evento)
 {
+    std::string jugadorElegido="Elegiste a ";
+
 
     if (evento.type==sf::Event::MouseMoved)
     {
@@ -235,6 +276,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
             m_gestor.obtenerPartida()->id = 1;
             Partida* datos = m_gestor.obtenerPartida();
             std::strncpy(datos->nombre,NOMBRES[0].c_str(),49);
+            std::cout <<"\n\n\n" << "Nombres: "<< NOMBRES[0].c_str() <<"\n\n\n";
+            jugadElegido.setString(jugadorElegido+NOMBRES[0].c_str());
             datos->nombre[49] = '\0';
 
         }
@@ -244,6 +287,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
             m_gestor.obtenerPartida()->id = 2;
             Partida* datos = m_gestor.obtenerPartida();
             std::strncpy(datos->nombre,NOMBRES[1].c_str(),49);
+            std::cout <<"\n\n\n" << "Nombres: "<< NOMBRES[1].c_str() <<"\n\n\n";
+            jugadElegido.setString(jugadorElegido+NOMBRES[1].c_str());
             datos->nombre[49] = '\0';
 
         }
