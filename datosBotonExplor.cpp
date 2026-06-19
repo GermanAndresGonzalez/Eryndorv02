@@ -22,10 +22,10 @@ const float tamRectBotonY_EXP=50.f;
 
 
 const std::string ETI_BOTONES_EXP[] = {
-    "Atras",
     "Agregar",
     "Craftear",
-    "Siguiente"
+    "Siguiente",
+    "Volver"
 
 };
 

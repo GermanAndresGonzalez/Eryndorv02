@@ -1,6 +1,6 @@
 
 #include "GestorPantallas.h"
-
+#include "salida.h"
 #include "ventanaPrincipal.h"
 #include "ventanaIntrod.h"
 #include "ventanaJugad.h"
@@ -26,7 +26,8 @@ int main() {
         sf::Event evento;
         while (principal.pollEvent(evento)) {
             if (evento.type == sf::Event::Closed)
-                principal.close();
+                Salida::Salir(gestor);
+
             gestor.manejarEvento(evento);
         }
 

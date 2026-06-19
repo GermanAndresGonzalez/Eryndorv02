@@ -196,6 +196,18 @@
 		<Unit filename="partidas.h">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
+		<Unit filename="salida.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="salida.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="ventanaConfirmacion.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaConfirmacion.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
 		<Unit filename="ventanaCueva.cpp">
 			<Option virtualFolder="Ventanas/" />
 		</Unit>

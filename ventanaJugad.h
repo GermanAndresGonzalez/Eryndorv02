@@ -5,6 +5,7 @@
 #include "botonera.h"
 #include "PanelTexto.h"
 #include "ArchivoPartidas.h"
+
 //#include "datosArchivos.h"
 
 class VentanaJug : public Pantalla

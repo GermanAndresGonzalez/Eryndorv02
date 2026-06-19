@@ -26,11 +26,14 @@ public:
 private:
     GestorPantallas& m_gestor;
     Botonera botonera;
+    bool partidaNueva=false;
     sf::Sprite spriteFondo;
     sf::Texture texturaFondo;
     sf::Font fuenteBotonera;
     sf::Font m_fuente;
     sf::Text m_texto;
+    sf::Text m_turnos;
     sf::Text txtPanelJug;
     sf::Text txtPanelCue;
+
 };

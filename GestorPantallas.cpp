@@ -18,10 +18,11 @@ void GestorPantallas::manejarEvento(const sf::Event& evento)
     }
 }
 
-
+//Cambié la segunda línea
+//, m_partida(new Partida{0, 1, 0})   // valores iniciales por defecto
 GestorPantallas::GestorPantallas(sf::RenderWindow& ventana)
     : m_ventana(ventana)
-    , m_partida(new Partida{0, 1, 0})   // valores iniciales por defecto
+    , m_partida(new Partida{0, 0, 0, 0, 0, {}})   // valores iniciales por defecto
 {
 }
 

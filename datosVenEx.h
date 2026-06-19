@@ -9,6 +9,9 @@ extern const sf::Color CLR_RECUA_PA_EX_RES;
 extern const char* RUTA_FONDO_EX;
 extern const char* ERROR_FONDO_EX;
 
+extern const char* TEXTO_TIT;
+extern const char* TEXTO_TURNOS;
+
 
 
 

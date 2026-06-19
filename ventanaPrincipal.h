@@ -15,6 +15,7 @@ public:
     void manejarEvento(const sf::Event& evento) override;
     void dibujar(sf::RenderWindow& ventana) override;
     void ejecutarAccion(int i);
+    //void Salir();
 
     void cargarRec();
 private:

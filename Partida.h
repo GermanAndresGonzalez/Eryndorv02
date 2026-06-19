@@ -9,6 +9,7 @@ struct Partida
     unsigned int id;
     unsigned int turnoJugador;
     unsigned int turnoComput;
+    char nombre[50];
 };
 
 

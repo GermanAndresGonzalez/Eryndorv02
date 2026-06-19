@@ -6,7 +6,8 @@
 #include "datosVenJug.h"
 #include "PanelTexto.h"
 #include "ArchivoPartidas.h"
-
+#include "nombres.h"
+#include <cstring>
 
 
 #include <iostream>
@@ -39,7 +40,7 @@ VentanaJug::VentanaJug(GestorPantallas& gestor): m_gestor(gestor),archivoPartida
 
     Botonera botonera;
     cargarRec();
-    cargarPartidas();
+
     CargarJugadores();
 }
 
@@ -50,7 +51,11 @@ void VentanaJug::cargarPartidas()
     {
         Partida* datos = m_gestor.obtenerPartida();
         datos->partida = noPartida;
+
+
+
         std::cout << "\nPartida: " << datos->partida << std::endl;  // ← adentro
+        std::cout << "\nNombre del jugador: " << datos->nombre << std::endl;  // ← adentro
     }
 }
 
@@ -145,11 +150,13 @@ void VentanaJug::ejecutarAccion(int i)
     switch (i)
     {
     case 0:
+
         m_gestor.ocultar("intro");
         m_gestor.mostrar("principal");
         break;
 
     case 1:
+        cargarPartidas();
         m_gestor.ocultar("jugador");
         m_gestor.mostrar("explorar");
         break;
@@ -226,12 +233,16 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         if (panelJug1.obtenerLimites().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
         {
             m_gestor.obtenerPartida()->id = 1;
+            Partida* datos = m_gestor.obtenerPartida();
+            std::strcpy(datos->nombre,NOMBRES[0].c_str());
             std::cout << "Partida.id = 1" << std::endl;
         }
 
         if (panelJug2.obtenerLimites().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
         {
             m_gestor.obtenerPartida()->id = 2;
+            Partida* datos = m_gestor.obtenerPartida();
+            std::strcpy(datos->nombre,NOMBRES[1].c_str());
             std::cout << "Partida.id = 2" << std::endl;
         }
     }
