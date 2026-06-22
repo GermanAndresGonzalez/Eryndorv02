@@ -37,10 +37,10 @@ public:
 	void setColContorno(const sf::Color& col);
 
 	void setBordeX(float x);
-	void setBordeY(float y);
+	void setLimiteInferiorY(float y);
 
 	float getBordeX();
-	float getBordeY();
+	float getLimiteInferiorY();
 
     void setPosX(float x);
 	void setPosY(float y);

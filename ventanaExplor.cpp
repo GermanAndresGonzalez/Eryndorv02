@@ -5,7 +5,6 @@
 #include "botonera.h"
 #include "PanelTexto.h"
 
-
 #include "datosFuentes.h"
 #include "datosVenEx.h"
 #include "datosBotonExplor.h"
@@ -15,17 +14,21 @@
 #include "inventarioCueva.h"
 
 #include "inventarioCueva.h"
+#include "explorarCueva.h"
 
 
 
 #include <iostream>
-VentanaExplo::VentanaExplo(GestorPantallas& gestor): m_gestor(gestor), cueva(999,999,999),inventJugad()
+#include <string>
+
+VentanaExplo::VentanaExplo(GestorPantallas& gestor)
+    : m_gestor(gestor)
+    ,m_explorar(gestor.obtenerPartida(), 10)
 {
     nomcadCueva ="Cueva";
     Botonera botonera;
     cargarRec();
-    ManejoPartida();
-    CargarJugadores();
+    //ManejoPartida();
 
 }
 
@@ -34,9 +37,26 @@ void VentanaExplo::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
+    datos->turnoJugador=10;
     nombreJug.setString(datos->nombre);
-    Centrado::centrar(nombreJug,panelJug.obtenerLimites() ,panelJug.getPosInternaY()+20);
-    std::cout << "\n\n\n\n" << "nomcadJug: " << nomcadJug << std::endl;
+    Centrado::centrar(nombreJug,panelJug.obtenerLimites(),panelJug.getPosInternaY()+25.f);
+    std::string textoTurnos="Te quedan "+std::to_string(datos->turnoJugador)+ " turnos para llenar tu mochila.";
+    std::cout << "\n" << textoTurnos << std::endl;
+    m_turnos.setString(textoTurnos);
+    Centrado::centrar(m_turnos,m_gestor.obtenerVentana(), 120.f);
+    m_explorar.cargarPanel(panelJug,txtPanelJug,txtPanelJug2);
+    m_explorar.explorarCueva(panelCueva,txtPanelCue);
+
+
+    //encontrarRecursos();
+    if(m_explorar.guardarPartida())
+    {
+        std::cout << "Partida guardada\n";
+    }
+    else
+    {
+        std::cout << "No se guardó la partida\n";
+    }
     actualizarNombreJug(datos->nombre);
 
 
@@ -60,7 +80,7 @@ void VentanaExplo::actualizar(float dt)
         m_gestor.mostrar("intro");
     }
 }
-
+/*
 void VentanaExplo::ManejoPartida()
 {
     Partida* datos = m_gestor.obtenerPartida();
@@ -75,7 +95,7 @@ void VentanaExplo::ManejoPartida()
 
 
 }
-
+*/
 
 
 void VentanaExplo::dibujar(sf::RenderWindow& ventana)
@@ -90,6 +110,11 @@ void VentanaExplo::dibujar(sf::RenderWindow& ventana)
     ventana.draw(nombreJug);
     //ventana.draw(nombreJug);
     ventana.draw(nombreCue);
+    ventana.draw(txtPanelCue);
+    ventana.draw(txtPanelJug);
+    ventana.draw(txtPanelJug2);
+
+
 
     //ventana.draw(spriteJug1);
     //ventana.draw(spriteJug2);
@@ -102,7 +127,8 @@ void VentanaExplo::dibujar(sf::RenderWindow& ventana)
 void VentanaExplo::cargarRec()
 {
 
-    m_fuente.loadFromFile(FUENTES);
+    if(m_fuente.loadFromFile(FUENTES))
+        std::cerr << ERROR_FUENTE ;
     m_texto.setFont(m_fuente);
     m_texto.setString(TEXTO_TIT);
 
@@ -118,7 +144,9 @@ void VentanaExplo::cargarRec()
 
 
     m_turnos.setFont(m_fuente);
-    m_turnos.setString(TEXTO_TURNOS);
+    Partida* datos = m_gestor.obtenerPartida();
+
+
     m_turnos.setCharacterSize(35);
     m_turnos.setColor(CLR_RECUA_PA_EX_RES);
 
@@ -126,6 +154,8 @@ void VentanaExplo::cargarRec()
 
     panelJug=Panel(160.f,200.f,300.f,400.f);
     panelCueva=Panel(490.f,200.f,300.f,400.f);
+
+
 
 
 
@@ -157,21 +187,32 @@ void VentanaExplo::cargarRec()
     nombreCue.setFont(m_fuente);
     nombreCue.setCharacterSize(TAM_CAR_PARR_EX);
     nombreCue.setString(nomcadCueva);
-    Centrado::centrar(nombreCue,panelCueva.obtenerLimites() ,panelCueva.getPosInternaY()+20);
+    Centrado::centrar(nombreCue,panelCueva.obtenerLimites(),panelCueva.getPosInternaY()+10.f);
     nombreCue.setColor(CLR_RECUA_PA_EX);
 
+    txtPanelCue.setFont(m_fuente);
+    txtPanelCue.setCharacterSize(TAM_CAR_PARR_EX);
+    txtPanelCue.setColor(CLR_RECUA_PA_EX);
+    txtPanelCue.setString(nomcadCueva);
 
+    txtPanelJug.setFont(m_fuente);
+    txtPanelJug.setCharacterSize(TAM_CAR_PARR_EX);
+    txtPanelJug.setColor(CLR_RECUA_PA_EX);
+    txtPanelJug.setString("");
+
+    txtPanelJug2.setFont(m_fuente);
+    txtPanelJug2.setCharacterSize(TAM_CAR_PARR_EX);
+    txtPanelJug2.setColor(CLR_RECUA_PA_EX);
+    txtPanelJug2.setString("");
 
 }
 
-void VentanaExplo::encontrarRecursos()
-{
-    //cueva.descubrirItemCueva()
 
 
 
 
-}
+
+
 void VentanaExplo::ejecutarAccion(int i)
 {
     /*
@@ -184,29 +225,79 @@ void VentanaExplo::ejecutarAccion(int i)
     switch (i)
     {
     case 0:
+        std::cout << "explorar\n";
+        v_explorar();
+        /*
         m_gestor.ocultar("explorar");
         m_gestor.mostrar("explorar");
-
+        */
         break;
 
     case 1:
-        m_gestor.ocultar("explorar");
-        m_gestor.mostrar("explorar");
+        std::cout << "agregar\n";
+        v_agregar();
         break;
 
     case 2:
+        std::cout << "2";
+        /*
+        m_gestor.ocultar("explorar");
+        m_gestor.mostrar("explorar");
+        */
+        break;
+    case 3:
         m_gestor.ocultar("explorar");
         m_gestor.mostrar("explorar");
         break;
-    case 3:
+    case 4:
         //if (Salida::Volver(m_gestor))
         //{
-            m_gestor.obtenerPartida()->id =0;
-            m_gestor.ocultar("explorar");
-            m_gestor.mostrar("jugador");
+        m_gestor.obtenerPartida()->id =0;
+        m_gestor.ocultar("explorar");
+        m_gestor.mostrar("jugador");
         //}
         break;
     }
+}
+
+
+void VentanaExplo::v_explorar()
+{
+    m_explorar.explorarCueva(panelCueva,txtPanelCue);
+    guardado=false;
+    v_actualizar();
+    //m_explorar.cargarPanel(panelCueva,txtPanelJug,txtPanelJug2);
+}
+
+void VentanaExplo::v_agregar()
+{
+    if (!guardado)
+    {
+        if(m_explorar.agregarInventario())
+        {
+            std::cout << "Agregar\n";
+            //m_explorar.explorarCueva(panelCueva,txtPanelCue);
+            txtPanelCue.setString(+"\nAgregado.");
+
+            guardado=true;
+            Partida* datos = m_gestor.obtenerPartida();
+            datos->turnoJugador--;
+            m_explorar.setTurnos(datos->turnoJugador);
+            v_actualizar();
+            std::cout << "Turnos jugador: " << datos->turnoJugador <<std::endl;
+            m_explorar.cargarPanel(panelJug,txtPanelJug,txtPanelJug2);
+        }
+    }
+}
+
+void VentanaExplo::v_actualizar()
+{
+    m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+    Partida* datos = m_gestor.obtenerPartida();
+    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
+    m_turnos.setString(textoTurnos);
+    Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
+    // sin draw() — dibujar() ya tiene todos estos sf::Text
 }
 
 void VentanaExplo::manejarEvento(const sf::Event& evento)

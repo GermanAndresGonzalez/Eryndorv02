@@ -2,7 +2,7 @@
 #include "datosBotonExplor.h"
 
 
-const int CANT_BOTONES_EXP=4;
+const int CANT_BOTONES_EXP=5;
 
 const sf::Color COLOR_FONDO_EXP = sf::Color::Transparent;
 const sf::Color COLOR_FONDO_RES_EXP = sf::Color(90, 140, 210);
@@ -22,6 +22,7 @@ const float tamRectBotonY_EXP=50.f;
 
 
 const std::string ETI_BOTONES_EXP[] = {
+    "Explorar",
     "Agregar",
     "Craftear",
     "Siguiente",

@@ -10,7 +10,7 @@ extern const char* RUTA_FONDO_EX;
 extern const char* ERROR_FONDO_EX;
 
 extern const char* TEXTO_TIT;
-extern const char* TEXTO_TURNOS;
+//extern const char* TEXTO_TURNOS;
 
 
 

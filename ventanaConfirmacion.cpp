@@ -44,7 +44,7 @@ VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::s
     botonSi.setFillColor(sf::Color(50, 58, 122));
     botonSi.setOutlineColor(sf::Color(50, 58, 122));
     botonSi.setOutlineThickness(2.f);
-
+    
     botonSi.setPosition(fondo.getPosition().x + 100.f, fondo.getPosition().y + 200.f);
 
     textoSi.setFont(font);

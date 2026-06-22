@@ -33,18 +33,17 @@ int ArchivoInventario::generarID()
     return contarRegistros() + 1;
 }
 
+// ArchivoInventario.cpp — no pisar el id si ya viene asignado
 bool ArchivoInventario::agregar(Inventario& inventario)
 {
     FILE* archivo = std::fopen(_nombreArchivo, "ab");
+    if (archivo == nullptr) return false;
 
-    if (archivo == nullptr)
-        return false;
-
-    inventario.id       = generarID();
+    if (inventario.id == 0)          // solo auto-generar si no tiene id
+        inventario.id = generarID();
     inventario.eliminado = false;
 
     bool ok = std::fwrite(&inventario, sizeof(Inventario), 1, archivo) == 1;
-
     std::fclose(archivo);
     return ok;
 }

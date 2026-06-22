@@ -9,6 +9,7 @@
 #include "ArchivoPartidas.h"
 #include "nombres.h"
 #include "salida.h"
+#include "ventanaConfirmacion.h"
 #include <cstring>
 
 
@@ -57,6 +58,7 @@ VentanaJug::VentanaJug(GestorPantallas& gestor): m_gestor(gestor),archivoPartida
 void VentanaJug::cargarPartidas()
 {
     int noPartida = archivoPartidas.generarID();
+    std::cout << "\nNum. partida: " << noPartida << "\n";
     if (noPartida > 0)
     {
         Partida* datos = m_gestor.obtenerPartida();
@@ -72,14 +74,23 @@ void VentanaJug::cargarPartidas()
 }
 
 
+
 void VentanaJug::alMostrar()
 {
     std::cout << "VentanaJug: ahora visible\n";
-    jugadElegido.setString("Todavia no se eligio un jugador");
     Partida* datos = m_gestor.obtenerPartida();
-    datos->id = 0;
-    datos->nombre[0] = '\0';
+
+    // Si ya hay un jugador elegido, mostrarlo en vez de resetear
+    if (datos->id != 0 && datos->nombre[0] != '\0')
+        jugadElegido.setString(std::string("Elegiste a ") + datos->nombre);
+    else
+    {
+        jugadElegido.setString("Todavia no se eligio un jugador");
+        datos->id = 0;
+        datos->nombre[0] = '\0';
+    }
 }
+
 void VentanaJug::alOcultar()
 {
     std::cout << "VentanaJug: ahora oculta\n";
@@ -111,8 +122,7 @@ void VentanaJug::dibujar(sf::RenderWindow& ventana)
 
     ventana.draw(spriteJug1);
     ventana.draw(spriteJug2);
-    //panelJug1=Panel(300.f,210.f,292.f,303.f);
-    //panelJug2=Panel(688.f,210.f,292.f,303.f);
+
 
     botonera.draw(ventana);
 }
@@ -177,27 +187,20 @@ void VentanaJug::ejecutarAccion(int i)
         break;
 
     case 1:
-
         Partida* datos = m_gestor.obtenerPartida();
-        if (datos->id==0)
+        if (datos->id == 0)
         {
-            if (Salida::Mensaje(m_gestor,"Error","No hay jugador elegido."))
-            {
-            m_gestor.ocultar("explorar");
-            m_gestor.mostrar("jugador");
-            }
+            Salida::Mensaje(m_gestor, "Error", "No hay jugador elegido.");
         }
         else
         {
-            cargarPartidas();
+            if (datos->partida == 0)   // solo generar ID si es partida nueva
+                cargarPartidas();
+
             jugadElegido.setString("Todavia no se eligio un jugador");
             m_gestor.ocultar("jugador");
             m_gestor.mostrar("explorar");
         }
-
-
-
-
         break;
     }
 
@@ -229,13 +232,13 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         }
 
         if (panelJug1.obtenerLimites().contains(static_cast<float>(evento.mouseMove.x), static_cast<float>(evento.mouseMove.y)))
-            {
-                //panelJug1.setBordeX(2.f);
-                nombreJug1.setColor(CLR_RECUA_PA_JUG_RES);
-                panelJug1.setColContorno(CLR_RECUA_PA_JUG_RES);
+        {
+            //panelJug1.setBordeX(2.f);
+            nombreJug1.setColor(CLR_RECUA_PA_JUG_RES);
+            panelJug1.setColContorno(CLR_RECUA_PA_JUG_RES);
 
 
-            }
+        }
 
         else
         {
@@ -246,19 +249,19 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         }
 
         if (panelJug2.obtenerLimites().contains(static_cast<float>(evento.mouseMove.x), static_cast<float>(evento.mouseMove.y)))
-            {
+        {
             nombreJug2.setColor(CLR_RECUA_PA_JUG_RES);
             //panelJug2.setBordeX(2.f);
             panelJug2.setColContorno(CLR_RECUA_PA_JUG_RES);
 
-            }
+        }
         else
-            {
+        {
             //panelJug2.setBordeX(2.f);
             nombreJug2.setColor(CLR_RECUA_PA_JUG);
             panelJug2.setColContorno(CLR_RECUA_PA_JUG);
 
-            }
+        }
     }
     if (evento.type == sf::Event::MouseButtonPressed && evento.mouseButton.button == sf::Mouse::Left)
     {
@@ -273,23 +276,67 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         }
         if (panelJug1.obtenerLimites().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
         {
-            m_gestor.obtenerPartida()->id = 1;
             Partida* datos = m_gestor.obtenerPartida();
-            std::strncpy(datos->nombre,NOMBRES[0].c_str(),49);
-            std::cout <<"\n\n\n" << "Nombres: "<< NOMBRES[0].c_str() <<"\n\n\n";
-            jugadElegido.setString(jugadorElegido+NOMBRES[0].c_str());
-            datos->nombre[49] = '\0';
+
+            // Si ya hay partida activa con otro jugador, pedir confirmación
+            if (datos->partida > 0 && datos->id != 1)
+            {
+                VentanaConfirmacion conf("Cambiar jugador",
+                                         "Perdera la partida actual.\n¿Desea cambiar de jugador?");
+                if (!conf.mostrar(m_gestor.obtenerVentana()))
+                    return;  // el usuario canceló, no cambiar nada
+
+                // Resetear partida
+                datos->partida = archivoPartidas.generarID();
+                datos->nivel   = 0;
+                datos->id = 1;
+                std::strncpy(datos->nombre, NOMBRES[0].c_str(), 49);
+                datos->nombre[49] = '\0';
+                jugadElegido.setString("Elegiste a " + NOMBRES[0]);
+                m_gestor.ocultar("jugador");
+                m_gestor.mostrar("explorar");
+            }
+            if (datos->id ==0)
+            {
+                datos->partida = archivoPartidas.generarID();
+                datos->nivel   = 0;
+                datos->id = 1;
+                std::strncpy(datos->nombre, NOMBRES[1].c_str(), 49);
+                datos->nombre[49] = '\0';
+            }
+
 
         }
 
         if (panelJug2.obtenerLimites().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
         {
-            m_gestor.obtenerPartida()->id = 2;
             Partida* datos = m_gestor.obtenerPartida();
-            std::strncpy(datos->nombre,NOMBRES[1].c_str(),49);
-            std::cout <<"\n\n\n" << "Nombres: "<< NOMBRES[1].c_str() <<"\n\n\n";
-            jugadElegido.setString(jugadorElegido+NOMBRES[1].c_str());
-            datos->nombre[49] = '\0';
+
+            if (datos->partida > 0 && datos->id != 2)
+            {
+                VentanaConfirmacion conf("Cambiar jugador",
+                                         "Perdera la partida actual.\n¿Desea cambiar de jugador?");
+                if (!conf.mostrar(m_gestor.obtenerVentana()))
+                    return;
+
+                datos->partida = datos->partida = archivoPartidas.generarID();
+                datos->nivel   = 0;
+                datos->id = 2;
+                std::strncpy(datos->nombre, NOMBRES[1].c_str(), 49);
+                datos->nombre[49] = '\0';
+                jugadElegido.setString("Elegiste a " + NOMBRES[1]);
+                m_gestor.ocultar("jugador");
+                m_gestor.mostrar("explorar");
+            }
+            datos->partida = datos->partida = archivoPartidas.generarID();
+            if (datos->id ==0)
+            {
+                datos->partida = archivoPartidas.generarID();
+                datos->nivel   = 0;
+                datos->id = 2;
+                std::strncpy(datos->nombre, NOMBRES[1].c_str(), 49);
+                datos->nombre[49] = '\0';
+            }
 
         }
     }

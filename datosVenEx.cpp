@@ -10,4 +10,4 @@ const char* RUTA_FONDO_EX = "recursos/imag/Cueva/cueva.png";
 const char* ERROR_FONDO_EX = "No se pudo cargar el fondo";
 
 const char* TEXTO_TIT="Agrega todo lo que puedas a tu mochila!";
-const char* TEXTO_TURNOS="Turno: ";
+//const char* TEXTO_TURNOS="Turno: ";

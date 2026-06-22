@@ -17,7 +17,7 @@ Panel::Panel(float posX, float posY, float tamX, float tamY)
     setPosX(posX);
     setPosY(posY);
     setBordeX(tamX);
-    setBordeY(tamY);
+    setLimiteInferiorY(tamY);
 
 }
 Panel::~Panel()
@@ -49,7 +49,7 @@ void Panel::setBordeX(float x)
     bordeX=x;
 }
 
-void Panel::setBordeY(float y)
+void Panel::setLimiteInferiorY(float y)
 {
     bordeY=y;
 }
@@ -59,7 +59,7 @@ float Panel::getBordeX()
 {
     return posX+bordeX;
 }
-float Panel::getBordeY()
+float Panel::getLimiteInferiorY()
 {
     return posY+bordeY;
 }

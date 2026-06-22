@@ -5,7 +5,7 @@
 		<Option title="GestorPantallas" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/;Manejo-Archivos/;Inventario-Items/" />
+		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/;Manejo-Archivos/;Inventario-Items/;AccionesVentanas/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/GestorPantallas" prefix_auto="1" extension_auto="1" />
@@ -169,6 +169,12 @@
 		<Unit filename="datosVentana.h">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
+		<Unit filename="explorarCueva.cpp">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
+		<Unit filename="explorarCueva.h">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
 		<Unit filename="inventario.cpp">
 			<Option virtualFolder="Inventario-Items/" />
 		</Unit>
@@ -193,9 +199,7 @@
 		<Unit filename="items_juego.h">
 			<Option virtualFolder="Inventario-Items/" />
 		</Unit>
-		<Unit filename="main.cpp">
-			<Option virtualFolder="Auxiliares/" />
-		</Unit>
+		<Unit filename="main.cpp" />
 		<Unit filename="nombres.cpp">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
