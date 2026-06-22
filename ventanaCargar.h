@@ -17,6 +17,7 @@ public:
     void actualizar(float dt) override;
     void dibujar(sf::RenderWindow& ventana) override;
     void manejarEvento(const sf::Event& evento) override;
+    void obtenerDatos();
 
     // Devuelve la partida seleccionada (válida solo si haySeleccion() == true)
     const Partidas& getPartidaSeleccionada() const { return m_partidaSeleccionada; }

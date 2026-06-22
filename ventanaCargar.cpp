@@ -2,7 +2,9 @@
 #include "datosVenCargar.h"
 #include "datosBotonCargar.h"
 #include "centrar.h"
+#include "nombres.h"
 #include <iostream>
+#include <cstring>
 #include <string>
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -122,7 +124,10 @@ void VentanaCargar::ejecutarAccion(int i)
             m_partidaSeleccionada = m_partidas[m_indiceSeleccionado];
             std::cout << "Partida seleccionada: ID="
                       << m_partidaSeleccionada.getId() << "\n";
-            // TODO: agregar tu lógica aquí (cambiar pantalla, etc.)
+
+            obtenerDatos();
+            m_gestor.ocultar("cargar");
+            m_gestor.mostrar("explorar");
         }
         break;
 
@@ -131,6 +136,20 @@ void VentanaCargar::ejecutarAccion(int i)
         m_gestor.mostrar("principal");
         break;
     }
+}
+
+void VentanaCargar::obtenerDatos()
+{
+     Partida* datos = m_gestor.obtenerPartida();
+            std::cout << "Primero:" << datos->partida << std::endl;
+            datos->partida=m_partidaSeleccionada.getId();
+            datos->nivel=m_partidaSeleccionada.getIdNivel();
+            datos->id=m_partidaSeleccionada.getIdPersonaje();
+            const std::string& nombre = NOMBRES[m_partidaSeleccionada.getIdPersonaje() - 1];
+            std::strncpy(datos->nombre, nombre.c_str(), 49);
+            std::cout << "Segundo:" << datos->partida << std::endl;
+            std::cout << "Nombre: " << nombre;
+
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

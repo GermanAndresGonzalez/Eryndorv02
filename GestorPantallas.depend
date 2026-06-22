@@ -733,7 +733,7 @@
 	"ArchivoPartidas.h"
 	<SFML/Graphics.hpp>
 
-1782147876 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
+1782139868 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
 	"Pantalla.h"
 	"botonera.h"
 	"GestorPantallas.h"
@@ -742,12 +742,14 @@
 	"partidas.h"
 	<vector>
 
-1782138416 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+1782140227 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
 	"VentanaCargar.h"
 	"datosVenCargar.h"
 	"datosBotonCargar.h"
 	"centrar.h"
+	"nombres.h"
 	<iostream>
+	<cstring>
 	<string>
 
 1782137620 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.cpp
