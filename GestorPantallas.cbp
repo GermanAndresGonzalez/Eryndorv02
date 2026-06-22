@@ -91,6 +91,12 @@
 		<Unit filename="datosArchivos.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
+		<Unit filename="datosBotonCargar.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCargar.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
 		<Unit filename="datosBotonExplor.cpp">
 			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
@@ -138,6 +144,12 @@
 		</Unit>
 		<Unit filename="datosPanelJug.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosVenCargar.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCargar.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenCueva.cpp">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
@@ -217,6 +229,12 @@
 		</Unit>
 		<Unit filename="salida.h">
 			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="ventanaCargar.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaCargar.h">
+			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaConfirmacion.cpp">
 			<Option virtualFolder="Ventanas/" />

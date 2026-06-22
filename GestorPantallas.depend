@@ -733,15 +733,32 @@
 	"ArchivoPartidas.h"
 	<SFML/Graphics.hpp>
 
-1782135063 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
+1782147876 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
 	"Pantalla.h"
 	"botonera.h"
 	"GestorPantallas.h"
+	"PanelTexto.h"
+	"ArchivoPartidas.h"
+	"partidas.h"
+	<vector>
 
-1782135140 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+1782138416 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
 	"VentanaCargar.h"
-	"botonera.h"
-	"datosVenIntro.h"
-	"datosBotonIntro.h"
+	"datosVenCargar.h"
+	"datosBotonCargar.h"
+	"centrar.h"
 	<iostream>
+	<string>
+
+1782137620 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.cpp
+	"datosBotonCargar.h"
+
+1782137609 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.h
+	<SFML/Graphics.hpp>
+	<string>
+
+1782138365 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencargar.cpp
+	"datosVenCargar.h"
+
+1782137594 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencargar.h
 
