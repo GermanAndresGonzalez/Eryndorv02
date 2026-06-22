@@ -40,7 +40,6 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
         cargarPanel(panel,texto,mensaje);
     }
 
-
 }
 
 
@@ -57,6 +56,7 @@ std::string ExplorCueva::Informar(Material& material)
 {
     std::string mensaje="Encontraste:\n"+std::to_string(material.cantidad)+" de "+inventarioJug.obtenerNombre(material.id)+"\n";
     return mensaje;
+    std::cout << inventarioJug.obtenerNombre(material.id) << "\n";
 }
 std::string ExplorCueva::Informar(Material& material,std::string lado)
 {

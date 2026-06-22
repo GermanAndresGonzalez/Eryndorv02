@@ -79,6 +79,10 @@ void VentanaPrincipal::ejecutarAccion(int i)
         m_gestor.ocultar("principal");
         m_gestor.mostrar("intro");
         break;
+    case 2:
+        m_gestor.ocultar("principal");
+        m_gestor.mostrar("cargar");
+        break;
     case 4:
         Salida::Salir(m_gestor);
         break;

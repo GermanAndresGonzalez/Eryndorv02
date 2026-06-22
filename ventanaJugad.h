@@ -6,12 +6,9 @@
 #include "PanelTexto.h"
 #include "ArchivoPartidas.h"
 
-//#include "datosArchivos.h"
-
 class VentanaJug : public Pantalla
 {
 public:
-// Recibe una referencia al gestor para poder cambiar pantallas desde  adentro
     explicit VentanaJug(GestorPantallas& gestor);
     void alMostrar() override;
     void alOcultar() override;
@@ -45,4 +42,10 @@ private:
     Botonera botonera;
     Panel panelJug1;
     Panel panelJug2;
+
+    // Selección visual del jugador (NO modifica Partida hasta confirmar)
+    // 0 = ninguno, 1 = Kael Draven, 2 = Lyra Voss
+    int m_jugadorSeleccionado = 0;
+
+    void actualizarSeleccionVisual();
 };

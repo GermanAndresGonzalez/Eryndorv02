@@ -425,7 +425,7 @@
 1781782404 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\pantalla.h
 	<SFML/Graphics.hpp>
 
-1782053718 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\main.cpp
+1782134973 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\main.cpp
 	"ArchivoInventario.h"
 	"ArchivoPartidas.h"
 	"partidas.h"
@@ -438,6 +438,7 @@
 	"ventanaJugad.h"
 	"ventanaCueva.h"
 	"ventanaExplor.h"
+	"ventanaCargar.h"
 
 1781817025 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.h
 	"Pantalla.h"
@@ -447,7 +448,7 @@
 1781778954 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partida.cpp
 	"Partida.h"
 
-1781819056 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.cpp
+1782135198 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.cpp
 	"salida.h"
 	"ventanaPrincipal.h"
 	"botonera.h"
@@ -460,7 +461,7 @@
 	"botonera.h"
 	"GestorPantallas.h"
 
-1781908309 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.h
+1782144166 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"botonera.h"
@@ -485,7 +486,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1782051747 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1782133572 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -715,7 +716,7 @@
 1781879127 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\centrar.h
 	<SFML/Graphics.hpp>
 
-1782051631 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
+1782133993 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
 	"Partidas.h"
 	"explorarCueva.h"
 	"datosArchivos.h"
@@ -731,4 +732,16 @@
 	"ArchivoInventario.h"
 	"ArchivoPartidas.h"
 	<SFML/Graphics.hpp>
+
+1782135063 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
+	"Pantalla.h"
+	"botonera.h"
+	"GestorPantallas.h"
+
+1782135140 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+	"VentanaCargar.h"
+	"botonera.h"
+	"datosVenIntro.h"
+	"datosBotonIntro.h"
+	<iostream>
 
