@@ -160,7 +160,7 @@ string Inventario::mostrarSlots(std::string lado)
 
         // Cabecera
 
-        oss << "ID: " << getID() << "\n";
+       // oss << "ID: " << getID() << "\n"; // Es para pruebas
         oss << std::left << std::setw(maxLen+2) << "Nombre"
             << std::right << std::setw(10) << "Cantidad" << "\n";
         oss << std::string(maxLen+22, '-') << "\n";
@@ -190,31 +190,9 @@ string Inventario::mostrarSlots(std::string lado)
         }
 
     }
-
-
     return oss.str();
 }
 
-
-
-
-
-
-/*
-string Inventario::mostrarSlots()
-{
-    string cadena="ID: "+to_string(getID())+"\n";
-    for (int i=0; i<tam-1; i++)
-    {
-        if (_slotsTotales[i].cantidad > 0)
-        {
-            cadena+=obtenerNombre(i)+ " x" + to_string(_slotsTotales[i].cantidad)+"\n";
-            //cout << obtenerNombre(i)+ " x" + to_string(_slotsTotales[i].cantidad)+"\n";
-        }
-    }
-    return cadena;
-}
-*/
 
 
 int Inventario::getCantidadSlotsOcupados() const

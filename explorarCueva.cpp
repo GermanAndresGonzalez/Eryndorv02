@@ -13,14 +13,12 @@ ExplorCueva::ExplorCueva(Partida* _partida, int turnos)
     ,ArPartidas(RUTA_DAT_PART)
     ,partidaEx(_partida)
 {
-
     material.cantidad=0;
     material.id=0;
-
 }
+
 ExplorCueva::~ExplorCueva()
 {
-
 }
 
 void ExplorCueva::setTurnos(unsigned int _turnos)
@@ -28,10 +26,27 @@ void ExplorCueva::setTurnos(unsigned int _turnos)
     turnosCueva=_turnos;
 }
 
+// ---------------------------------------------------------------------------
+// resetearInventario: descarta cualquier dato en memoria y carga desde disco.
+// Si no hay registro en disco para esta partida, deja inventarioJug vacío
+// con el id correcto. Llamar siempre que cambie la partida activa.
+// ---------------------------------------------------------------------------
+void ExplorCueva::resetearInventario()
+{
+    inventarioJug = Inventario();                    // objeto limpio en memoria
+    inventarioJug.id = partidaEx->partida;           // id correcto desde ya
+
+    // intentar cargar desde disco; si no existe, queda vacío (correcto)
+    ArInventario.buscarPorID(partidaEx->partida, inventarioJug);
+
+    std::cout << "ExplorCueva::resetearInventario — partida="
+              << partidaEx->partida
+              << "  slots cargados (id en inv)=" << inventarioJug.id << "\n";
+}
 
 void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
 {
-    if (turnosCueva >0)
+    if (turnosCueva > 0)
     {
         std::string mensaje="";
         material=obtenerMaterial();
@@ -39,14 +54,10 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
         cargarInventario();
         cargarPanel(panel,texto,mensaje);
     }
-
 }
-
 
 Material ExplorCueva::obtenerMaterial()
 {
-    int encontrado;
-    int idItem;
     material.id=invCueva.valorAleatorio(0,2);
     material.cantidad=invCueva.valorAleatorio(10);
     return material;
@@ -56,79 +67,71 @@ std::string ExplorCueva::Informar(Material& material)
 {
     std::string mensaje="Encontraste:\n"+std::to_string(material.cantidad)+" de "+inventarioJug.obtenerNombre(material.id)+"\n";
     return mensaje;
-    std::cout << inventarioJug.obtenerNombre(material.id) << "\n";
 }
-std::string ExplorCueva::Informar(Material& material,std::string lado)
+
+std::string ExplorCueva::Informar(Material& material, std::string lado)
 {
-    // Para el inventario del Jugador
-    /*
-    std::string mensaje;
-    if(lado=="izquierda")
+    // reservado para uso futuro
+    return "";
+}
+
+// ---------------------------------------------------------------------------
+// cargarInventario: sincroniza inventarioJug con el archivo.
+// Si no hay registro para la partida actual, resetea a vacío con id correcto.
+// ---------------------------------------------------------------------------
+Inventario ExplorCueva::cargarInventario()
+{
+    Inventario temp;
+    if (ArInventario.buscarPorID(partidaEx->partida, temp))
     {
-        mensaje="Encontraste:\n"+std::to_string(material.cantidad)+" de "+inventarioJug.obtenerNombre(material.id)+"\n";
+        inventarioJug = temp;   // hay datos en disco → usarlos
     }
     else
     {
-        mensaje="Encontraste:\n"+std::to_string(material.cantidad)+" de "+inventarioJug.obtenerNombre(material.id)+"\n";
+        // no existe en disco → asegurarse de que la memoria esté limpia
+        inventarioJug = Inventario();
+        inventarioJug.id = partidaEx->partida;
     }
-
-
-
-    return mensaje;
-    */
-}
-
-Inventario ExplorCueva::cargarInventario()
-{
-    //ventario inventarioJug;
-    if (ArInventario.buscarPorID(partidaEx->partida, inventarioJug))
-    {
-        return inventarioJug; // ya está cargado
-    }
-    return Inventario(); // objeto vacío
-
+    return inventarioJug;
 }
 
 bool ExplorCueva::agregarInventario()
 {
-    if (turnosCueva >0)
+    if (turnosCueva > 0)
     {
+        // Antes de agregar, recargar desde disco para no acumular
+        // sobre datos de una sesión anterior en memoria
+        cargarInventario();
+
         inventarioJug.agregarItem(material.id, material.cantidad);
-        if(invCueva.restarItem(material.id, material.cantidad))
+        if (invCueva.restarItem(material.id, material.cantidad))
         {
             if (guardarInventario(inventarioJug))
-            {
                 return true;
-            }
         }
     }
-
     return false;
-
 }
 
-void ExplorCueva::cargarPanel(Panel& panel,sf::Text& texto,std::string mensaje)
+void ExplorCueva::cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje)
 {
     texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
     texto.setString(mensaje);
 }
 
-void ExplorCueva::cargarPanel(Panel& panel,sf::Text& texto,sf::Text& texto2)
+void ExplorCueva::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
 {
-    inventarioJug=cargarInventario();
+    cargarInventario();   // siempre desde disco, nunca desde cache stale
     texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
     texto.setString(inventarioJug.mostrarSlots("izquierda"));
     texto2.setPosition(panel.getPosInternaX()+230.f, panel.getPosInternaY()+50.f);
     texto2.setString(inventarioJug.mostrarSlots("derecha"));
 }
 
-
 void ExplorCueva::transferirMat()
 {
-
 }
 
-// explorarCueva.cpp — forzar que el id siempre coincida con la partida
 bool ExplorCueva::guardarInventario(Inventario& inventario)
 {
     inventario.id = partidaEx->partida;  // sincronizar antes de todo
@@ -158,7 +161,6 @@ bool ExplorCueva::guardarPartida()
         Partidas registro = construirRegistroPartida();
         return ArPartidas.agregar(registro);
     }
-
     return false;
 }
 

@@ -70,6 +70,7 @@ int main()
 #include "ventanaCueva.h"
 #include "ventanaExplor.h"
 #include "ventanaCargar.h"
+#include "ventanaCraft.h"
 
 
 
@@ -85,6 +86,7 @@ int main() {
     gestor.agregar("cueva", new VentanaCueva(gestor));
     gestor.agregar("explorar", new VentanaExplo(gestor));
     gestor.agregar("cargar", new VentanaCargar(gestor));
+    gestor.agregar("craftear", new VentanaCraft(gestor));
     gestor.mostrar("principal");
 
     while (principal.isOpen()) {

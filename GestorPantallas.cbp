@@ -85,6 +85,12 @@
 		<Unit filename="centrar.h">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
+		<Unit filename="crafteo.cpp">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
+		<Unit filename="crafteo.h">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
 		<Unit filename="datosArchivos.cpp">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
@@ -95,6 +101,18 @@
 			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
 		<Unit filename="datosBotonCargar.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCraf.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCraf.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCraft.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCraft.h">
 			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
 		<Unit filename="datosBotonExplor.cpp">
@@ -149,6 +167,12 @@
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenCargar.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCraft.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCraft.h">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenCueva.cpp">
@@ -240,6 +264,12 @@
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaConfirmacion.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaCraft.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaCraft.h">
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaCueva.cpp">

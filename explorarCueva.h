@@ -21,13 +21,16 @@ public:
     ExplorCueva(Partida* _partida, int turnos);
     ~ExplorCueva();
 
+    // Llamar cada vez que se muestra VentanaExplo para descartar
+    // cualquier inventario en memoria y cargar el de la partida activa
+    void resetearInventario();
 
-    void cargarPanel(Panel& panel,sf::Text& texto,std::string mensaje);
-    void cargarPanel(Panel& panel,sf::Text& texto,sf::Text& texto2);
-    void explorarCueva(Panel& panel,sf::Text& texto);
+    void cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje);
+    void cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2);
+    void explorarCueva(Panel& panel, sf::Text& texto);
     Material obtenerMaterial();
     std::string Informar(Material& material);
-    std::string Informar(Material& material,std::string lado);
+    std::string Informar(Material& material, std::string lado);
     void transferirMat();
     bool agregarInventario();
     bool guardarInventario(Inventario& inventario);
@@ -43,10 +46,8 @@ private:
     ArchivoInventario ArInventario;
     ArchivoPartidas ArPartidas;
 
-
     InventarioCueva invCueva;
     Inventario inventarioJug;
     Partida* partidaEx;
     Material material;
-
 };

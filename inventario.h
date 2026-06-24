@@ -47,6 +47,7 @@ public:
     bool tieneCantidadNecesaria(int id, int cantidad) const;
     void imprimirSlots();
     std::string mostrarSlots(std::string lado="izquierda");
+
 };
 
 /*
