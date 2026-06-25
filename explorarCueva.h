@@ -5,14 +5,10 @@
 #include "Partida.h"
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
+#include "material.h"
 #include <SFML/Graphics.hpp>
 
 
-struct Material
-{
-    int id;
-    int cantidad;
-};
 
 
 class ExplorCueva

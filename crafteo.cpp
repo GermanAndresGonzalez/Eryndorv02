@@ -6,11 +6,11 @@ bool Crafteo::crearPocionCurativa(Inventario& inventario)
 {
 
     int idElemento=inventario.obtenerID("HONGOS MAGICOS");
-    if (!inventario.tieneCantidadNecesaria(idElemento, 3))
+    if (!inventario.tieneCantidadNecesaria(idElemento, 5))
     {
         return false;
     }
-    inventario.quitarItem(idElemento,3);
+    inventario.quitarItem(idElemento,5);
 
     idElemento=inventario.obtenerID("POCION CURATIVA");
 
@@ -22,11 +22,11 @@ bool Crafteo::crearPocionCurativa(Inventario& inventario)
 bool Crafteo::crearEspadaMadera(Inventario& inventario)
 {
     int idElemento=inventario.obtenerID("MADERA");
-    if (!inventario.tieneCantidadNecesaria(idElemento, 3))
+    if (!inventario.tieneCantidadNecesaria(idElemento, 5))
     {
         return false;
     }
-    inventario.quitarItem(idElemento,3);
+    inventario.quitarItem(idElemento,5);
 
     idElemento=inventario.obtenerID("ESPADA MADERA");
 
@@ -39,7 +39,7 @@ bool Crafteo::crearEspadaMadera(Inventario& inventario)
 bool Crafteo::crearEspadaHierro(Inventario& inventario)
 {
     int idElemento=inventario.obtenerID("HIERRO");
-    if (!inventario.tieneCantidadNecesaria(idElemento, 3))
+    if (!inventario.tieneCantidadNecesaria(idElemento, 5))
     {
         return false;
     }
@@ -56,7 +56,7 @@ bool Crafteo::crearEspadaHierro(Inventario& inventario)
 bool Crafteo::crearEscudoMadera(Inventario& inventario)
 {
     int idElemento=inventario.obtenerID("MADERA");
-    if (!inventario.tieneCantidadNecesaria(idElemento, 3))
+    if (!inventario.tieneCantidadNecesaria(idElemento, 5))
     {
         return false;
     }
@@ -88,7 +88,7 @@ bool Crafteo::crearEscudoHierro(Inventario& inventario)
 
 bool Crafteo::puedoCrearPocionCurativa(Inventario& inventario)
 {
-    if (!inventario.tieneCantidadNecesaria(HONGOS_MAGICOS, 3))
+    if (!inventario.tieneCantidadNecesaria(HONGOS_MAGICOS, 5))
     {
         return false;
     }

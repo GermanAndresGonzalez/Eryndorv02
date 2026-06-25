@@ -213,11 +213,24 @@ void VentanaExplo::v_agregar()
 
 void VentanaExplo::v_actualizar()
 {
+    for (int i=0;i<4;i++)
+        {
+            botonera.setActivo(i,true);
+        }
     m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
     Partida* datos = m_gestor.obtenerPartida();
     std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
     m_turnos.setString(textoTurnos);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
+    if (datos->turnoJugador==0)
+    {
+        for (int i=0;i<2;i++)
+        {
+            botonera.setActivo(i,false);
+        }
+        //std::cout << "Turnos: 0\n";
+    }
+
 }
 
 void VentanaExplo::manejarEvento(const sf::Event& evento)

@@ -86,7 +86,7 @@ int main() {
     gestor.agregar("cueva", new VentanaCueva(gestor));
     gestor.agregar("explorar", new VentanaExplo(gestor));
     gestor.agregar("cargar", new VentanaCargar(gestor));
-    gestor.agregar("craftear", new VentanaCraft(gestor));
+    gestor.agregar("craftear", new VentanaCrafteo(gestor));
     gestor.mostrar("principal");
 
     while (principal.isOpen()) {

@@ -124,7 +124,7 @@ void ExplorCueva::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
     cargarInventario();   // siempre desde disco, nunca desde cache stale
     texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
     texto.setString(inventarioJug.mostrarSlots("izquierda"));
-    texto2.setPosition(panel.getPosInternaX()+230.f, panel.getPosInternaY()+50.f);
+    texto2.setPosition(panel.getPosInternaX()+230.f, panel.getPosInternaY()+25.f);
     texto2.setString(inventarioJug.mostrarSlots("derecha"));
 }
 

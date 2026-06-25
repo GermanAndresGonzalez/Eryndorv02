@@ -91,6 +91,12 @@
 		<Unit filename="crafteo.h">
 			<Option virtualFolder="AccionesVentanas/" />
 		</Unit>
+		<Unit filename="crafteoMan.cpp">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
+		<Unit filename="crafteoMan.h">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
 		<Unit filename="datosArchivos.cpp">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
@@ -236,6 +242,9 @@
 			<Option virtualFolder="Inventario-Items/" />
 		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="material.h">
+			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
 		<Unit filename="nombres.cpp">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>

@@ -1,37 +1,35 @@
-
 #include "salida.h"
-#include "datosArchivos.h"
 #include "centrar.h"
 #include "VentanaCraft.h"
 #include "botonera.h"
 #include "PanelTexto.h"
 
+#include "datosArchivos.h"
 #include "datosFuentes.h"
 #include "datosVenCraft.h"
 #include "datosBotonCraf.h"
 
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
-#include "inventarioCueva.h"
-//#include "crafteoMan.h"
 
 #include <iostream>
 #include <string>
 
-VentanaCraft::VentanaCraft(GestorPantallas& gestor)
+
+VentanaCrafteo::VentanaCrafteo(GestorPantallas& gestor)
     : m_gestor(gestor)
     , m_craftear(gestor.obtenerPartida(), 10)
 {
-    nomcadCueva = "Cueva";
+    nomcadCueva = "Mesa de Crafteo";
     Botonera botonera;
     cargarRec();
 }
 
-void VentanaCraft::alMostrar()
+void VentanaCrafteo::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
-    datos->turnoJugador = 10;
+
     guardado = false;   // resetear flag de turno al entrar
 
     // ── Reset crítico: descarta inventario en memoria y carga el de
@@ -41,33 +39,34 @@ void VentanaCraft::alMostrar()
     nombreJug.setString(datos->nombre);
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+25.f);
 
-    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para craftear.";
+    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
     std::cout << "\n" << textoTurnos << std::endl;
     m_turnos.setString(textoTurnos);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
     m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    m_craftear.explorarCueva(panelCueva, txtPanelCue);
+    m_craftear.crafteoCueva(panelCueva, txtPanelCue);
 
     if (m_craftear.guardarPartida())
         std::cout << "Partida guardada\n";
     else
         std::cout << "No se guardó la partida\n";
 
+    obtenerVisibles();
     actualizarNombreJug(datos->nombre);
 }
 
-void VentanaCraft::actualizarNombreJug(const std::string& nombre)
+void VentanaCrafteo::actualizarNombreJug(const std::string& nombre)
 {
     nombreJug.setString(nombre);
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
 }
 
-void VentanaCraft::alOcultar()
+void VentanaCrafteo::alOcultar()
 {
 }
 
-void VentanaCraft::actualizar(float dt)
+void VentanaCrafteo::actualizar(float dt)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
@@ -76,7 +75,7 @@ void VentanaCraft::actualizar(float dt)
     }
 }
 
-void VentanaCraft::dibujar(sf::RenderWindow& ventana)
+void VentanaCrafteo::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
@@ -87,20 +86,21 @@ void VentanaCraft::dibujar(sf::RenderWindow& ventana)
     ventana.draw(nombreJug);
     ventana.draw(nombreCue);
     ventana.draw(txtPanelCue);
+    ventana.draw(txtPanelCueDos);
     ventana.draw(txtPanelJug);
     ventana.draw(txtPanelJug2);
 
-    botoneraCra.draw(ventana);
+    botonera.draw(ventana);
 }
 
-void VentanaCraft::cargarRec()
+void VentanaCrafteo::cargarRec()
 {
     if (m_fuente.loadFromFile(FUENTES))
         std::cerr << ERROR_FUENTE;
     m_texto.setFont(m_fuente);
     m_texto.setString(TEXTO_TIT_CR);
     m_texto.setCharacterSize(45);
-    m_texto.setColor(COLOR_FONDO_CR);
+    m_texto.setColor(CLR_RECUA_PA_CR);
 
     sf::FloatRect rect = m_texto.getLocalBounds();
     m_texto.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
@@ -108,7 +108,7 @@ void VentanaCraft::cargarRec()
 
     m_turnos.setFont(m_fuente);
     m_turnos.setCharacterSize(35);
-    m_turnos.setColor(COLOR_FONDO_CR);
+    m_turnos.setColor(CLR_RECUA_PA_RES_CR);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
     panelJug   = Panel(160.f, 200.f, 300.f, 400.f);
@@ -121,13 +121,13 @@ void VentanaCraft::cargarRec()
 
     spriteFondo.setTexture(texturaFondo);
 
-    botoneraCra.inicializar(CANT_BOTONES_CR, fuenteBotonera);
-    botoneraCra.seColoresBot(COLOR_FONDO_CR, COLOR_RECUA_CR);
-    botoneraCra.inicializarRectangulos(tamRectBotonX_CR, tamRectBotonY_CR);
-    botoneraCra.setTamCar(TAM_CARACTER_CR);
-    botoneraCra.setColorTexto(COLOR_LETRA_CR);
-    botoneraCra.inicializarEtiquetas(ETI_BOTONES_CR, CANT_BOTONES_CR);
-    botoneraCra.inicializarBotones(posBotonX_CR, posBotonY_CR);
+    botonera.inicializar(CANT_BOTONES_CR, fuenteBotonera);
+    botonera.seColoresBot(COLOR_FONDO_CR, COLOR_RECUA_CR);
+    botonera.inicializarRectangulos(tamRectBotonX_CR, tamRectBotonY_CR);
+    botonera.setTamCar(TAM_CARACTER_CR);
+    botonera.setColorTexto(COLOR_LETRA_CR);
+    botonera.inicializarEtiquetas(ETI_BOTONES_CR, CANT_BOTONES_CR);
+    botonera.inicializarBotones(posBotonX_CR, posBotonY_CR);
 
     nombreJug.setFont(m_fuente);
     nombreJug.setCharacterSize(TAM_CAR_PARR_CR);
@@ -144,6 +144,16 @@ void VentanaCraft::cargarRec()
     txtPanelCue.setColor(CLR_RECUA_PA_CR);
     txtPanelCue.setString(nomcadCueva);
 
+    txtPanelCueDos.setFont(m_fuente);
+    txtPanelCueDos.setString("");
+    txtPanelCueDos.setCharacterSize(TAM_CAR_PARR_CR);
+    txtPanelCueDos.setPosition(500.f, 400.f);
+    txtPanelCueDos.setColor(CLR_RECUA_PA_RES_CR);
+
+
+
+
+
     txtPanelJug.setFont(m_fuente);
     txtPanelJug.setCharacterSize(TAM_CAR_PARR_CR);
     txtPanelJug.setColor(CLR_RECUA_PA_CR);
@@ -155,32 +165,52 @@ void VentanaCraft::cargarRec()
     txtPanelJug2.setString("");
 }
 
-void VentanaCraft::ejecutarAccion(int i)
+void VentanaCrafteo::ejecutarAccion(int i)
 {
+
     std::cout << "Click\n";
-    switch (i)
+    if (i <5)
+    {
+        inventarioJug=m_craftear.cargarInventario();
+    }
+    switch(i)
     {
     case 0:
-        std::cout << "explorar\n";
-        v_craftear();
+        if (m_craftear.pocionCurativa(txtPanelCueDos))
+        {
+            obtenerVisibles();
+            m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        }
+
+
+        //return true;
         break;
     case 1:
-        std::cout << "agregar\n";
-        v_agregar();
+        if (m_craftear.espadaMadera(txtPanelCueDos))
+        {
+            obtenerVisibles();
+            m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        }
+
+
         break;
     case 2:
+        std::cout << "Boton 3" << std::endl;
+        m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        //return true;
         break;
     case 3:
-        m_gestor.ocultar("explorar");
-        m_gestor.mostrar("explorar");
+        std::cout << "Boton 4" << std::endl;
+        m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        //return true;
         break;
     case 4:
-        m_gestor.ocultar("explorar");
-        m_gestor.mostrar("explorar");
+        std::cout << "Boton 5" << std::endl;
+        m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        //return true;
         break;
-
-
     case 5:
+        std::cout << "Boton 6" << std::endl;
         m_craftear.modificarPartida();
         m_gestor.ocultar("craftear");
         m_gestor.mostrar("explorar");
@@ -188,14 +218,14 @@ void VentanaCraft::ejecutarAccion(int i)
     }
 }
 
-void VentanaCraft::v_craftear()
+void VentanaCrafteo::v_explorar()
 {
-    m_craftear.explorarCueva(panelCueva, txtPanelCue);
+    m_craftear.crafteoCueva(panelCueva, txtPanelCue);
     guardado = false;
     v_actualizar();
 }
 
-void VentanaCraft::v_agregar()
+void VentanaCrafteo::v_agregar()
 {
     if (!guardado)
     {
@@ -214,7 +244,7 @@ void VentanaCraft::v_agregar()
     }
 }
 
-void VentanaCraft::v_actualizar()
+void VentanaCrafteo::v_actualizar()
 {
     m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
     Partida* datos = m_gestor.obtenerPartida();
@@ -223,7 +253,7 @@ void VentanaCraft::v_actualizar()
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 }
 
-void VentanaCraft::manejarEvento(const sf::Event& evento)
+void VentanaCrafteo::manejarEvento(const sf::Event& evento)
 {
     if (evento.type == sf::Event::Closed)
     {
@@ -236,39 +266,82 @@ void VentanaCraft::manejarEvento(const sf::Event& evento)
     {
         for (int i = 0; i < CANT_BOTONES_CR; i++)
         {
-            if (!botoneraCra.obtPosicion(i).contains(
-                    static_cast<float>(evento.mouseMove.x),
-                    static_cast<float>(evento.mouseMove.y)))
+            if (!botonera.obtPosicion(i).contains(
+                        static_cast<float>(evento.mouseMove.x),
+                        static_cast<float>(evento.mouseMove.y)))
             {
-                botoneraCra.igualarBotones(COLOR_FONDO_CR, COLOR_LETRA_CR);
+                botonera.igualarBotones(COLOR_FONDO_CR, COLOR_LETRA_CR);
                 break;
             }
         }
         for (int i = 0; i < CANT_BOTONES_CR; i++)
         {
-            if (botoneraCra.obtPosicion(i).contains(
-                    static_cast<float>(evento.mouseMove.x),
-                    static_cast<float>(evento.mouseMove.y)))
+            if (botonera.obtPosicion(i).contains(
+                        static_cast<float>(evento.mouseMove.x),
+                        static_cast<float>(evento.mouseMove.y)))
             {
-                botoneraCra.resaltarBoton(i, COLOR_FONDO_RES_CR, COLOR_LETRA_RES_CR);
+                botonera.resaltarBoton(i, COLOR_FONDO_RES_CR, COLOR_LETRA_RES_CR);
                 break;
             }
         }
     }
 
     if (evento.type == sf::Event::MouseButtonPressed &&
-        evento.mouseButton.button == sf::Mouse::Left)
+            evento.mouseButton.button == sf::Mouse::Left)
     {
         sf::Vector2i mousePos = sf::Mouse::getPosition(m_gestor.obtenerVentana());
         for (int i = 0; i < CANT_BOTONES_CR; i++)
         {
-            if (botoneraCra.obtPosicion(i).contains(
-                    static_cast<float>(mousePos.x),
-                    static_cast<float>(mousePos.y)))
+            if (botonera.obtPosicion(i).contains(
+                        static_cast<float>(mousePos.x),
+                        static_cast<float>(mousePos.y)))
             {
                 ejecutarAccion(i);
                 break;
             }
         }
+    }
+}
+
+
+void VentanaCrafteo::obtenerVisibles()
+{
+
+    for (int i=0; i<CANT_BOTONES_CR; i++)
+    {
+        botonera.setActivo(i,true);
+    }
+
+    ArchivoInventario arcInv(RUTA_DAT_INVN);
+    Inventario inventarioJug;
+    Partida* datos = m_gestor.obtenerPartida();
+    if(arcInv.buscarPorID(datos->partida,inventarioJug))
+    {
+
+        if(!Crafteo::puedoCrearPocionCurativa(inventarioJug))
+        {
+            botonera.setActivo(0,false);
+        }
+
+        if(!Crafteo::puedoCrearEspadaMadera(inventarioJug))
+        {
+            botonera.setActivo(1,false);
+        }
+
+        if(!Crafteo::puedoCrearEspadaHierro(inventarioJug))
+        {
+            botonera.setActivo(2,false);
+        }
+
+        if(!Crafteo::puedoCrearEscudoMadera(inventarioJug))
+        {
+            botonera.setActivo(3,false);
+        }
+
+        if(!Crafteo::puedoCrearEscudoHierro(inventarioJug))
+        {
+            botonera.setActivo(4,false);
+        }
+
     }
 }

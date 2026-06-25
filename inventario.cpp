@@ -184,11 +184,10 @@ string Inventario::mostrarSlots(std::string lado)
             {
                 int cantidadRanura= _slotsTotales[i].cantidad;
                 string numero="0";
-                (cantidadRanura < 9 ? numero+=to_string(cantidadRanura): numero=to_string(cantidadRanura));
+                (cantidadRanura < 10 ? numero+=to_string(cantidadRanura): numero=to_string(cantidadRanura));
                 oss << "x" << numero << "\n";
             }
         }
-
     }
     return oss.str();
 }
