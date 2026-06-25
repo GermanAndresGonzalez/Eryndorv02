@@ -732,14 +732,13 @@
 	"material.h"
 	<SFML/Graphics.hpp>
 
-1782139868 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
+1782432110 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.h
 	"Pantalla.h"
 	"botonera.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
 	"ArchivoPartidas.h"
 	"partidas.h"
-	<vector>
 
 1782419888 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
 	"VentanaCargar.h"

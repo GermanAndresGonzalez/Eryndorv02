@@ -5,12 +5,11 @@
 #include "PanelTexto.h"
 #include "ArchivoPartidas.h"
 #include "partidas.h"
-#include <vector>
-
 class VentanaCargar : public Pantalla
 {
 public:
     explicit VentanaCargar(GestorPantallas& gestor);
+    ~VentanaCargar();
 
     void alMostrar()  override;
     void alOcultar()  override;
@@ -51,8 +50,9 @@ private:
     Panel    m_panelCentral;
     Botonera botonera;
 
-    // Lista de hasta 10 partidas cargadas del archivo
-    std::vector<Partidas> m_partidas;
+    // Lista de hasta MAX_PARTIDAS_MOSTRAR partidas cargadas del archivo
+    Partidas* m_partidas;
+    int       m_cantPartidas;       // cantidad actualmente usada
     int m_indiceSeleccionado;   // -1 = ninguna
     int m_indiceHover;          // -1 = ninguna
 
@@ -62,7 +62,8 @@ private:
         sf::RectangleShape fondo;
         sf::Text           texto;
     };
-    std::vector<FilaUI> m_filas;
+    FilaUI* m_filas;
+    int     m_cantFilas;
 
     // Texto de detalle en panel central
     sf::Text m_textoDetalleTitulo;

@@ -14,11 +14,24 @@ VentanaCargar::VentanaCargar(GestorPantallas& gestor)
     : m_gestor(gestor),
       m_panelIzq  (PANEL_IZQ_X, PANEL_IZQ_Y, PANEL_IZQ_W, PANEL_IZQ_H),
       m_panelCentral(PANEL_CTR_X, PANEL_CTR_Y, PANEL_CTR_W, PANEL_CTR_H),
+      m_partidas(nullptr),
+      m_cantPartidas(0),
       m_indiceSeleccionado(-1),
-      m_indiceHover(-1)
+      m_indiceHover(-1),
+      m_filas(nullptr),
+      m_cantFilas(0)
 {
     cargarRec();
     cargarPartidas();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Destructor
+// ─────────────────────────────────────────────────────────────────────────────
+VentanaCargar::~VentanaCargar()
+{
+    delete[] m_partidas;
+    delete[] m_filas;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -120,7 +133,7 @@ void VentanaCargar::ejecutarAccion(int i)
     {
     case 0: // Seleccionar
         if (m_indiceSeleccionado >= 0 &&
-                m_indiceSeleccionado < static_cast<int>(m_partidas.size()))
+                m_indiceSeleccionado < m_cantPartidas)
         {
             m_partidaSeleccionada = m_partidas[m_indiceSeleccionado];
             std::cout << "Partida seleccionada: ID="
@@ -134,7 +147,7 @@ void VentanaCargar::ejecutarAccion(int i)
 
     case 1: // Borrar partida (borrado lógico)
         if (m_indiceSeleccionado >= 0 &&
-                m_indiceSeleccionado < static_cast<int>(m_partidas.size()))
+                m_indiceSeleccionado < m_cantPartidas)
         {
             // 1. Obtener la partida seleccionada de la lista en memoria
             m_partidaSeleccionada = m_partidas[m_indiceSeleccionado];
@@ -228,53 +241,71 @@ void VentanaCargar::cargarRec()
 // ─────────────────────────────────────────────────────────────────────────────
 void VentanaCargar::cargarPartidas()
 {
-    m_partidas.clear();
+    // Liberar arreglos anteriores
+    delete[] m_partidas;
+    delete[] m_filas;
+    m_partidas     = nullptr;
+    m_filas        = nullptr;
+    m_cantPartidas = 0;
+    m_cantFilas    = 0;
     m_indiceSeleccionado = -1;
     m_indiceHover        = -1;
-    m_filas.clear();
 
     ArchivoPartidas archivo(RUTA_PARTIDAS);
     int total = archivo.contarRegistros();
 
-    // Recorremos de atrás hacia adelante para obtener las últimas 10 activas
+    // Reservar el máximo posible
+    Partidas* temp = new Partidas[MAX_PARTIDAS_MOSTRAR];
+    int cuenta = 0;
+
+    // Recorremos de atrás hacia adelante para obtener las últimas activas
     for (int pos = total - 1;
-            pos >= 0 && static_cast<int>(m_partidas.size()) < MAX_PARTIDAS_MOSTRAR;
+            pos >= 0 && cuenta < MAX_PARTIDAS_MOSTRAR;
             pos--)
     {
         Partidas p;
         if (archivo.leer(pos, p) && !p.estaEliminada())
-            m_partidas.push_back(p);
+            temp[cuenta++] = p;
     }
 
+    // Copiar al arreglo definitivo del tamaño exacto
+    m_cantPartidas = cuenta;
+    if (m_cantPartidas > 0)
+    {
+        m_partidas = new Partidas[m_cantPartidas];
+        for (int i = 0; i < m_cantPartidas; i++)
+            m_partidas[i] = temp[i];
+    }
+    delete[] temp;
+
     // Construir las FilaUI
+    m_cantFilas = m_cantPartidas;
+    if (m_cantFilas > 0)
+        m_filas = new FilaUI[m_cantFilas];
+
     float filaX = PANEL_IZQ_X + FILA_PADDING_X;
     float filaW = PANEL_IZQ_W - FILA_PADDING_X * 2.f;
 
-    for (int i = 0; i < static_cast<int>(m_partidas.size()); i++)
+    for (int i = 0; i < m_cantFilas; i++)
     {
         float filaY = PANEL_IZQ_Y + FILA_PADDING_Y + i * (FILA_ALTO + 4.f);
 
-        FilaUI fui;
+        m_filas[i].fondo.setSize(sf::Vector2f(filaW, FILA_ALTO));
+        m_filas[i].fondo.setPosition(filaX, filaY);
+        m_filas[i].fondo.setFillColor(COLOR_FILA_NORMAL);
+        m_filas[i].fondo.setOutlineThickness(1.f);
+        m_filas[i].fondo.setOutlineColor(sf::Color(255, 255, 255, 80));
 
-        fui.fondo.setSize(sf::Vector2f(filaW, FILA_ALTO));
-        fui.fondo.setPosition(filaX, filaY);
-        fui.fondo.setFillColor(COLOR_FILA_NORMAL);
-        fui.fondo.setOutlineThickness(1.f);
-        fui.fondo.setOutlineColor(sf::Color(255, 255, 255, 80));
+        m_filas[i].texto.setFont(m_fuente);
+        m_filas[i].texto.setCharacterSize(FILA_TAM_CAR);
+        m_filas[i].texto.setFillColor(COLOR_FILA_TEXTO);
+        m_filas[i].texto.setPosition(filaX + 10.f, filaY + FILA_PADDING_Y);
 
-        fui.texto.setFont(m_fuente);
-        fui.texto.setCharacterSize(FILA_TAM_CAR);
-        fui.texto.setFillColor(COLOR_FILA_TEXTO);
-        fui.texto.setPosition(filaX + 10.f, filaY + FILA_PADDING_Y);
-
-        // Etiqueta de la fila
         const Partidas& p = m_partidas[i];
-        fui.texto.setString(
+        m_filas[i].texto.setString(
             "Partida #" + std::to_string(p.getId()) +
             "  |  Personaje: " + std::to_string(p.getIdPersonaje()) +
             "  |  Nivel: "     + std::to_string(p.getIdNivel()));
-
-        m_filas.push_back(fui);
     }
 
     // Limpiar texto de detalle
@@ -297,7 +328,7 @@ void VentanaCargar::dibujarPanelIzq(sf::RenderWindow& ventana)
     //titulo.setPosition(PANEL_IZQ_X + 12.f, PANEL_IZQ_Y - 25.f); //y=6.f
     ventana.draw(titulo);
 
-    if (m_partidas.empty())
+    if (m_cantPartidas == 0)
     {
         sf::Text vacio;
         vacio.setFont(m_fuente);
@@ -309,7 +340,7 @@ void VentanaCargar::dibujarPanelIzq(sf::RenderWindow& ventana)
         return;
     }
 
-    for (int i = 0; i < static_cast<int>(m_filas.size()); i++)
+    for (int i = 0; i < m_cantFilas; i++)
     {
         FilaUI fui = m_filas[i]; // copia para modificar color sin alterar m_filas
 
@@ -340,7 +371,7 @@ void VentanaCargar::dibujarPanelCentral(sf::RenderWindow& ventana)
 void VentanaCargar::actualizarDetalle()
 {
     if (m_indiceSeleccionado < 0 ||
-            m_indiceSeleccionado >= static_cast<int>(m_partidas.size()))
+            m_indiceSeleccionado >= m_cantPartidas)
         return;
 
     const Partidas& p = m_partidas[m_indiceSeleccionado];
@@ -360,7 +391,7 @@ void VentanaCargar::actualizarDetalle()
 // ─────────────────────────────────────────────────────────────────────────────
 int VentanaCargar::filaEnPosicion(float mouseX, float mouseY) const
 {
-    for (int i = 0; i < static_cast<int>(m_filas.size()); i++)
+    for (int i = 0; i < m_cantFilas; i++)
     {
         if (m_filas[i].fondo.getGlobalBounds().contains(mouseX, mouseY))
             return i;
