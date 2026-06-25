@@ -195,19 +195,41 @@ void VentanaCrafteo::ejecutarAccion(int i)
 
         break;
     case 2:
+        if (m_craftear.espadaHierro(txtPanelCueDos))
+        {
+            obtenerVisibles();
+            m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        }
+
+        /*
         std::cout << "Boton 3" << std::endl;
         m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         //return true;
+        */
         break;
     case 3:
+        if (m_craftear.escudoMadera(txtPanelCueDos))
+        {
+            obtenerVisibles();
+            m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        }
+        /*
         std::cout << "Boton 4" << std::endl;
         m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         //return true;
+        */
         break;
     case 4:
+        if (m_craftear.escudoHierro(txtPanelCueDos))
+        {
+            obtenerVisibles();
+            m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+        }
+        /*
         std::cout << "Boton 5" << std::endl;
         m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         //return true;
+        */
         break;
     case 5:
         std::cout << "Boton 6" << std::endl;

@@ -4,7 +4,7 @@ const char* FUENTE_CARGAR       = "recursos/fuentes/AlexandriaFLF-Bold.ttf";
 const char* ERROR_FUENTE_CARGAR = "No se pudo cargar la fuente";
 
 // 2 botones: "Seleccionar" y "Volver"
-const int CANT_BOTONES_CARGAR = 2;
+const int CANT_BOTONES_CARGAR = 3;
 
 const sf::Color COLOR_FONDO_CARGAR     = sf::Color::Transparent;
 const sf::Color COLOR_FONDO_RES_CARGAR = sf::Color(90, 140, 210);
@@ -16,13 +16,14 @@ const sf::Color COLOR_RECUA_CARGAR = sf::Color::White;
 
 const unsigned int TAM_CARACTER_CARGAR = 25;
 
-const float posBotonX_CARGAR      = 460.f;
-const float posBotonY_CARGAR      = 630.f;
+const float posBotonX_CARGAR      = 960.f;
+const float posBotonY_CARGAR      = 100.f;
 const float tamRectBotonX_CARGAR  = 200.f;
 const float tamRectBotonY_CARGAR  = 50.f;
 
 const std::string ETI_BOTONES_CARGAR[] = {
     "Seleccionar",
+    "Borrar",
     "Volver"
 };
 

@@ -1,15 +1,14 @@
 #include "Partidas.h"
-#include "crafteoMan.h"
-#include "crafteo.h"
+#include "combate.h"
 #include "datosArchivos.h"
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
 
 #include <iostream>
 
-CrafteoMan::CrafteoMan(Partida* _partida, int turnos)
-    :turnosCueva(turnos)
-    ,invCueva(999,999,999)
+Combatir::Combatir(Partida* _partida, int turnos)
+    :invCueva(999,999,999)
+    ,turnosCueva(turnos)
     ,ArInventario(RUTA_DAT_INVN)
     ,ArPartidas(RUTA_DAT_PART)
     ,partidaEx(_partida)
@@ -18,11 +17,11 @@ CrafteoMan::CrafteoMan(Partida* _partida, int turnos)
     material.id=0;
 }
 
-CrafteoMan::~CrafteoMan()
+Combatir::~Combatir()
 {
 }
 
-void CrafteoMan::setTurnos(unsigned int _turnos)
+void Combatir::setTurnos(unsigned int _turnos)
 {
     turnosCueva=_turnos;
 }
@@ -32,7 +31,7 @@ void CrafteoMan::setTurnos(unsigned int _turnos)
 // Si no hay registro en disco para esta partida, deja inventarioJug vacío
 // con el id correcto. Llamar siempre que cambie la partida activa.
 // ---------------------------------------------------------------------------
-void CrafteoMan::resetearInventario()
+void Combatir::resetearInventario()
 {
     inventarioJug = Inventario();                    // objeto limpio en memoria
     inventarioJug.id = partidaEx->partida;           // id correcto desde ya
@@ -40,31 +39,37 @@ void CrafteoMan::resetearInventario()
     // intentar cargar desde disco; si no existe, queda vacío (correcto)
     ArInventario.buscarPorID(partidaEx->partida, inventarioJug);
 
-    std::cout << "CrafteoMan::resetearInventario — partida="
+    std::cout << "Combatir::resetearInventario — partida="
               << partidaEx->partida
               << "  slots cargados (id en inv)=" << inventarioJug.id << "\n";
 }
 
-void CrafteoMan::crafteoCueva(Panel& panel,sf::Text& texto)
+void Combatir::explorarCueva(Panel& panel,sf::Text& texto)
 {
     if (turnosCueva > 0)
     {
         std::string mensaje="";
-        mensaje="Usa tu inventario para\ncrear objetos.\nNecesitas 5 elementos\npara crear.";
+        material=obtenerMaterial();
+        mensaje=Informar(material);
         cargarInventario();
         cargarPanel(panel,texto,mensaje);
     }
 }
 
+Material Combatir::obtenerMaterial()
+{
+    material.id=invCueva.valorAleatorio(0,2);
+    material.cantidad=invCueva.valorAleatorio(10);
+    return material;
+}
 
-
-std::string CrafteoMan::Informar(Material& material)
+std::string Combatir::Informar(Material& material)
 {
     std::string mensaje="Encontraste:\n"+std::to_string(material.cantidad)+" de "+inventarioJug.obtenerNombre(material.id)+"\n";
     return mensaje;
 }
 
-std::string CrafteoMan::Informar(Material& material, std::string lado)
+std::string Combatir::Informar(Material& material, std::string lado)
 {
     // reservado para uso futuro
     return "";
@@ -74,7 +79,7 @@ std::string CrafteoMan::Informar(Material& material, std::string lado)
 // cargarInventario: sincroniza inventarioJug con el archivo.
 // Si no hay registro para la partida actual, resetea a vacío con id correcto.
 // ---------------------------------------------------------------------------
-Inventario CrafteoMan::cargarInventario()
+Inventario Combatir::cargarInventario()
 {
     Inventario temp;
     if (ArInventario.buscarPorID(partidaEx->partida, temp))
@@ -90,7 +95,7 @@ Inventario CrafteoMan::cargarInventario()
     return inventarioJug;
 }
 
-bool CrafteoMan::agregarInventario()
+bool Combatir::agregarInventario()
 {
     if (turnosCueva > 0)
     {
@@ -108,13 +113,13 @@ bool CrafteoMan::agregarInventario()
     return false;
 }
 
-void CrafteoMan::cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje)
+void Combatir::cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje)
 {
     texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
     texto.setString(mensaje);
 }
 
-void CrafteoMan::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
+void Combatir::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
 {
     cargarInventario();   // siempre desde disco, nunca desde cache stale
     texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
@@ -123,11 +128,11 @@ void CrafteoMan::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
     texto2.setString(inventarioJug.mostrarSlots("derecha"));
 }
 
-void CrafteoMan::transferirMat()
+void Combatir::transferirMat()
 {
 }
 
-bool CrafteoMan::guardarInventario(Inventario& inventario)
+bool Combatir::guardarInventario(Inventario& inventario)
 {
     inventario.id = partidaEx->partida;  // sincronizar antes de todo
 
@@ -139,12 +144,12 @@ bool CrafteoMan::guardarInventario(Inventario& inventario)
     return ArInventario.agregar(inventario);
 }
 
-Partidas CrafteoMan::construirRegistroPartida()
+Partidas Combatir::construirRegistroPartida()
 {
     return Partidas(partidaEx->partida, partidaEx->id, partidaEx->nivel);
 }
 
-bool CrafteoMan::guardarPartida()
+bool Combatir::guardarPartida()
 {
     std::cout << "GuardoPartida:"<<std::endl;
     std::cout << partidaEx->id<<std::endl;
@@ -159,7 +164,7 @@ bool CrafteoMan::guardarPartida()
     return false;
 }
 
-bool CrafteoMan::modificarPartida()
+bool Combatir::modificarPartida()
 {
     int posicion = ArPartidas.buscarPosicionPorID(partidaEx->partida);
     if (posicion >= 0)
@@ -169,85 +174,3 @@ bool CrafteoMan::modificarPartida()
     }
     return false;
 }
-
-
-//bool CrafteoMan::pocionCurativa(sf::Text& texto, Panel& panel)
-bool CrafteoMan::pocionCurativa(sf::Text& texto)
-{
-    Inventario inventario;
-    inventario=cargarInventario();
-    if(Crafteo::puedoCrearPocionCurativa(inventario))
-    {
-        Crafteo::crearPocionCurativa(inventario);
-        int pos = ArInventario.buscarPosicionPorID(partidaEx->partida);
-        if (pos >= 0)
-            texto.setString("Creaste una Pocion curativa");
-            return ArInventario.modificar(pos, inventario);
-        return ArInventario.agregar(inventario);
-    }
-
-}
-bool CrafteoMan::espadaMadera(sf::Text& texto)
-{
-    Inventario inventario;
-    inventario=cargarInventario();
-    if(Crafteo::puedoCrearEspadaMadera(inventario))
-    {
-        Crafteo::crearEspadaMadera(inventario);
-        int pos = ArInventario.buscarPosicionPorID(partidaEx->partida);
-
-        if (pos >= 0)
-            texto.setString("Creaste una Espada\nde Madera");
-            return ArInventario.modificar(pos, inventario);
-        return ArInventario.agregar(inventario);
-    }
-}
-
-bool CrafteoMan::espadaHierro(sf::Text& texto)
-{
-    Inventario inventario;
-    inventario=cargarInventario();
-    if(Crafteo::puedoCrearEspadaHierro(inventario))
-    {
-        Crafteo::crearEspadaHierro(inventario);
-        int pos = ArInventario.buscarPosicionPorID(partidaEx->partida);
-
-        if (pos >= 0)
-            texto.setString("Creaste una Espada\nde Hierro");
-            return ArInventario.modificar(pos, inventario);
-        return ArInventario.agregar(inventario);
-    }
-}
-
-bool CrafteoMan::escudoMadera(sf::Text& texto)
-{
-    Inventario inventario;
-    inventario=cargarInventario();
-    if(Crafteo::puedoCrearEscudoMadera(inventario))
-    {
-        Crafteo::crearEscudoMadera(inventario);
-        int pos = ArInventario.buscarPosicionPorID(partidaEx->partida);
-
-        if (pos >= 0)
-            texto.setString("Creaste un Escudo\nde Madera");
-            return ArInventario.modificar(pos, inventario);
-        return ArInventario.agregar(inventario);
-    }
-}
-
-bool CrafteoMan::escudoHierro(sf::Text& texto)
-{
-    Inventario inventario;
-    inventario=cargarInventario();
-    if(Crafteo::puedoCrearEscudoHierro(inventario))
-    {
-        Crafteo::crearEscudoHierro(inventario);
-        int pos = ArInventario.buscarPosicionPorID(partidaEx->partida);
-
-        if (pos >= 0)
-            texto.setString("Creaste un Escudo\nde Madera");
-            return ArInventario.modificar(pos, inventario);
-        return ArInventario.agregar(inventario);
-    }
-}
-

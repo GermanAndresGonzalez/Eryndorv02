@@ -26,6 +26,7 @@ VentanaCargar::VentanaCargar(GestorPantallas& gestor)
 // ─────────────────────────────────────────────────────────────────────────────
 void VentanaCargar::alMostrar()
 {
+
     std::cout << "VentanaCargar: ahora visible\n";
     // Recargar partidas cada vez que la pantalla se muestra,
     // por si se guardó una nueva partida en otra pantalla.
@@ -81,7 +82,7 @@ void VentanaCargar::manejarEvento(const sf::Event& evento)
 
     // ── MouseButton: seleccionar fila o botón ────────────────────────────────
     if (evento.type == sf::Event::MouseButtonPressed &&
-        evento.mouseButton.button == sf::Mouse::Left)
+            evento.mouseButton.button == sf::Mouse::Left)
     {
         sf::Vector2i mousePos = sf::Mouse::getPosition(m_gestor.obtenerVentana());
         float mx = static_cast<float>(mousePos.x);
@@ -119,7 +120,7 @@ void VentanaCargar::ejecutarAccion(int i)
     {
     case 0: // Seleccionar
         if (m_indiceSeleccionado >= 0 &&
-            m_indiceSeleccionado < static_cast<int>(m_partidas.size()))
+                m_indiceSeleccionado < static_cast<int>(m_partidas.size()))
         {
             m_partidaSeleccionada = m_partidas[m_indiceSeleccionado];
             std::cout << "Partida seleccionada: ID="
@@ -131,7 +132,28 @@ void VentanaCargar::ejecutarAccion(int i)
         }
         break;
 
-    case 1: // Volver
+    case 1: // Borrar partida (borrado lógico)
+        if (m_indiceSeleccionado >= 0 &&
+                m_indiceSeleccionado < static_cast<int>(m_partidas.size()))
+        {
+            // 1. Obtener la partida seleccionada de la lista en memoria
+            m_partidaSeleccionada = m_partidas[m_indiceSeleccionado];
+
+            // 2. Hacer el borrado lógico en el archivo usando su ID
+            ArchivoPartidas archivo(RUTA_PARTIDAS);
+            bool ok = archivo.borradoLogico(m_partidaSeleccionada.getId());
+
+            if (ok)
+                std::cout << "Partida ID=" << m_partidaSeleccionada.getId() << " eliminada.\n";
+            else
+                std::cerr << "Error al eliminar la partida.\n";
+
+            // 3. Recargar la lista (ya sin la partida borrada)
+            m_textoDetalleTitulo.setString("Se borro la partida.");
+            cargarPartidas();
+        }
+        break;
+    case 2: // Volver
         m_gestor.ocultar("cargar");
         m_gestor.mostrar("principal");
         break;
@@ -140,15 +162,15 @@ void VentanaCargar::ejecutarAccion(int i)
 
 void VentanaCargar::obtenerDatos()
 {
-     Partida* datos = m_gestor.obtenerPartida();
-            std::cout << "Primero:" << datos->partida << std::endl;
-            datos->partida=m_partidaSeleccionada.getId();
-            datos->nivel=m_partidaSeleccionada.getIdNivel();
-            datos->id=m_partidaSeleccionada.getIdPersonaje();
-            const std::string& nombre = NOMBRES[m_partidaSeleccionada.getIdPersonaje() - 1];
-            std::strncpy(datos->nombre, nombre.c_str(), 49);
-            std::cout << "Segundo:" << datos->partida << std::endl;
-            std::cout << "Nombre: " << nombre;
+    Partida* datos = m_gestor.obtenerPartida();
+    std::cout << "Primero:" << datos->partida << std::endl;
+    datos->partida=m_partidaSeleccionada.getId();
+    datos->nivel=m_partidaSeleccionada.getIdNivel();
+    datos->id=m_partidaSeleccionada.getIdPersonaje();
+    const std::string& nombre = NOMBRES[m_partidaSeleccionada.getIdPersonaje() - 1];
+    std::strncpy(datos->nombre, nombre.c_str(), 49);
+    std::cout << "Segundo:" << datos->partida << std::endl;
+    std::cout << "Nombre: " << nombre;
 
 }
 
@@ -173,7 +195,7 @@ void VentanaCargar::cargarRec()
     botonera.setTamCar(TAM_CARACTER_CARGAR);
     botonera.setColorTexto(COLOR_LETRA_CARGAR);
     botonera.inicializarEtiquetas(ETI_BOTONES_CARGAR, CANT_BOTONES_CARGAR);
-    botonera.inicializarBotones(posBotonX_CARGAR, posBotonY_CARGAR, true);
+    botonera.inicializarBotones(posBotonX_CARGAR, posBotonY_CARGAR);
 
     // ── Paneles ───────────────────────────────────────────────────────────────
     m_panelIzq    .setColor(sf::Color(0, 0, 0, 160));
@@ -216,8 +238,8 @@ void VentanaCargar::cargarPartidas()
 
     // Recorremos de atrás hacia adelante para obtener las últimas 10 activas
     for (int pos = total - 1;
-         pos >= 0 && static_cast<int>(m_partidas.size()) < MAX_PARTIDAS_MOSTRAR;
-         pos--)
+            pos >= 0 && static_cast<int>(m_partidas.size()) < MAX_PARTIDAS_MOSTRAR;
+            pos--)
     {
         Partidas p;
         if (archivo.leer(pos, p) && !p.estaEliminada())
@@ -318,7 +340,7 @@ void VentanaCargar::dibujarPanelCentral(sf::RenderWindow& ventana)
 void VentanaCargar::actualizarDetalle()
 {
     if (m_indiceSeleccionado < 0 ||
-        m_indiceSeleccionado >= static_cast<int>(m_partidas.size()))
+            m_indiceSeleccionado >= static_cast<int>(m_partidas.size()))
         return;
 
     const Partidas& p = m_partidas[m_indiceSeleccionado];

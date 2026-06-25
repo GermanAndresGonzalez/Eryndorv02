@@ -425,7 +425,7 @@
 1781782404 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\pantalla.h
 	<SFML/Graphics.hpp>
 
-1782332418 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\main.cpp
+1782418478 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\main.cpp
 	"ArchivoInventario.h"
 	"ArchivoPartidas.h"
 	"partidas.h"
@@ -488,7 +488,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1782413171 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1782418478 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -741,7 +741,7 @@
 	"partidas.h"
 	<vector>
 
-1782140227 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+1782419888 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
 	"VentanaCargar.h"
 	"datosVenCargar.h"
 	"datosBotonCargar.h"
@@ -751,7 +751,7 @@
 	<cstring>
 	<string>
 
-1782137620 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.cpp
+1782418664 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.cpp
 	"datosBotonCargar.h"
 
 1782137609 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.h
@@ -785,7 +785,7 @@
 	"crafteo.h"
 	"crafteoMan.h"
 
-1782349147 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacraft.cpp
+1782414955 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacraft.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCraft.h"
@@ -815,7 +815,7 @@
 	"inventario.h"
 	"items_juego.h"
 
-1782348783 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
+1782415250 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
 	"Partidas.h"
 	"crafteoMan.h"
 	"crafteo.h"
