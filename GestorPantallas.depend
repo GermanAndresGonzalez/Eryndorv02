@@ -473,7 +473,7 @@
 	"Pantalla.h"
 	"GestorPantallas.h"
 
-1782412966 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
+1782422844 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
@@ -488,7 +488,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1782418478 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1782422827 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"

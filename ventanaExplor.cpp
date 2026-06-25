@@ -23,6 +23,7 @@ VentanaExplo::VentanaExplo(GestorPantallas& gestor)
 {
     nomcadCueva = "Cueva";
     Botonera botonera;
+
     cargarRec();
 }
 
@@ -53,6 +54,7 @@ void VentanaExplo::alMostrar()
     else
         std::cout << "No se guardó la partida\n";
 
+    verBotones();
     actualizarNombreJug(datos->nombre);
 }
 
@@ -62,6 +64,14 @@ void VentanaExplo::actualizarNombreJug(const std::string& nombre)
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
 }
 
+void VentanaExplo::verBotones()
+{
+    for (int i=0;i<CANT_BOTONES_EXP;i++)
+    {
+        botonera.setActivo(i,true);
+    }
+
+}
 void VentanaExplo::alOcultar()
 {
 }

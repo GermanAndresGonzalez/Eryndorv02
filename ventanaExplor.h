@@ -28,6 +28,7 @@ public:
     void v_explorar();
     void v_agregar();
     void v_actualizar();
+    void verBotones();
 
     void ejecutarAccion(int i);
     void manejarEvento(const sf::Event& evento);
