@@ -215,6 +215,7 @@ void VentanaJug::ejecutarAccion(int i)
         datos->partida = archivoPartidas.generarID();
         datos->nivel   = 0;
         datos->id      = m_jugadorSeleccionado;
+        datos->turnoJugador      = 10;
 
         const std::string& nombre = NOMBRES[m_jugadorSeleccionado - 1]; // NOMBRES[0]=Kael, NOMBRES[1]=Lyra
         std::strncpy(datos->nombre, nombre.c_str(), 49);

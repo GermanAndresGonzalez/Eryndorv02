@@ -5,13 +5,15 @@
 #include "PanelTexto.h"
 #include "botonera.h"
 #include "explorarCueva.h"
-
-
+#include "material.h"
+/*
 struct material
 {
     int id;
     int cantidad;
 };
+
+*/
 
 class VentanaExplo : public Pantalla
 {
@@ -61,7 +63,7 @@ private:
 
 
     ExplorCueva m_explorar;
-    struct material materiales;
+    Material materiales;
 
 
 };

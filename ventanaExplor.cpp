@@ -30,7 +30,7 @@ void VentanaExplo::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
-    datos->turnoJugador = 10;
+    //datos->turnoJugador = 10;
     guardado = false;   // resetear flag de turno al entrar
 
     // ── Reset crítico: descarta inventario en memoria y carga el de
