@@ -43,8 +43,8 @@ void VentanaPrincipal::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(m_texto);
     ventana.draw(spriteFondo);
-
-    botonera.draw(ventana);
+    ventana.draw(botonera);
+    //botonera.draw(ventana);
 }
 
 void VentanaPrincipal::cargarRec()
@@ -73,6 +73,8 @@ void VentanaPrincipal::cargarRec()
 }
 void VentanaPrincipal::ejecutarAccion(int i)
 {
+    Partida* datos= m_gestor.obtenerPartida();
+    datos->pantallaAnterior="principal";
     switch (i)
     {
     case 0:
@@ -83,6 +85,13 @@ void VentanaPrincipal::ejecutarAccion(int i)
         m_gestor.ocultar("principal");
         m_gestor.mostrar("cargar");
         break;
+    case 3:
+        std::cout << "Opción: 3";
+        //m_gestor.ocultar("principal");
+        //m_gestor.mostrar("cargar");
+        break;
+
+
     case 4:
         Salida::Salir(m_gestor);
         break;

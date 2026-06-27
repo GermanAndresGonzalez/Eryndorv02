@@ -3,7 +3,7 @@
 #include "datosPanel.h"
 #include <SFML/Graphics.hpp>
 
-class Panel
+class Panel: public sf::Drawable
 {
 private:
     sf::RectangleShape _Panel;
@@ -17,10 +17,10 @@ public:
     Panel();
     Panel(float posX, float posY, float tamX, float tamY);
     ~Panel();
-
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     // Dibujar en la ventana
-    void dibujar(sf::RenderWindow& ventana);
+    //void dibujar(sf::RenderWindow& ventana);
 
     // Setters opcionales
     void setPosicion(float x, float y);

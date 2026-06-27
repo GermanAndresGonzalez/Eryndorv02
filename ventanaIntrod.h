@@ -3,6 +3,7 @@
 #include "Pantalla.h"
 #include "botonera.h"
 #include "GestorPantallas.h"
+#include "PanelTexto.h"
 
 class VentanaIntro : public Pantalla
 {
@@ -19,6 +20,7 @@ public:
     void switchCarrusel();
 
     void cargarRec();
+    Panel panelCarr;
 
 private:
     GestorPantallas& m_gestor;
@@ -27,5 +29,7 @@ private:
     sf::Font fuenteBotonera;
     sf::Texture texturaFondo;
     sf::Sprite spriteFondo;
+
+
     Botonera botonera;
 };

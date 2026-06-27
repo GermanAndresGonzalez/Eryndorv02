@@ -4,11 +4,12 @@
 
 struct Partida
 {
-    unsigned int partida;
+    int partida;
     unsigned int nivel;
     unsigned int id;
     unsigned int turnoJugador;
     unsigned int turnoComput;
+    std::string pantallaAnterior;
     char nombre[50];
 };
 

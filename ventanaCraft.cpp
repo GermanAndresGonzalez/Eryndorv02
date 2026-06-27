@@ -80,9 +80,11 @@ void VentanaCrafteo::dibujar(sf::RenderWindow& ventana)
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
     ventana.draw(m_turnos);
+    ventana.draw(panelJug);
+    ventana.draw(panelCueva);
 
-    panelJug.dibujar(m_gestor.obtenerVentana());
-    panelCueva.dibujar(m_gestor.obtenerVentana());
+    //panelJug.dibujar(m_gestor.obtenerVentana());
+    //panelCueva.dibujar(m_gestor.obtenerVentana());
     ventana.draw(nombreJug);
     ventana.draw(nombreCue);
     ventana.draw(txtPanelCue);
@@ -90,7 +92,9 @@ void VentanaCrafteo::dibujar(sf::RenderWindow& ventana)
     ventana.draw(txtPanelJug);
     ventana.draw(txtPanelJug2);
 
-    botonera.draw(ventana);
+    ventana.draw(botonera);
+
+    //botonera.draw(ventana);
 }
 
 void VentanaCrafteo::cargarRec()

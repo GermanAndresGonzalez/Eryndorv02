@@ -2,7 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class Botonera {
+class Botonera: public sf::Drawable
+{
 public:
     struct grupoBoton
     {
@@ -26,10 +27,12 @@ private:
     float           anchoRect = 0;
     float           altoRect  = 0;
 
+
 public:
     Botonera();
     Botonera(int n, sf::Font& f);
     ~Botonera();
+
 
     // ── Inicialización ────────────────────────────────────────────────────────
     void inicializar(int n, sf::Font& f);
@@ -38,7 +41,8 @@ public:
     void inicializarBotones(float x, float y, bool horiz = false);
 
     // ── Dibujo ────────────────────────────────────────────────────────────────
-    void draw(sf::RenderWindow& ventana);
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    //void draw(sf::RenderWindow& ventana);
 
     // ── Resaltar / igualar ────────────────────────────────────────────────────
     void resaltarBoton(int n, sf::Color color, sf::Color color2);

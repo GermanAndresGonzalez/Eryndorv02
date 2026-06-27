@@ -10,7 +10,8 @@ VentanaIntro::VentanaIntro(GestorPantallas& gestor): m_gestor(gestor)
 {
     m_fuente.loadFromFile("recursos/fuentes/AlexandriaFLF.ttf");
     m_texto.setFont(m_fuente);
-    m_texto.setString("Presiona ENTER para comenzar\nIntroducción");
+    //m_texto.setString("Presiona ENTER para comenzar\nIntroducción");
+    m_texto.setString("");
     m_texto.setCharacterSize(30);
     m_texto.setPosition(200.f, 300.f);
     Botonera botonera;
@@ -19,6 +20,11 @@ VentanaIntro::VentanaIntro(GestorPantallas& gestor): m_gestor(gestor)
 void VentanaIntro::alMostrar()
 {
     std::cout << "VentanaIntro: ahora visible\n";
+    sf::Event e;
+    while (m_gestor.obtenerVentana().pollEvent(e)) { /* descartar */ }
+    //panelCarr
+
+
 
 }
 void VentanaIntro::alOcultar()
@@ -28,19 +34,23 @@ void VentanaIntro::alOcultar()
 void VentanaIntro::actualizar(float dt)
 {
 // Si el usuario presiona ENTER, ir a la intro
+    /*
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         m_gestor.ocultar("principal");
         m_gestor.mostrar("intro");
     }
-
+    */
 
 }
 void VentanaIntro::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
-    botonera.draw(ventana);
+    ventana.draw(botonera);
+
+    //botonera.draw(ventana);
+    ventana.draw(panelCarr);
 }
 
 void VentanaIntro::cargarRec()
@@ -69,8 +79,12 @@ void VentanaIntro::cargarRec()
 }
 void VentanaIntro::ejecutarAccion(int i)
 {
-    //std::cout << "Presion click";
-    std::cout << "Click\n";
+
+    Partida* datos= m_gestor.obtenerPartida();
+    std::cout << "Pantalla anterior: " <<datos->pantallaAnterior <<"\n";
+    datos->pantallaAnterior="intro";
+    std::cout << "Pantalla anterior: " <<datos->pantallaAnterior <<"\n";
+    std::cout << "Numero de partida: " <<datos->partida <<"\n";
     switch (i)
     {
     case 0:

@@ -5,7 +5,7 @@
 		<Option title="GestorPantallas" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/;Manejo-Archivos/;Inventario-Items/;AccionesVentanas/" />
+		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/;Manejo-Archivos/;Inventario-Items/;AccionesVentanas/;Seres/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/GestorPantallas" prefix_auto="1" extension_auto="1" />
@@ -51,6 +51,12 @@
 		</Unit>
 		<Unit filename="ArchivoPartidas.h">
 			<Option virtualFolder="Manejo-Archivos/" />
+		</Unit>
+		<Unit filename="Enemigos.cpp">
+			<Option virtualFolder="Seres/" />
+		</Unit>
+		<Unit filename="Enemigos.h">
+			<Option virtualFolder="Seres/" />
 		</Unit>
 		<Unit filename="GestorPantallas.cpp">
 			<Option virtualFolder="GestorPantallas/" />
@@ -256,6 +262,12 @@
 		</Unit>
 		<Unit filename="partidas.h">
 			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="personaje.cpp">
+			<Option virtualFolder="Seres/" />
+		</Unit>
+		<Unit filename="personaje.h">
+			<Option virtualFolder="Seres/" />
 		</Unit>
 		<Unit filename="salida.cpp">
 			<Option virtualFolder="Auxiliares/" />

@@ -105,6 +105,19 @@ void Botonera::inicializarBotones(float x, float y, bool horiz)
 
 // ── Dibujo ─────────────────────────────────────────────────────────────────────
 
+void Botonera::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    for (int i = 0; i < cantidad; i++)
+    {
+        if (botones[i].activo)   // solo dibujar los activos
+        {
+            target.draw(botones[i].boton, states);
+            target.draw(textoBotones[i], states);
+        }
+    }
+}
+
+/*
 void Botonera::draw(sf::RenderWindow& ventana)
 {
     for (int i = 0; i < cantidad; i++)
@@ -116,6 +129,7 @@ void Botonera::draw(sf::RenderWindow& ventana)
         }
     }
 }
+*/
 
 // ── Resaltar / igualar ─────────────────────────────────────────────────────────
 

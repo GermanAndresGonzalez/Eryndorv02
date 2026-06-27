@@ -56,11 +56,15 @@ void VentanaCargar::actualizar(float /*dt*/) {}
 void VentanaCargar::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
-    m_panelIzq    .dibujar(ventana);
-    m_panelCentral.dibujar(ventana);
+    ventana.draw(m_panelIzq);
+    //m_panelIzq    .dibujar(ventana);
+    ventana.draw(m_panelCentral);
+    //m_panelCentral.dibujar(ventana);
     dibujarPanelIzq    (ventana);
     dibujarPanelCentral(ventana);
-    botonera.draw(ventana);
+
+    ventana.draw(botonera);
+    //botonera.draw(ventana);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

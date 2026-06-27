@@ -23,11 +23,17 @@ Panel::Panel(float posX, float posY, float tamX, float tamY)
 Panel::~Panel()
 {
 }
+void Panel::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    target.draw(_Panel ,states);
+}
 
+/*
 void Panel::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(_Panel);
 }
+*/
 
 void Panel::setPosicion(float x, float y)
 {

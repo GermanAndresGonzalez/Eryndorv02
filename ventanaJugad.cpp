@@ -72,6 +72,8 @@ void VentanaJug::cargarPartidas()
 void VentanaJug::alMostrar()
 {
     std::cout << "VentanaJug: ahora visible\n";
+    sf::Event e;
+    while (m_gestor.obtenerVentana().pollEvent(e)) { /* descartar */ }
     Partida* datos = m_gestor.obtenerPartida();
 
     if (datos->id != 0 && datos->nombre[0] != '\0')
@@ -111,13 +113,18 @@ void VentanaJug::dibujar(sf::RenderWindow& ventana)
     ventana.draw(nombreJug2);
     ventana.draw(jugadElegido);
 
-    panelJug1.dibujar(m_gestor.obtenerVentana());
-    panelJug2.dibujar(m_gestor.obtenerVentana());
+    ventana.draw(panelJug1);
+    ventana.draw(panelJug2);
+
+    //panelJug1.dibujar(m_gestor.obtenerVentana());
+    //panelJug2.dibujar(m_gestor.obtenerVentana());
 
     ventana.draw(spriteJug1);
     ventana.draw(spriteJug2);
 
-    botonera.draw(ventana);
+    ventana.draw(botonera);
+
+    //botonera.draw(ventana);
 }
 
 void VentanaJug::cargarRec()
@@ -196,33 +203,31 @@ void VentanaJug::ejecutarAccion(int i)
     // ── [1] Partida Nueva ─────────────────────────────────────────────────
     case 1:
     {
-        if (m_jugadorSeleccionado == 0)
+        // Solo pedir jugador si no hay ninguno seleccionado NI hay partida activa
+        if (m_jugadorSeleccionado == 0 && datos->id == 0)
         {
             Salida::Mensaje(m_gestor, "Error", "Primero elige un jugador.");
             break;
         }
 
-        // Texto de confirmación según si hay partida activa o no
+        int jugadorId = (m_jugadorSeleccionado != 0) ? m_jugadorSeleccionado : datos->id;
+
         std::string msgConfirm = (datos->partida > 0)
-            ? "Se creara una partida nueva.\nLa partida actual se perdera.\n¿Continuar?"
-            : "Se creara una partida nueva.\n¿Continuar?";
+                                 ? "Se creara una partida nueva.\nLa partida actual se perdera.\nContinuar?"
+                                 : "Se creara una partida nueva.\nContinuar?";
 
         VentanaConfirmacion conf("Partida Nueva", msgConfirm);
         if (!conf.mostrar(m_gestor.obtenerVentana()))
-            break;  // usuario canceló
+            break;
 
-        // Crear la nueva partida con el jugador seleccionado
-        datos->partida = archivoPartidas.generarID();
-        datos->nivel   = 0;
-        datos->id      = m_jugadorSeleccionado;
-        datos->turnoJugador      = 10;
+        datos->partida     = archivoPartidas.generarID();
+        datos->nivel       = 0;
+        datos->id          = jugadorId;
+        datos->turnoJugador = 10;
 
-        const std::string& nombre = NOMBRES[m_jugadorSeleccionado - 1]; // NOMBRES[0]=Kael, NOMBRES[1]=Lyra
+        const std::string& nombre = NOMBRES[jugadorId - 1];
         std::strncpy(datos->nombre, nombre.c_str(), 49);
         datos->nombre[49] = '\0';
-
-        std::cout << "Partida nueva: id=" << datos->partida
-                  << " jugador=" << datos->nombre << "\n";
 
         m_gestor.ocultar("jugador");
         m_gestor.mostrar("explorar");
@@ -231,6 +236,8 @@ void VentanaJug::ejecutarAccion(int i)
 
     // ── [2] Seguir ────────────────────────────────────────────────────────
     case 2:
+        std::cout << "Datos pantalla anterior: " << datos->pantallaAnterior << "\n";
+        // Check if player is selected or if there's an existing game
         if (datos->id == 0 || datos->partida == 0)
         {
             Salida::Mensaje(m_gestor, "Error", "No hay partida activa.");
@@ -239,6 +246,8 @@ void VentanaJug::ejecutarAccion(int i)
         // No se toca nada de Partida, se continúa tal cual
         m_gestor.ocultar("jugador");
         m_gestor.mostrar("explorar");
+
+
         break;
     }
 }
@@ -256,8 +265,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         for (int i = 0; i < CANT_BOTONES_JUG; i++)
         {
             if (!botonera.obtPosicion(i).contains(
-                    static_cast<float>(evento.mouseMove.x),
-                    static_cast<float>(evento.mouseMove.y)))
+                        static_cast<float>(evento.mouseMove.x),
+                        static_cast<float>(evento.mouseMove.y)))
             {
                 botonera.igualarBotones(COLOR_FONDO_JUG, COLOR_LETRA_JUG);
                 break;
@@ -266,8 +275,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         for (int i = 0; i < CANT_BOTONES_JUG; i++)
         {
             if (botonera.obtPosicion(i).contains(
-                    static_cast<float>(evento.mouseMove.x),
-                    static_cast<float>(evento.mouseMove.y)))
+                        static_cast<float>(evento.mouseMove.x),
+                        static_cast<float>(evento.mouseMove.y)))
             {
                 botonera.resaltarBoton(i, COLOR_FONDO_RES_JUG, COLOR_LETRA_RES_JUG);
                 break;
@@ -276,8 +285,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
 
         // Hover en paneles de jugadores
         if (panelJug1.obtenerLimites().contains(
-                static_cast<float>(evento.mouseMove.x),
-                static_cast<float>(evento.mouseMove.y)))
+                    static_cast<float>(evento.mouseMove.x),
+                    static_cast<float>(evento.mouseMove.y)))
         {
             nombreJug1.setColor(CLR_RECUA_PA_JUG_RES);
             panelJug1.setColContorno(CLR_RECUA_PA_JUG_RES);
@@ -293,8 +302,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         }
 
         if (panelJug2.obtenerLimites().contains(
-                static_cast<float>(evento.mouseMove.x),
-                static_cast<float>(evento.mouseMove.y)))
+                    static_cast<float>(evento.mouseMove.x),
+                    static_cast<float>(evento.mouseMove.y)))
         {
             nombreJug2.setColor(CLR_RECUA_PA_JUG_RES);
             panelJug2.setColContorno(CLR_RECUA_PA_JUG_RES);
@@ -310,7 +319,7 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
     }
 
     if (evento.type == sf::Event::MouseButtonPressed &&
-        evento.mouseButton.button == sf::Mouse::Left)
+            evento.mouseButton.button == sf::Mouse::Left)
     {
         sf::Vector2i mousePos = sf::Mouse::getPosition(m_gestor.obtenerVentana());
 
@@ -318,8 +327,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
         for (int i = 0; i < CANT_BOTONES_JUG; i++)
         {
             if (botonera.obtPosicion(i).contains(
-                    static_cast<float>(mousePos.x),
-                    static_cast<float>(mousePos.y)))
+                        static_cast<float>(mousePos.x),
+                        static_cast<float>(mousePos.y)))
             {
                 ejecutarAccion(i);
                 return;
@@ -328,8 +337,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
 
         // Panel jugador 1 → solo actualiza selección visual
         if (panelJug1.obtenerLimites().contains(
-                static_cast<float>(mousePos.x),
-                static_cast<float>(mousePos.y)))
+                    static_cast<float>(mousePos.x),
+                    static_cast<float>(mousePos.y)))
         {
             m_jugadorSeleccionado = 1;
             jugadElegido.setString("Seleccionado: " + NOMBRES[0]);
@@ -340,8 +349,8 @@ void VentanaJug::manejarEvento(const sf::Event& evento)
 
         // Panel jugador 2 → solo actualiza selección visual
         if (panelJug2.obtenerLimites().contains(
-                static_cast<float>(mousePos.x),
-                static_cast<float>(mousePos.y)))
+                    static_cast<float>(mousePos.x),
+                    static_cast<float>(mousePos.y)))
         {
             m_jugadorSeleccionado = 2;
             jugadElegido.setString("Seleccionado: " + NOMBRES[1]);

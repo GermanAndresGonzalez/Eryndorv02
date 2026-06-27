@@ -6,14 +6,7 @@
 #include "botonera.h"
 #include "explorarCueva.h"
 #include "material.h"
-/*
-struct material
-{
-    int id;
-    int cantidad;
-};
 
-*/
 
 class VentanaExplo : public Pantalla
 {
