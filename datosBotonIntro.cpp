@@ -7,6 +7,7 @@ const char* ERROR_FUENTE_INTRO="No se pudo cargar la fuente";
 
 const int CANT_BOTONES_INTRO=3;
 
+
 const sf::Color COLOR_FONDO_INTRO = sf::Color::Transparent;
 const sf::Color COLOR_FONDO_RES_INTRO = sf::Color(90, 140, 210);
 
@@ -29,5 +30,6 @@ const std::string ETI_BOTONES_INTRO[] = {
     "Siguiente",
     "Saltear"
 };
+
 
 

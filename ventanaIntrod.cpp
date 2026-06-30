@@ -1,7 +1,9 @@
 #include "ventanaIntrod.h"
 #include "botonera.h"
-//#include "datosArchivos.h"
+#include "PanelTexto.h"
 #include "datosVenIntro.h"
+#include "carousel.h"
+
 #include "datosBotonIntro.h"
 #include <iostream>
 
@@ -23,6 +25,15 @@ void VentanaIntro::alMostrar()
     sf::Event e;
     while (m_gestor.obtenerVentana().pollEvent(e)) { /* descartar */ }
     //panelCarr
+    panelCarr = Panel(xPanelIn_INTRO,yPanelIn_INTRO,xPanelAn_INTRO,yPanelAl_INTRO);
+    panelCarr.setColor(CLR_FONDO_INTRO);
+    panelCarr.setColContorno(CLR_RECUA_INTRO);
+
+    carousel.cargar();
+    carousel.setPosition(panelCarr.getPosInternaX(),panelCarr.getPosInternaY());
+    std::cout << xPanelIn_INTRO << "  " << yPanelIn_INTRO << "\n";
+    std::cout << panelCarr.getPosInternaX() << "  " << panelCarr.getPosInternaY() << "\n";
+    //carousel.setPosition(400,300);
 
 
 
@@ -33,8 +44,9 @@ void VentanaIntro::alOcultar()
 }
 void VentanaIntro::actualizar(float dt)
 {
-// Si el usuario presiona ENTER, ir a la intro
+
     /*
+    // Si el usuario presiona ENTER, ir a la intro
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         m_gestor.ocultar("principal");
@@ -51,6 +63,7 @@ void VentanaIntro::dibujar(sf::RenderWindow& ventana)
 
     //botonera.draw(ventana);
     ventana.draw(panelCarr);
+    ventana.draw(carousel);
 }
 
 void VentanaIntro::cargarRec()
@@ -81,20 +94,18 @@ void VentanaIntro::ejecutarAccion(int i)
 {
 
     Partida* datos= m_gestor.obtenerPartida();
-    std::cout << "Pantalla anterior: " <<datos->pantallaAnterior <<"\n";
+    //std::cout << "Pantalla anterior: " <<datos->pantallaAnterior <<"\n";
     datos->pantallaAnterior="intro";
-    std::cout << "Pantalla anterior: " <<datos->pantallaAnterior <<"\n";
-    std::cout << "Numero de partida: " <<datos->partida <<"\n";
+    //std::cout << "Pantalla anterior: " <<datos->pantallaAnterior <<"\n";
+    //std::cout << "Numero de partida: " <<datos->partida <<"\n";
     switch (i)
     {
     case 0:
-        m_gestor.ocultar("intro");
-        m_gestor.mostrar("principal");
+        carousel.anterior();
         break;
 
     case 1:
-        m_gestor.ocultar("principal");
-        m_gestor.mostrar("intro");
+        carousel.siguiente();
         break;
 
     case 2:

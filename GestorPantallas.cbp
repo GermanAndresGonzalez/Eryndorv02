@@ -85,6 +85,12 @@
 		<Unit filename="botonera.h">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
+		<Unit filename="carousel.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="carousel.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
 		<Unit filename="centrar.cpp">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>

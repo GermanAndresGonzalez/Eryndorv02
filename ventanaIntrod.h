@@ -4,6 +4,7 @@
 #include "botonera.h"
 #include "GestorPantallas.h"
 #include "PanelTexto.h"
+#include "carousel.h"
 
 class VentanaIntro : public Pantalla
 {
@@ -21,6 +22,8 @@ public:
 
     void cargarRec();
     Panel panelCarr;
+    Carousel carousel;
+
 
 private:
     GestorPantallas& m_gestor;

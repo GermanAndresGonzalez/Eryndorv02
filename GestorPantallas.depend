@@ -457,11 +457,12 @@
 	"datosVentana.h"
 	<iostream>
 
-1782570676 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.h
+1782599830 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.h
 	"Pantalla.h"
 	"botonera.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
+	"carousel.h"
 
 1782144166 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.h
 	"Pantalla.h"
@@ -505,10 +506,12 @@
 	<iostream>
 	<string>
 
-1782572062 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
+1782604383 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
 	"ventanaIntrod.h"
 	"botonera.h"
+	"PanelTexto.h"
 	"datosVenIntro.h"
+	"carousel.h"
 	"datosBotonIntro.h"
 	<iostream>
 
@@ -553,10 +556,10 @@
 
 1781705466 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosarchivos.h
 
-1781785955 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.cpp
+1782599719 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.cpp
 	"datosBotonIntro.h"
 
-1781785988 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.h
+1782599707 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.h
 	<SFML/Graphics.hpp>
 	<string>
 
@@ -566,10 +569,11 @@
 1781715448 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospanelintro.h
 	<SFML/Graphics.hpp>
 
-1782569349 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenintro.cpp
-	"datosVentana.h"
+1782595580 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenintro.cpp
+	"datosVenIntro.h"
 
-1782569318 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenintro.h
+1782573489 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenintro.h
+	<SFML/Graphics.hpp>
 
 1782132228 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonjug.cpp
 	"datosBotonJug.h"
@@ -850,4 +854,10 @@
 
 1782415532 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\personaje.h
 	"item.h"
+
+1782605685 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.cpp
+	"carousel.h"
+
+1782599630 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.h
+	<SFML/Graphics.hpp>
 

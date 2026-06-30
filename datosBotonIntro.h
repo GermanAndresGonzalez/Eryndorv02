@@ -10,6 +10,7 @@ extern const char* ERROR_FUENTE_INTRO;
 
 extern const int CANT_BOTONES_INTRO;
 
+
 extern const sf::Color COLOR_FONDO_INTRO;
 extern const sf::Color COLOR_FONDO_RES_INTRO;
 
@@ -27,6 +28,7 @@ extern const float tamRectBotonX_INTRO;
 extern const float tamRectBotonY_INTRO;
 
 extern const std::string ETI_BOTONES_INTRO[];
+
 
 #endif
 

@@ -2,14 +2,28 @@
 #ifndef DATOS_VENTANA_INTRO_H
 #define DATOS_VENTANA_INTRO_H
 
+#include <SFML/Graphics.hpp>
+
 extern const char* TIT_VENTANA_INTRO;
 extern const char* RUTA_FONDO_INTRO;
 extern const char* ERROR_FONDO_INTRO;
 extern const int xVent_INTRO;
 extern const int yVent_INTRO;
 
-extern const int xPanel_INTRO;
-extern const int yPanel_INTRO;
+//extern const int xPanel_INTRO;
+//extern const int yPanel_INTRO;
+
+extern const int xPanelIn_INTRO;
+extern const int yPanelIn_INTRO;
+extern const int xPanelAn_INTRO;
+extern const int yPanelAl_INTRO;
+
+extern const sf::Color CLR_FONDO_INTRO;
+extern const sf::Color CLR_RECUA_INTRO;
+extern const float GROS_RECUA_INTRO;
+
+
+
 
 
 
