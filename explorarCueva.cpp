@@ -7,7 +7,7 @@
 #include <iostream>
 
 ExplorCueva::ExplorCueva(Partida* _partida, int turnos)
-    :invCueva(999,999,999)
+    :invCueva(999,999,999,999)
     ,turnosCueva(turnos)
     ,ArInventario(RUTA_DAT_INVN)
     ,ArPartidas(RUTA_DAT_PART)
@@ -58,7 +58,7 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
 
 Material ExplorCueva::obtenerMaterial()
 {
-    material.id=invCueva.valorAleatorio(0,2);
+    material.id=invCueva.valorAleatorio(0,3);
     material.cantidad=invCueva.valorAleatorio(10);
     return material;
 }

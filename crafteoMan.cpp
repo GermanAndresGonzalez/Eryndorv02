@@ -9,7 +9,7 @@
 
 CrafteoMan::CrafteoMan(Partida* _partida, int turnos)
     :turnosCueva(turnos)
-    ,invCueva(999,999,999)
+    ,invCueva(999,999,999,999)
     ,ArInventario(RUTA_DAT_INVN)
     ,ArPartidas(RUTA_DAT_PART)
     ,partidaEx(_partida)

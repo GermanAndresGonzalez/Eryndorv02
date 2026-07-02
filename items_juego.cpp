@@ -25,6 +25,13 @@ Item obtenerItemPorId(int id)
             RECURSO
         );
 
+    case ORO:
+        return Item(
+            ORO,
+            "Oro",
+            RECURSO
+        );
+
     case ESPADA_MADERA:
         return Item(
             ESPADA_MADERA,

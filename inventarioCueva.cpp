@@ -25,15 +25,17 @@ InventarioCueva::InventarioCueva()
     inventarioCueva.agregarItem(0,CANTIDAD_MAXIMA_ITEMS);
     inventarioCueva.agregarItem(1,CANTIDAD_MAXIMA_ITEMS);
     inventarioCueva.agregarItem(2,CANTIDAD_MAXIMA_ITEMS);
+    inventarioCueva.agregarItem(3,CANTIDAD_MAXIMA_ITEMS);
 
 }
 
-InventarioCueva::InventarioCueva(int hierro, int madera, int hongos)
+InventarioCueva::InventarioCueva(int hierro, int madera, int hongos, int oro)
 {
     inicializarAleatorio();
     inventarioCueva.agregarItem(0,hierro);
     inventarioCueva.agregarItem(1,madera);
     inventarioCueva.agregarItem(2,hongos);
+    inventarioCueva.agregarItem(3,oro);
 
 }
 
@@ -98,7 +100,8 @@ void InventarioCueva::imprimirStock() const
     std::cout << "Hierro\tMadera\tHongos\n";
     std::cout << inventarioCueva.obtenerCantidad(0) << "\t"
               << inventarioCueva.obtenerCantidad(1) << "\t"
-              << inventarioCueva.obtenerCantidad(2) << "\n";
+              << inventarioCueva.obtenerCantidad(2) << "\n"
+              << inventarioCueva.obtenerCantidad(3) << "\n";
 }
 //void obtenerStock() const;
 

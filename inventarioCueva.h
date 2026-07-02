@@ -19,7 +19,7 @@ private:
 
 public:
     InventarioCueva();
-    InventarioCueva(int hierro, int madera, int hongos);
+    InventarioCueva(int hierro, int madera, int hongos, int oro);
     ~InventarioCueva();
 
     const int  obtenerCantidadItem(int id) const;

@@ -651,7 +651,7 @@
 
 1781562799 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
 
-1782411962 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.cpp
+1782992827 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.cpp
 	"inventario.h"
 	"items_juego.h"
 	<iostream>
@@ -659,12 +659,12 @@
 	<sstream>
 	<iomanip>
 
-1781585247 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.h
+1782859072 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.h
 	"item.h"
 
 1780867752 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\item.h
 
-1781203285 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventariocueva.cpp
+1782993107 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventariocueva.cpp
 	"inventarioCueva.h"
 	<cstdlib>
 	<ctime>
@@ -672,7 +672,7 @@
 	<sstream>
 	<cstring>
 
-1781195958 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventariocueva.h
+1782993021 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventariocueva.h
 	<string>
 	"inventario.h"
 
@@ -681,7 +681,7 @@
 	"item.h"
 	<cstring>
 
-1780895921 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.cpp
+1782859072 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.cpp
 	"items_juego.h"
 
 1781811552 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
@@ -719,7 +719,7 @@
 1781879127 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\centrar.h
 	<SFML/Graphics.hpp>
 
-1782341137 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
+1782993126 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
 	"Partidas.h"
 	"explorarCueva.h"
 	"datosArchivos.h"
@@ -819,7 +819,7 @@
 	"inventario.h"
 	"items_juego.h"
 
-1782415250 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
+1782993142 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
 	"Partidas.h"
 	"crafteoMan.h"
 	"crafteo.h"

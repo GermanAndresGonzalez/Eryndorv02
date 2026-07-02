@@ -14,12 +14,13 @@ void Inventario::inicializarNombres()
     strncpy(arregloNombres[0], "HIERRO",         32);
     strncpy(arregloNombres[1], "MADERA",         32);
     strncpy(arregloNombres[2], "HONGOS MAGICOS", 32);
-    strncpy(arregloNombres[3], "ESPADA MADERA",  32);
-    strncpy(arregloNombres[4], "ESPADA HIERRO",  32);
-    strncpy(arregloNombres[5], "ESCUDO MADERA",  32);
-    strncpy(arregloNombres[6], "ESCUDO HIERRO",  32);
-    strncpy(arregloNombres[7], "POCION CURATIVA",32);
-    for (int i = 8; i < tam; i++)
+    strncpy(arregloNombres[3], "ORO",            32);
+    strncpy(arregloNombres[4], "ESPADA MADERA",  32);
+    strncpy(arregloNombres[5], "ESPADA HIERRO",  32);
+    strncpy(arregloNombres[6], "ESCUDO MADERA",  32);
+    strncpy(arregloNombres[7], "ESCUDO HIERRO",  32);
+    strncpy(arregloNombres[8], "POCION CURATIVA",32);
+    for (int i = 9; i < tam; i++)
         arregloNombres[i][0] = '\0';
 }
 
