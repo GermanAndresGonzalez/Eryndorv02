@@ -1,9 +1,11 @@
 
 #include "datosBotonJug.h"
 
-
+/*
 const char* FUENTE_JUG="recursos/fuentes/AlexandriaFLF-Bold.ttf";
 const char* ERROR_FUENTE_JUG="No se pudo cargar la fuente";
+*/
+
 
 const int CANT_BOTONES_JUG=3;
 

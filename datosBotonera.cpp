@@ -1,8 +1,11 @@
 #include "datosBotonera.h"
 
-
+/*
 const char* FUENTE="recursos/fuentes/AlexandriaFLF-Bold.ttf";
 const char* ERROR_FUENTE_B="No se pudo cargar la fuente";
+*/
+
+
 const int CANT_BOTONES=5;
 
 //const sf::Color COLOR_FONDO_RES = sf::Color(90, 140, 210);

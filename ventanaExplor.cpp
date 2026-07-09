@@ -109,8 +109,8 @@ void VentanaExplo::dibujar(sf::RenderWindow& ventana)
 
 void VentanaExplo::cargarRec()
 {
-    if (m_fuente.loadFromFile(FUENTES))
-        std::cerr << ERROR_FUENTE;
+    if (!m_fuente.loadFromFile(FUENTES))
+        std::cerr << ERROR_FUENTE << " VenExplor\n";
     m_texto.setFont(m_fuente);
     m_texto.setString(TEXTO_TIT);
     m_texto.setCharacterSize(45);

@@ -1,3 +1,4 @@
+#include "datosFuentes.h"
 #include "ventanaIntrod.h"
 #include "botonera.h"
 #include "PanelTexto.h"
@@ -72,9 +73,9 @@ void VentanaIntro::cargarRec()
     {
         std::cerr << ERROR_FONDO_INTRO;
     }
-    if (!fuenteBotonera.loadFromFile(FUENTE_INTRO))
+    if (!fuenteBotonera.loadFromFile(FUENTES))
     {
-        std::cerr << ERROR_FUENTE_INTRO;
+        std::cerr << ERROR_FUENTE;
     }
 
     spriteFondo.setTexture(texturaFondo);

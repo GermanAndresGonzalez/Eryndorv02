@@ -449,7 +449,8 @@
 1781778954 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partida.cpp
 	"Partida.h"
 
-1782572026 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.cpp
+1783609200 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.cpp
+	"datosFuentes.h"
 	"salida.h"
 	"ventanaPrincipal.h"
 	"botonera.h"
@@ -483,14 +484,14 @@
 	"explorarCueva.h"
 	"material.h"
 
-1781806275 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacueva.cpp
+1783609090 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacueva.cpp
 	"botonera.h"
 	"ventanaCueva.h"
 	"datosFuentes.h"
 	"datosVenCueva.h"
 	<iostream>
 
-1782572083 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1783609144 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -506,7 +507,8 @@
 	<iostream>
 	<string>
 
-1782604383 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
+1783607970 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
+	"datosFuentes.h"
 	"ventanaIntrod.h"
 	"botonera.h"
 	"PanelTexto.h"
@@ -515,7 +517,8 @@
 	"datosBotonIntro.h"
 	<iostream>
 
-1782572227 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
+1783608188 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
+	"datosFuentes.h"
 	"centrar.h"
 	"datosArchivos.h"
 	"ventanaJugad.h"
@@ -539,7 +542,7 @@
 	<SFML/Graphics.hpp>
 	<string>
 
-1781808777 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonera.cpp
+1783607606 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonera.cpp
 	"datosBotonera.h"
 
 1781808781 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonera.h
@@ -556,7 +559,7 @@
 
 1781705466 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosarchivos.h
 
-1782599719 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.cpp
+1783607594 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.cpp
 	"datosBotonIntro.h"
 
 1782599707 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonintro.h
@@ -575,7 +578,7 @@
 1782573489 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenintro.h
 	<SFML/Graphics.hpp>
 
-1782132228 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonjug.cpp
+1783607641 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonjug.cpp
 	"datosBotonJug.h"
 
 1781788879 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonjug.h
@@ -593,11 +596,11 @@
 
 1781788859 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenjug.h
 
-1781804795 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosfuentes.cpp
+1783608746 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosfuentes.cpp
 	"datosFuentes.h"
 	<SFML/Graphics.hpp>
 
-1781804815 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosfuentes.h
+1783608639 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosfuentes.h
 	<SFML/Graphics.hpp>
 
 1781796165 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospanel.cpp
@@ -688,9 +691,10 @@
 	"partidas.h"
 	<iostream>
 
-1782432817 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaconfirmacion.cpp
+1783608973 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaconfirmacion.cpp
 	"Salida.h"
 	"VentanaConfirmacion.h"
+	"datosFuentes.h"
 	<iostream>
 
 1781909422 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaconfirmacion.h
@@ -745,7 +749,8 @@
 	"ArchivoPartidas.h"
 	"partidas.h"
 
-1782572142 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+1783607887 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+	"datosFuentes.h"
 	"VentanaCargar.h"
 	"datosVenCargar.h"
 	"datosBotonCargar.h"
@@ -755,7 +760,7 @@
 	<cstring>
 	<string>
 
-1782418664 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.cpp
+1783607619 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.cpp
 	"datosBotonCargar.h"
 
 1782137609 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncargar.h
@@ -789,7 +794,7 @@
 	"crafteo.h"
 	"crafteoMan.h"
 
-1782572120 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacraft.cpp
+1783609032 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacraft.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCraft.h"

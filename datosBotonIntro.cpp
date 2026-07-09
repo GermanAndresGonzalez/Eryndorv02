@@ -1,9 +1,11 @@
 
 #include "datosBotonIntro.h"
 
-
+/*
 const char* FUENTE_INTRO="recursos/fuentes/AlexandriaFLF-Bold.ttf";
 const char* ERROR_FUENTE_INTRO="No se pudo cargar la fuente";
+*/
+
 
 const int CANT_BOTONES_INTRO=3;
 

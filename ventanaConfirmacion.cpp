@@ -1,6 +1,8 @@
 #include "Salida.h"
 #include "VentanaConfirmacion.h"
+#include "datosFuentes.h"
 #include <iostream>
+
 
 VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::string& mensaje,int cantBotones)
 {
@@ -16,9 +18,9 @@ VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::s
 
 
 
-    if (!font.loadFromFile("recursos/fuentes/AlexandriaFLF-Bold.ttf"))
+    if (!font.loadFromFile(FUENTES))
     {
-        std::cerr << "No se pudo cargar la fuente\n";
+        std::cerr << ERROR_FUENTE << "Ventana de confirmacion\n";
     }
 
     // Fondo semitransparente
@@ -44,7 +46,7 @@ VentanaConfirmacion::VentanaConfirmacion(const std::string& titulo, const std::s
     botonSi.setFillColor(sf::Color(50, 58, 122));
     botonSi.setOutlineColor(sf::Color(50, 58, 122));
     botonSi.setOutlineThickness(2.f);
-    
+
     botonSi.setPosition(fondo.getPosition().x + 100.f, fondo.getPosition().y + 200.f);
 
     textoSi.setFont(font);

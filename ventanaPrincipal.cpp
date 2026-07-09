@@ -1,3 +1,4 @@
+#include "datosFuentes.h"
 #include "salida.h"
 #include "ventanaPrincipal.h"
 #include "botonera.h"
@@ -9,9 +10,9 @@
 
 VentanaPrincipal::VentanaPrincipal(GestorPantallas& gestor): m_gestor(gestor)
 {
-    m_fuente.loadFromFile("recursos/fuentes/AlexandriaFLF.ttf");
+    m_fuente.loadFromFile(FUENTES);
     m_texto.setFont(m_fuente);
-    m_texto.setString("Presiona ENTER para comenzar\nPrincipal");
+    m_texto.setString("");
     m_texto.setCharacterSize(30);
     m_texto.setPosition(200.f, 300.f);
     Botonera botonera;
@@ -19,12 +20,12 @@ VentanaPrincipal::VentanaPrincipal(GestorPantallas& gestor): m_gestor(gestor)
 }
 void VentanaPrincipal::alMostrar()
 {
-    std::cout << "VentanaPrincipal: ahora visible\n";
+   // std::cout << "VentanaPrincipal: ahora visible\n";
 
 }
 void VentanaPrincipal::alOcultar()
 {
-    std::cout << "VentanaPrincipal: ahora oculta\n";
+    //std::cout << "VentanaPrincipal: ahora oculta\n";
 }
 void VentanaPrincipal::actualizar(float dt)
 {
@@ -34,9 +35,6 @@ void VentanaPrincipal::actualizar(float dt)
         m_gestor.ocultar("principal");
         m_gestor.mostrar("intro");
     }
-
-
-
 
 }
 void VentanaPrincipal::dibujar(sf::RenderWindow& ventana)
@@ -53,9 +51,9 @@ void VentanaPrincipal::cargarRec()
     {
         std::cerr << ERROR_FONDO;
     }
-    if (!fuenteBotonera.loadFromFile(FUENTE))
+    if (!fuenteBotonera.loadFromFile(FUENTES))
     {
-        std::cerr << ERROR_FUENTE_B;
+        std::cerr << ERROR_FUENTE << "Ventana Principal\n";
     }
 
     spriteFondo.setTexture(texturaFondo);

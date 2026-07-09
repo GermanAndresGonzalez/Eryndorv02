@@ -1,7 +1,10 @@
 #include "datosBotonCargar.h"
 
+/*
 const char* FUENTE_CARGAR       = "recursos/fuentes/AlexandriaFLF-Bold.ttf";
 const char* ERROR_FUENTE_CARGAR = "No se pudo cargar la fuente";
+*/
+
 
 // 2 botones: "Seleccionar" y "Volver"
 const int CANT_BOTONES_CARGAR = 3;

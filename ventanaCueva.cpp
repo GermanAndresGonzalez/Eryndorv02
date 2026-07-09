@@ -14,7 +14,7 @@ VentanaCueva::VentanaCueva(GestorPantallas& gestor): m_gestor(gestor)
 
     if (!m_fuente.loadFromFile(FUENTES))
     {
-        std::cerr << ERROR_FUENTE;
+        std::cerr << ERROR_FUENTE <<" VenCueva\n";
     }
     m_texto.setFont(m_fuente);
     m_parra.setFont(m_fuente);

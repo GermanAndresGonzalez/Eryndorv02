@@ -1,3 +1,4 @@
+#include "datosFuentes.h"
 #include "centrar.h"
 #include "datosArchivos.h"
 #include "ventanaJugad.h"
@@ -18,7 +19,7 @@ VentanaJug::VentanaJug(GestorPantallas& gestor)
     : m_gestor(gestor)
     , archivoPartidas(RUTA_DAT_PART)
 {
-    m_fuente.loadFromFile(FUENTE_JUG);
+    m_fuente.loadFromFile(FUENTES);
     m_texto.setFont(m_fuente);
     m_texto.setString("Hace click en el personaje con el que quieres jugar");
     m_texto.setCharacterSize(40);
@@ -131,8 +132,8 @@ void VentanaJug::cargarRec()
 {
     if (!texturaFondo.loadFromFile(RUTA_FONDO_JUG))
         std::cerr << ERROR_FONDO_JUG;
-    if (!fuenteBotonera.loadFromFile(FUENTE_JUG))
-        std::cerr << ERROR_FUENTE_JUG;
+    if (!fuenteBotonera.loadFromFile(FUENTES))
+        std::cerr << ERROR_FUENTE;
 
     spriteFondo.setTexture(texturaFondo);
 

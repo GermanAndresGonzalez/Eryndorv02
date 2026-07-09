@@ -11,10 +11,6 @@ extern const char* ERROR_FUENTE;
 
 
 
-
-
-
-
 #endif // DATOS_FUENTES_H
 
 

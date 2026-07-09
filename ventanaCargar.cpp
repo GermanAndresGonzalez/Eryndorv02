@@ -1,3 +1,4 @@
+#include "datosFuentes.h"
 #include "VentanaCargar.h"
 #include "datosVenCargar.h"
 #include "datosBotonCargar.h"
@@ -200,8 +201,8 @@ void VentanaCargar::cargarRec()
         std::cerr << ERROR_FONDO_CARGAR << "\n";
     spriteFondo.setTexture(texturaFondo);
 
-    if (!fuenteBotonera.loadFromFile(FUENTE_CARGAR))
-        std::cerr << ERROR_FUENTE_CARGAR << "\n";
+    if (!fuenteBotonera.loadFromFile(FUENTES))
+        std::cerr << ERROR_FUENTE << "\n";
 
     m_fuente = fuenteBotonera; // reutilizar la misma fuente
 

@@ -99,8 +99,8 @@ void VentanaCrafteo::dibujar(sf::RenderWindow& ventana)
 
 void VentanaCrafteo::cargarRec()
 {
-    if (m_fuente.loadFromFile(FUENTES))
-        std::cerr << ERROR_FUENTE;
+    if (!m_fuente.loadFromFile(FUENTES))
+        std::cerr << ERROR_FUENTE <<"VenCraft\n";
     m_texto.setFont(m_fuente);
     m_texto.setString(TEXTO_TIT_CR);
     m_texto.setCharacterSize(45);
