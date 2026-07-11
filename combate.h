@@ -1,5 +1,6 @@
 #pragma once
 #include "inventario.h"
+
 #include "inventarioCueva.h"
 #include "PanelTexto.h"
 #include "Partida.h"
@@ -33,6 +34,8 @@ public:
     bool guardarPartida();
     bool modificarPartida();
     void setTurnos(unsigned int _turnos);
+
+    const char* devolverRuta(int id,int tipoJug) const;
     Inventario cargarInventario();
     Partidas construirRegistroPartida();
 

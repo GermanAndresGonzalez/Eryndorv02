@@ -2,7 +2,7 @@
 #pragma once
 #include "Pantalla.h"
 #include "GestorPantallas.h"
-#include "PanelTexto.h"
+#include "panelTxtImg.h"
 #include "botonera.h"
 #include "combate.h"
 #include "material.h"
@@ -32,8 +32,8 @@ public:
 
 
 
-    Panel panelJug;
-    Panel panelCueva;
+    PanelConImagen panelJug;
+    PanelConImagen panelEne;
 
 
 private:
@@ -47,14 +47,16 @@ private:
     sf::Text m_texto;
     sf::Text m_turnos;
     sf::Text nombreJug;
-    sf::Text nombreCue;
+    sf::Text nombreEne; //nombreCue
     sf::Text txtPanelJug;
     sf::Text txtPanelJug2;
 
     sf::Text txtPanelCue;
     std::string nomcadJug;
-    std::string nomcadCueva;
+    std::string nomcadEnemigo;
     bool guardado=false;
+    int idJugador;
+    int idEnemigo;
 
 
     Combatir m_combate;

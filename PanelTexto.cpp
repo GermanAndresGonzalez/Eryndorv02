@@ -105,12 +105,12 @@ float Panel::getPosY()
     return posY;
 }
 
-float Panel::getPosInternaX()
+float Panel::getPosInternaX() const
 {
     return posX+_Panel.getOutlineThickness();
 }
 
-float Panel::getPosInternaY()
+float Panel::getPosInternaY() const
 {
     return posY+_Panel.getOutlineThickness();
 }

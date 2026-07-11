@@ -5,7 +5,7 @@
 		<Option title="GestorPantallas" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/;Manejo-Archivos/;Inventario-Items/;AccionesVentanas/;Seres/" />
+		<Option virtualFolders="Ventanas/;GestorPantallas/;Auxiliares/;DatosGUI/;DatosGUI/Botones/;DatosGUI/Ventanas/;DatosGUI/Auxiliares/;Manejo-Archivos/;Inventario-Items/;AccionesVentanas/;Seres/;DatosGUI/Imagenes/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/GestorPantallas" prefix_auto="1" extension_auto="1" />
@@ -74,10 +74,13 @@
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
 		<Unit filename="Partida.cpp">
-			<Option virtualFolder="Auxiliares/" />
+			<Option virtualFolder="GestorPantallas/" />
 		</Unit>
 		<Unit filename="Partida.h">
 			<Option virtualFolder="GestorPantallas/" />
+		</Unit>
+		<Unit filename="VentanaCombat.h">
+			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="botonera.cpp">
 			<Option virtualFolder="Auxiliares/" />
@@ -96,6 +99,12 @@
 		</Unit>
 		<Unit filename="centrar.h">
 			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="combate.cpp">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
+		<Unit filename="combate.h">
+			<Option virtualFolder="AccionesVentanas/" />
 		</Unit>
 		<Unit filename="crafteo.cpp">
 			<Option virtualFolder="AccionesVentanas/" />
@@ -119,6 +128,12 @@
 			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
 		<Unit filename="datosBotonCargar.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCombat.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonCombat.h">
 			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
 		<Unit filename="datosBotonCraf.cpp">
@@ -181,10 +196,22 @@
 		<Unit filename="datosPanelJug.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
+		<Unit filename="datosRutasImagenes.cpp">
+			<Option virtualFolder="DatosGUI/Imagenes/" />
+		</Unit>
+		<Unit filename="datosRutasImagenes.h">
+			<Option virtualFolder="DatosGUI/Imagenes/" />
+		</Unit>
 		<Unit filename="datosVenCargar.cpp">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenCargar.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCombat.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCombat.h">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenCraft.cpp">
@@ -263,6 +290,12 @@
 		<Unit filename="nombres.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
+		<Unit filename="panelTxtImg.cpp">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
+		<Unit filename="panelTxtImg.h">
+			<Option virtualFolder="Auxiliares/" />
+		</Unit>
 		<Unit filename="partidas.cpp">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
@@ -275,6 +308,12 @@
 		<Unit filename="personaje.h">
 			<Option virtualFolder="Seres/" />
 		</Unit>
+		<Unit filename="plantillaEnemigos.cpp">
+			<Option virtualFolder="Seres/" />
+		</Unit>
+		<Unit filename="plantillaEnemigos.h">
+			<Option virtualFolder="Seres/" />
+		</Unit>
 		<Unit filename="salida.cpp">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
@@ -285,6 +324,9 @@
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaCargar.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaCombat.cpp">
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaConfirmacion.cpp">

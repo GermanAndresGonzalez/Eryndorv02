@@ -5,6 +5,7 @@
 #include <iostream>
 
 extern const std::string NOMBRES[2];
+extern const char* rutaImaChicas[2];
 
 
 

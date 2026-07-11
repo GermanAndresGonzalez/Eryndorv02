@@ -107,6 +107,19 @@ bool VentanaConfirmacion::mostrar(sf::RenderWindow& window)
                 //window.close();
                 //return false;
             }
+
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code==sf::Keyboard::S)
+                {
+                    return true;
+                }
+                if (event.key.code==sf::Keyboard::N)
+                {
+                    return false;
+                }
+            }
+
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
             {
                 sf::Vector2f mousePos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});

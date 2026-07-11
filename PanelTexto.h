@@ -5,7 +5,7 @@
 
 class Panel: public sf::Drawable
 {
-private:
+protected:
     sf::RectangleShape _Panel;
     float posX;
     float posY;
@@ -48,8 +48,8 @@ public:
 	float getPosX();
 	float getPosY();
 
-	float getPosInternaX();
-	float getPosInternaY();
+	float getPosInternaX() const;
+	float getPosInternaY() const;
 
     sf::FloatRect obtenerLimites() const;
     sf::FloatRect getLocalBounds() const;

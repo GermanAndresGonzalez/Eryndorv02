@@ -10,6 +10,18 @@ extern const char* RUTA_FONDO_COM;
 extern const char* ERROR_FONDO_COM;
 
 extern const char* TEXTO_TIT_COM;
+
+extern const float paddingCol;
+extern const float anchoPaneles;
+extern const float alturaPanelesY;
+
+extern const float posPanJugX;
+extern const float posPanJugY;
+
+extern const float posPanEneX;
+extern const float posPanEneY;
+
+
 //extern const char* TEXTO_TURNOS;
 
 

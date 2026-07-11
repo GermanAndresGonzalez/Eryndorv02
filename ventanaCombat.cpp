@@ -3,16 +3,18 @@
 #include "centrar.h"
 #include "VentanaCombat.h"
 #include "botonera.h"
-#include "PanelTexto.h"
+#include "panelTxtImg.h"
 
 #include "datosFuentes.h"
 #include "datosVenCombat.h"
 #include "datosBotonCombat.h"
+#include "plantillaEnemigos.h"
 
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
 #include "inventarioCueva.h"
 #include "explorarCueva.h"
+
 
 #include <iostream>
 #include <string>
@@ -21,15 +23,22 @@ VentanaCombat::VentanaCombat(GestorPantallas& gestor)
     : m_gestor(gestor)
     , m_combate(gestor.obtenerPartida(), 10)
 {
-    nomcadCueva = "Combate";
+
+    Partida* datos = m_gestor.obtenerPartida();
+    idJugador= datos->id;
+    idEnemigo=datos->nivel;
+    nomcadEnemigo = plantillasEnemigos[idEnemigo].nombre;
     Botonera botonera;
-    cargarRec();
+    //cargarRec();
 }
 
 void VentanaCombat::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
+    idJugador= datos->id;
+    std::cout << "\nID de jugador (al mostrar)" << idJugador << std::endl;
+
     //datos->turnoJugador = 10;
     guardado = false;   // resetear flag de turno al entrar
 
@@ -39,14 +48,16 @@ void VentanaCombat::alMostrar()
 
     nombreJug.setString(datos->nombre);
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+25.f);
+    cargarRec();
 
-    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
-    std::cout << "\n" << textoTurnos << std::endl;
-    m_turnos.setString(textoTurnos);
+    //std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
+    //std::cout << "\n" << textoTurnos << std::endl;
+    //m_turnos.setString(textoTurnos);
+    m_turnos.setString("");
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
-    m_combate.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    m_combate.explorarCueva(panelCueva, txtPanelCue);
+    //m_combate.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+    //m_combate.explorarCueva(panelEne, txtPanelCue);
 
     if (m_combate.guardarPartida())
         std::cout << "Partida guardada\n";
@@ -64,6 +75,7 @@ void VentanaCombat::actualizarNombreJug(const std::string& nombre)
 
 void VentanaCombat::alOcultar()
 {
+    //Por si
 }
 
 void VentanaCombat::actualizar(float dt)
@@ -80,16 +92,19 @@ void VentanaCombat::dibujar(sf::RenderWindow& ventana)
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
     ventana.draw(m_turnos);
+    ventana.draw(panelJug);
+    ventana.draw(panelEne);
 
-    panelJug.dibujar(m_gestor.obtenerVentana());
-    panelCueva.dibujar(m_gestor.obtenerVentana());
+
+
     ventana.draw(nombreJug);
-    ventana.draw(nombreCue);
+    ventana.draw(nombreEne);
     ventana.draw(txtPanelCue);
     ventana.draw(txtPanelJug);
     ventana.draw(txtPanelJug2);
+    ventana.draw(botonera);
 
-    botonera.draw(ventana);
+
 }
 
 void VentanaCombat::cargarRec()
@@ -110,8 +125,11 @@ void VentanaCombat::cargarRec()
     m_turnos.setColor(CLR_RECUA_PA_COM_RES);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
-    panelJug   = Panel(160.f, 200.f, 300.f, 400.f);
-    panelCueva = Panel(490.f, 200.f, 300.f, 400.f);
+
+
+    panelJug   = PanelConImagen(posPanJugX, posPanJugY, anchoPaneles, alturaPanelesY,m_combate.devolverRuta(idJugador,1),35.0f);
+
+    panelEne = PanelConImagen(posPanEneX, posPanEneY, anchoPaneles, alturaPanelesY,m_combate.devolverRuta(idEnemigo,2),35.0f);
 
     if (!texturaFondo.loadFromFile(RUTA_FONDO_COM))
         std::cerr << ERROR_FONDO_COM;
@@ -132,16 +150,17 @@ void VentanaCombat::cargarRec()
     nombreJug.setCharacterSize(TAM_CAR_PARR_COM);
     nombreJug.setColor(CLR_RECUA_PA_COM);
 
-    nombreCue.setFont(m_fuente);
-    nombreCue.setCharacterSize(TAM_CAR_PARR_COM);
-    nombreCue.setString(nomcadCueva);
-    Centrado::centrar(nombreCue, panelCueva.obtenerLimites(), panelCueva.getPosInternaY()+10.f);
-    nombreCue.setColor(CLR_RECUA_PA_COM);
+    nombreEne.setFont(m_fuente);
+    nombreEne.setCharacterSize(TAM_CAR_PARR_COM);
+    nombreEne.setString(nomcadEnemigo);
+    Centrado::centrar(nombreEne, panelEne.obtenerLimites(), panelEne.getPosInternaY()+10.f);
+    nombreEne.setColor(CLR_RECUA_PA_COM);
 
     txtPanelCue.setFont(m_fuente);
     txtPanelCue.setCharacterSize(TAM_CAR_PARR_COM);
     txtPanelCue.setColor(CLR_RECUA_PA_COM);
-    txtPanelCue.setString(nomcadCueva);
+    //txtPanelCue.setString(nomcadEnemigo);
+    txtPanelCue.setString("");
 
     txtPanelJug.setFont(m_fuente);
     txtPanelJug.setCharacterSize(TAM_CAR_PARR_COM);
@@ -182,7 +201,7 @@ void VentanaCombat::ejecutarAccion(int i)
 
 void VentanaCombat::v_explorar()
 {
-    m_combate.explorarCueva(panelCueva, txtPanelCue);
+    m_combate.explorarCueva(panelEne, txtPanelCue);
     guardado = false;
     v_actualizar();
 }

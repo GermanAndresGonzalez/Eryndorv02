@@ -2,16 +2,19 @@
 #include "combate.h"
 #include "datosArchivos.h"
 #include "ArchivoInventario.h"
+#include "plantillaEnemigos.h"
+#include "nombres.h"
+//#include "datosRutasImagenes.h"
 #include "ArchivoPartidas.h"
 
 #include <iostream>
 
 Combatir::Combatir(Partida* _partida, int turnos)
-    :invCueva(999,999,999)
+    :partidaEx(_partida)
     ,turnosCueva(turnos)
+    ,invCueva(9999,9999,9999,9999)
     ,ArInventario(RUTA_DAT_INVN)
     ,ArPartidas(RUTA_DAT_PART)
-    ,partidaEx(_partida)
 {
     material.cantidad=0;
     material.id=0;
@@ -173,4 +176,26 @@ bool Combatir::modificarPartida()
         return ArPartidas.modificar(posicion, registro);
     }
     return false;
+}
+
+const char* Combatir::devolverRuta(int id, int tipoJug) const
+{
+    //if (id==0) id++;
+    //if (tipoJug==0) tipoJug++;
+
+    switch (tipoJug)
+    {
+    case 1:
+        std::cerr << "Error combate.cpp: "<< id << " " << NOMBRES[id]<< "\n";
+        return rutaImaChicas[id-1];
+        break;
+
+    case 2:
+        std::cerr << "Error combate.cpp: "<< id <<"\n";
+        return plantillasEnemigos[id].imagen;
+        break;
+
+    default:
+        return nullptr; // o un valor por defecto
+    }
 }

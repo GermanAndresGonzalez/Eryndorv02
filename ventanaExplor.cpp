@@ -187,10 +187,8 @@ void VentanaExplo::ejecutarAccion(int i)
         m_gestor.mostrar("craftear");
         break;
     case 3:
-        /*
         m_gestor.ocultar("explorar");
-        m_gestor.mostrar("explorar");
-        */
+        m_gestor.mostrar("combatir");
         break;
     case 4:
         m_explorar.modificarPartida();
