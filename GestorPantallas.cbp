@@ -314,6 +314,12 @@
 		<Unit filename="plantillaEnemigos.h">
 			<Option virtualFolder="Seres/" />
 		</Unit>
+		<Unit filename="plantillaHeroes.cpp">
+			<Option virtualFolder="Seres/" />
+		</Unit>
+		<Unit filename="plantillaHeroes.h">
+			<Option virtualFolder="Seres/" />
+		</Unit>
 		<Unit filename="salida.cpp">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>

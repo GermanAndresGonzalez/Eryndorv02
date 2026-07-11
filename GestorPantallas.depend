@@ -420,7 +420,8 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1782562722 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partida.h
+1783798348 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partida.h
+	<string>
 
 1781782404 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\pantalla.h
 	<SFML/Graphics.hpp>
@@ -867,25 +868,20 @@
 1782599630 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.h
 	<SFML/Graphics.hpp>
 
-1783783295 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
-	"Partidas.h"
-	"combate.h"
-	"datosArchivos.h"
+1783800283 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
+	"Combate.h"
 	"ArchivoInventario.h"
-	"plantillaEnemigos.h"
-	"nombres.h"
-	"ArchivoPartidas.h"
 	<iostream>
 
-1783776015 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.h
-	"inventario.h"
-	"inventarioCueva.h"
-	"PanelTexto.h"
+1783799477 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.h
+	<string>
 	"Partida.h"
-	"ArchivoInventario.h"
-	"ArchivoPartidas.h"
-	"material.h"
-	<SFML/Graphics.hpp>
+	"Enemigos.h"
+	"inventario.h"
+	"plantillaEnemigos.h"
+	"plantillaHeroes.h"
+	"nombres.h"
+	"panelTxtImg.h"
 
 1783772274 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncombat.cpp
 	"datosBotonCombat.h"
@@ -900,7 +896,7 @@
 1783773573 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombat.h
 	<SFML/Graphics.hpp>
 
-1783782700 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.h
+1783798551 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"panelTxtImg.h"
@@ -908,7 +904,7 @@
 	"combate.h"
 	"material.h"
 
-1783783421 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
+1783800352 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCombat.h"
@@ -918,10 +914,6 @@
 	"datosVenCombat.h"
 	"datosBotonCombat.h"
 	"plantillaEnemigos.h"
-	"ArchivoInventario.h"
-	"ArchivoPartidas.h"
-	"inventarioCueva.h"
-	"explorarCueva.h"
 	<iostream>
 	<string>
 
@@ -944,4 +936,9 @@
 
 1783782639 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaenemigos.cpp
 	"plantillaEnemigos.h"
+
+1783798423 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaheroes.h
+
+1783798436 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaheroes.cpp
+	"plantillaHeroes.h"
 

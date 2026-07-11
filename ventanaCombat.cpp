@@ -1,4 +1,3 @@
-
 #include "salida.h"
 #include "centrar.h"
 #include "VentanaCombat.h"
@@ -10,12 +9,6 @@
 #include "datosBotonCombat.h"
 #include "plantillaEnemigos.h"
 
-#include "ArchivoInventario.h"
-#include "ArchivoPartidas.h"
-#include "inventarioCueva.h"
-#include "explorarCueva.h"
-
-
 #include <iostream>
 #include <string>
 
@@ -23,46 +16,45 @@ VentanaCombat::VentanaCombat(GestorPantallas& gestor)
     : m_gestor(gestor)
     , m_combate(gestor.obtenerPartida(), 10)
 {
-
     Partida* datos = m_gestor.obtenerPartida();
-    idJugador= datos->id;
-    idEnemigo=datos->nivel;
+    idJugador = datos->id;
+    idEnemigo = datos->nivel;
     nomcadEnemigo = plantillasEnemigos[idEnemigo].nombre;
     Botonera botonera;
-    //cargarRec();
 }
 
 void VentanaCombat::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
-    idJugador= datos->id;
+    idJugador = datos->id;
+    idEnemigo = datos->nivel;
+    nomcadEnemigo = plantillasEnemigos[idEnemigo].nombre;
+
     std::cout << "\nID de jugador (al mostrar)" << idJugador << std::endl;
 
-    //datos->turnoJugador = 10;
-    guardado = false;   // resetear flag de turno al entrar
-
-    // ── Reset crítico: descarta inventario en memoria y carga el de
-    //    la partida activa desde disco. Evita mostrar datos de otra partida.
-    m_combate.resetearInventario();
+    // Recarga inventario, genera enemigo a vida completa y limpia el estado
+    // del combate anterior.
+    m_combate.iniciarCombate();
 
     nombreJug.setString(datos->nombre);
-    Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+25.f);
+    Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY() + 25.f);
     cargarRec();
 
-    //std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
-    //std::cout << "\n" << textoTurnos << std::endl;
-    //m_turnos.setString(textoTurnos);
     m_turnos.setString("");
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
-    //m_combate.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    //m_combate.explorarCueva(panelEne, txtPanelCue);
+    for (int i = 0; i < CANT_BOTONES_COM; i++)
+    {
+        botonera.setActivo(i, true);
+    }
+
+    actualizarEstado();
 
     if (m_combate.guardarPartida())
         std::cout << "Partida guardada\n";
     else
-        std::cout << "No se guardó la partida\n";
+        std::cout << "No se guardo la partida\n";
 
     actualizarNombreJug(datos->nombre);
 }
@@ -70,7 +62,7 @@ void VentanaCombat::alMostrar()
 void VentanaCombat::actualizarNombreJug(const std::string& nombre)
 {
     nombreJug.setString(nombre);
-    Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
+    Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY() + 10);
 }
 
 void VentanaCombat::alOcultar()
@@ -95,16 +87,14 @@ void VentanaCombat::dibujar(sf::RenderWindow& ventana)
     ventana.draw(panelJug);
     ventana.draw(panelEne);
 
-
-
     ventana.draw(nombreJug);
     ventana.draw(nombreEne);
+    ventana.draw(vidaJug);
+    ventana.draw(vidaEne);
     ventana.draw(txtPanelCue);
     ventana.draw(txtPanelJug);
     ventana.draw(txtPanelJug2);
     ventana.draw(botonera);
-
-
 }
 
 void VentanaCombat::cargarRec()
@@ -117,7 +107,7 @@ void VentanaCombat::cargarRec()
     m_texto.setColor(CLR_RECUA_PA_COM_RES);
 
     sf::FloatRect rect = m_texto.getLocalBounds();
-    m_texto.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
+    m_texto.setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
     m_texto.setPosition(sf::Vector2f(m_gestor.obtenerVentana().getSize().x / 2.0f, 50.f));
 
     m_turnos.setFont(m_fuente);
@@ -125,11 +115,11 @@ void VentanaCombat::cargarRec()
     m_turnos.setColor(CLR_RECUA_PA_COM_RES);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
+    panelJug = PanelConImagen(posPanJugX, posPanJugY, anchoPaneles, alturaPanelesY,
+                               m_combate.devolverRuta(idJugador, 1), 35.0f);
 
-
-    panelJug   = PanelConImagen(posPanJugX, posPanJugY, anchoPaneles, alturaPanelesY,m_combate.devolverRuta(idJugador,1),35.0f);
-
-    panelEne = PanelConImagen(posPanEneX, posPanEneY, anchoPaneles, alturaPanelesY,m_combate.devolverRuta(idEnemigo,2),35.0f);
+    panelEne = PanelConImagen(posPanEneX, posPanEneY, anchoPaneles, alturaPanelesY,
+                               m_combate.devolverRuta(idEnemigo, 2), 35.0f);
 
     if (!texturaFondo.loadFromFile(RUTA_FONDO_COM))
         std::cerr << ERROR_FONDO_COM;
@@ -153,13 +143,20 @@ void VentanaCombat::cargarRec()
     nombreEne.setFont(m_fuente);
     nombreEne.setCharacterSize(TAM_CAR_PARR_COM);
     nombreEne.setString(nomcadEnemigo);
-    Centrado::centrar(nombreEne, panelEne.obtenerLimites(), panelEne.getPosInternaY()+10.f);
+    Centrado::centrar(nombreEne, panelEne.obtenerLimites(), panelEne.getPosInternaY() + 10.f);
     nombreEne.setColor(CLR_RECUA_PA_COM);
+
+    vidaJug.setFont(m_fuente);
+    vidaJug.setCharacterSize(TAM_CAR_PARR_COM);
+    vidaJug.setColor(CLR_RECUA_PA_COM);
+
+    vidaEne.setFont(m_fuente);
+    vidaEne.setCharacterSize(TAM_CAR_PARR_COM);
+    vidaEne.setColor(CLR_RECUA_PA_COM);
 
     txtPanelCue.setFont(m_fuente);
     txtPanelCue.setCharacterSize(TAM_CAR_PARR_COM);
     txtPanelCue.setColor(CLR_RECUA_PA_COM);
-    //txtPanelCue.setString(nomcadEnemigo);
     txtPanelCue.setString("");
 
     txtPanelJug.setFont(m_fuente);
@@ -178,73 +175,68 @@ void VentanaCombat::ejecutarAccion(int i)
     std::cout << "Click\n";
     switch (i)
     {
-    case 0:
+    case 0: // Atacar
         std::cout << "Atacar\n";
-        v_explorar();
+        m_combate.atacar();
+        actualizarEstado();
         break;
-    case 1:
+
+    case 1: // Curar
         std::cout << "Curar\n";
-        v_agregar();
+        m_combate.curar();
+        actualizarEstado();
         break;
-    case 2:
+
+    case 2: // Huir
         std::cout << "Huir\n";
-
+        m_gestor.ocultar("combatir");
+        m_gestor.mostrar("explorar");
         break;
-    case 3:
 
-        //m_combate.modificarPartida();
-        m_gestor.ocultar("combate");
+    case 3: // Volver
+        if (m_combate.guardarPartida())
+        {
+            std::cout << "Partida guardada: combate \n";
+        }
+        m_gestor.ocultar("combatir");
         m_gestor.mostrar("explorar");
         break;
     }
 }
 
-void VentanaCombat::v_explorar()
+void VentanaCombat::actualizarEstado()
 {
-    m_combate.explorarCueva(panelEne, txtPanelCue);
-    guardado = false;
-    v_actualizar();
-}
-
-void VentanaCombat::v_agregar()
-{
-    if (!guardado)
-    {
-        if (m_combate.agregarInventario())
-        {
-            std::cout << "Agregar\n";
-            txtPanelCue.setString("\nAgregado.");
-            guardado = true;
-            Partida* datos = m_gestor.obtenerPartida();
-            datos->turnoJugador--;
-            m_combate.setTurnos(datos->turnoJugador);
-            v_actualizar();
-            std::cout << "Turnos jugador: " << datos->turnoJugador << std::endl;
-            m_combate.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-        }
-    }
-}
-
-void VentanaCombat::v_actualizar()
-{
-    for (int i=0;i<4;i++)
-        {
-            botonera.setActivo(i,true);
-        }
     m_combate.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    Partida* datos = m_gestor.obtenerPartida();
-    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
-    m_turnos.setString(textoTurnos);
-    Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
-    if (datos->turnoJugador==0)
+    actualizarVidas();
+
+    std::string mensajeVictoria;
+    if (m_combate.consumirMensajeVictoria(mensajeVictoria))
     {
-        for (int i=0;i<2;i++)
-        {
-            botonera.setActivo(i,false);
-        }
-        //std::cout << "Turnos: 0\n";
+        m_turnos.setString(mensajeVictoria);
+        Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
     }
 
+    if (m_combate.combateFinalizado())
+    {
+        botonera.setActivo(0, false); // Atacar
+        botonera.setActivo(1, false); // Curar
+    }
+}
+
+void VentanaCombat::actualizarVidas()
+{
+    vidaJug.setString("Vida: " + std::to_string(m_combate.getVidaActualHeroe()) +
+                       "/" + std::to_string(m_combate.getVidaMaximaHeroe()));
+    vidaEne.setString("Vida: " + std::to_string(m_combate.getVidaActualEnemigo()) +
+                       "/" + std::to_string(m_combate.getVidaMaximaEnemigo()));
+
+    sf::FloatRect boundsImgJug = panelJug.getImagen().getGlobalBounds();
+    vidaJug.setPosition(boundsImgJug.left - vidaJug.getGlobalBounds().width - 60.0f,
+                         boundsImgJug.top);
+
+    sf::FloatRect boundsImgEne = panelEne.getImagen().getGlobalBounds();
+    vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 60.0f,
+                         boundsImgEne.top);
 }
 
 void VentanaCombat::manejarEvento(const sf::Event& evento)

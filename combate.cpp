@@ -1,201 +1,306 @@
-#include "Partidas.h"
-#include "combate.h"
-#include "datosArchivos.h"
+#include "Combate.h"
+
 #include "ArchivoInventario.h"
-#include "plantillaEnemigos.h"
-#include "nombres.h"
-//#include "datosRutasImagenes.h"
-#include "ArchivoPartidas.h"
 
 #include <iostream>
 
-Combatir::Combatir(Partida* _partida, int turnos)
-    :partidaEx(_partida)
-    ,turnosCueva(turnos)
-    ,invCueva(9999,9999,9999,9999)
-    ,ArInventario(RUTA_DAT_INVN)
-    ,ArPartidas(RUTA_DAT_PART)
+namespace
 {
-    material.cantidad=0;
-    material.id=0;
+const char* ARCHIVO_INVENTARIOS = "recursos/archivos/inventarios.dat";
+
+// Curacion fija de la pocion. Ajustar segun balance del juego.
+const int CURACION_POCION = 25;
+} // namespace
+
+Combatir::Combatir(Partida* partida, int turnos)
+    : m_partida(partida)
+    , m_turnosIniciales(turnos)
+{
+    if (m_partida)
+    {
+        resetearInventario();
+        cargarEnemigo();
+
+        // Nueva partida: la vida del heroe todavia no fue inicializada.
+        if (m_partida->vidaActual == 0)
+        {
+            m_partida->vidaActual =
+                static_cast<unsigned int>(plantillasHeroes[indiceHeroe()].vidaMaxima);
+        }
+    }
 }
 
 Combatir::~Combatir()
 {
+    delete m_enemigo;
 }
 
-void Combatir::setTurnos(unsigned int _turnos)
+int Combatir::indiceHeroe() const
 {
-    turnosCueva=_turnos;
+    return (m_partida && m_partida->id == 2) ? 1 : 0;
 }
 
-// ---------------------------------------------------------------------------
-// resetearInventario: descarta cualquier dato en memoria y carga desde disco.
-// Si no hay registro en disco para esta partida, deja inventarioJug vacío
-// con el id correcto. Llamar siempre que cambie la partida activa.
-// ---------------------------------------------------------------------------
+void Combatir::iniciarCombate()
+{
+    if (!m_partida)
+    {
+        return;
+    }
+
+    resetearInventario();
+    cargarEnemigo(); // el enemigo siempre arranca a vida completa
+
+    m_combateFinalizado = false;
+    m_victoria           = false;
+    m_ultimaAccionHeroe.clear();
+    m_ultimaAccionEnemigo.clear();
+}
+
 void Combatir::resetearInventario()
 {
-    inventarioJug = Inventario();                    // objeto limpio en memoria
-    inventarioJug.id = partidaEx->partida;           // id correcto desde ya
-
-    // intentar cargar desde disco; si no existe, queda vacío (correcto)
-    ArInventario.buscarPorID(partidaEx->partida, inventarioJug);
-
-    std::cout << "Combatir::resetearInventario — partida="
-              << partidaEx->partida
-              << "  slots cargados (id en inv)=" << inventarioJug.id << "\n";
-}
-
-void Combatir::explorarCueva(Panel& panel,sf::Text& texto)
-{
-    if (turnosCueva > 0)
+    if (!m_partida)
     {
-        std::string mensaje="";
-        material=obtenerMaterial();
-        mensaje=Informar(material);
-        cargarInventario();
-        cargarPanel(panel,texto,mensaje);
+        return;
     }
-}
 
-Material Combatir::obtenerMaterial()
-{
-    material.id=invCueva.valorAleatorio(0,2);
-    material.cantidad=invCueva.valorAleatorio(10);
-    return material;
-}
+    ArchivoInventario archivo(ARCHIVO_INVENTARIOS);
+    Inventario cargado;
 
-std::string Combatir::Informar(Material& material)
-{
-    std::string mensaje="Encontraste:\n"+std::to_string(material.cantidad)+" de "+inventarioJug.obtenerNombre(material.id)+"\n";
-    return mensaje;
-}
-
-std::string Combatir::Informar(Material& material, std::string lado)
-{
-    // reservado para uso futuro
-    return "";
-}
-
-// ---------------------------------------------------------------------------
-// cargarInventario: sincroniza inventarioJug con el archivo.
-// Si no hay registro para la partida actual, resetea a vacío con id correcto.
-// ---------------------------------------------------------------------------
-Inventario Combatir::cargarInventario()
-{
-    Inventario temp;
-    if (ArInventario.buscarPorID(partidaEx->partida, temp))
+    if (archivo.buscarPorID(m_partida->partida, cargado))
     {
-        inventarioJug = temp;   // hay datos en disco → usarlos
+        m_inventario = cargado;
     }
     else
     {
-        // no existe en disco → asegurarse de que la memoria esté limpia
-        inventarioJug = Inventario();
-        inventarioJug.id = partidaEx->partida;
+        std::cerr << "Combatir: no se encontro inventario para la partida "
+                  << m_partida->partida << "\n";
+        m_inventario    = Inventario();
+        m_inventario.id = m_partida->partida;
     }
-    return inventarioJug;
-}
-
-bool Combatir::agregarInventario()
-{
-    if (turnosCueva > 0)
-    {
-        // Antes de agregar, recargar desde disco para no acumular
-        // sobre datos de una sesión anterior en memoria
-        cargarInventario();
-
-        inventarioJug.agregarItem(material.id, material.cantidad);
-        if (invCueva.restarItem(material.id, material.cantidad))
-        {
-            if (guardarInventario(inventarioJug))
-                return true;
-        }
-    }
-    return false;
-}
-
-void Combatir::cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje)
-{
-    texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
-    texto.setString(mensaje);
-}
-
-void Combatir::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
-{
-    cargarInventario();   // siempre desde disco, nunca desde cache stale
-    texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
-    texto.setString(inventarioJug.mostrarSlots("izquierda"));
-    texto2.setPosition(panel.getPosInternaX()+230.f, panel.getPosInternaY()+25.f);
-    texto2.setString(inventarioJug.mostrarSlots("derecha"));
-}
-
-void Combatir::transferirMat()
-{
-}
-
-bool Combatir::guardarInventario(Inventario& inventario)
-{
-    inventario.id = partidaEx->partida;  // sincronizar antes de todo
-
-    int posicion = ArInventario.buscarPosicionPorID(inventario.id);
-
-    if (posicion >= 0)
-        return ArInventario.modificar(posicion, inventario);
-
-    return ArInventario.agregar(inventario);
-}
-
-Partidas Combatir::construirRegistroPartida()
-{
-    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->nivel);
 }
 
 bool Combatir::guardarPartida()
 {
-    std::cout << "GuardoPartida:"<<std::endl;
-    std::cout << partidaEx->id<<std::endl;
-    std::cout << partidaEx->partida<<std::endl;
-    std::cout << partidaEx->nombre <<std::endl;
+    ArchivoInventario archivo(ARCHIVO_INVENTARIOS);
 
-    if (ArPartidas.buscarPosicionPorID(partidaEx->partida) < 0)
-    {
-        Partidas registro = construirRegistroPartida();
-        return ArPartidas.agregar(registro);
-    }
-    return false;
-}
-
-bool Combatir::modificarPartida()
-{
-    int posicion = ArPartidas.buscarPosicionPorID(partidaEx->partida);
+    int posicion = archivo.buscarPosicionPorID(m_inventario.id);
     if (posicion >= 0)
     {
-        Partidas registro = construirRegistroPartida();
-        return ArPartidas.modificar(posicion, registro);
+        return archivo.modificar(posicion, m_inventario);
     }
-    return false;
+
+    return archivo.agregar(m_inventario);
+}
+
+void Combatir::cargarEnemigo()
+{
+    if (!m_partida)
+    {
+        return;
+    }
+
+    unsigned int nivel = m_partida->nivel;
+    if (nivel > 3)
+    {
+        nivel = 0; // seguridad ante datos corruptos
+    }
+
+    const PlantillaEnemigo& plantilla = plantillasEnemigos[nivel];
+
+    Enemigos* nuevo = new Enemigos(
+        plantilla.vidaMaxima,
+        plantilla.vidaMaxima,
+        plantilla.defensa,
+        plantilla.ataque,
+        static_cast<int>(nivel) + 1,
+        plantilla.oroOtorgado,
+        plantilla.expOtorgada,
+        plantilla.nombre,
+        plantilla.descripcion);
+
+    delete m_enemigo;
+    m_enemigo = nuevo;
+}
+
+void Combatir::atacar()
+{
+    if (!m_enemigo || !m_partida || m_combateFinalizado)
+    {
+        return;
+    }
+
+    const PlantillaHeroe& datosHeroe = plantillasHeroes[indiceHeroe()];
+
+    int danio = datosHeroe.ataque;
+    m_enemigo->recibirDanio(danio); // Enemigos::recibirDanio ya resta su defensa
+
+    m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ataca por " +
+                          std::to_string(danio) + " de danio.";
+
+    if (m_enemigo->estaEliminado())
+    {
+        m_combateFinalizado = true;
+        m_victoria           = true;
+        m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ha sido derrotado.";
+
+        // Agregar oro al inventario del heroe
+        const int idOro = m_inventario.obtenerID("ORO");
+        if (idOro >= 0)
+        {
+            m_inventario.agregarItem(idOro, m_enemigo->getOroOtorgado());
+        }
+
+        guardarPartida();
+
+        m_mensajeVictoriaPendiente = true;
+        m_mensajeVictoria =
+            "!Has vencido a " + std::string(m_enemigo->getNombre()) + "! " +
+            "Ganaste " + std::to_string(m_enemigo->getOroOtorgado()) + " de oro.";
+
+        return;
+    }
+
+    turnoEnemigo();
+}
+
+void Combatir::curar()
+{
+    if (!m_enemigo || !m_partida || m_combateFinalizado)
+    {
+        return;
+    }
+
+    const int idCura = m_inventario.obtenerID("POCION CURATIVA");
+    if (idCura < 0 || !m_inventario.tieneCantidadNecesaria(idCura, 1))
+    {
+        m_ultimaAccionHeroe = "No hay pociones curativas disponibles.";
+        return;
+    }
+
+    const int vidaMaxima = plantillasHeroes[indiceHeroe()].vidaMaxima;
+    int vidaNueva = static_cast<int>(m_partida->vidaActual) + CURACION_POCION;
+    if (vidaNueva > vidaMaxima)
+    {
+        vidaNueva = vidaMaxima;
+    }
+
+    if (static_cast<unsigned int>(vidaNueva) == m_partida->vidaActual)
+    {
+        m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ya tiene la vida al maximo.";
+        return;
+    }
+
+    m_partida->vidaActual = static_cast<unsigned int>(vidaNueva);
+    m_inventario.quitarItem(idCura, 1);
+    guardarPartida();
+
+    m_ultimaAccionHeroe = std::string(m_partida->nombre) + " se cura " +
+                          std::to_string(CURACION_POCION) + " puntos de vida.";
+
+    turnoEnemigo();
+}
+
+void Combatir::turnoEnemigo()
+{
+    if (!m_enemigo || !m_partida || m_combateFinalizado)
+    {
+        return;
+    }
+
+    const PlantillaHeroe& datosHeroe = plantillasHeroes[indiceHeroe()];
+
+    int danio = m_enemigo->atacar() - datosHeroe.defensa;
+    if (danio < 0)
+    {
+        danio = 0;
+    }
+
+    int vidaRestante = static_cast<int>(m_partida->vidaActual) - danio;
+    if (vidaRestante < 0)
+    {
+        vidaRestante = 0;
+    }
+    m_partida->vidaActual = static_cast<unsigned int>(vidaRestante);
+
+    m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ataca por " +
+                            std::to_string(danio) + " de danio.";
+
+    if (m_partida->vidaActual == 0)
+    {
+        m_combateFinalizado = true;
+        m_victoria           = false;
+        m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ha sido derrotado...";
+    }
+}
+
+int Combatir::getVidaActualHeroe() const
+{
+    return m_partida ? static_cast<int>(m_partida->vidaActual) : 0;
+}
+
+int Combatir::getVidaMaximaHeroe() const
+{
+    return plantillasHeroes[indiceHeroe()].vidaMaxima;
+}
+
+int Combatir::getVidaActualEnemigo() const
+{
+    return m_enemigo ? m_enemigo->getVidaActual() : 0;
+}
+
+int Combatir::getVidaMaximaEnemigo() const
+{
+    return m_enemigo ? m_enemigo->getVidaMaxima() : 0;
+}
+
+const char* Combatir::getNombreHeroe() const
+{
+    return m_partida ? m_partida->nombre : "";
+}
+
+const char* Combatir::getNombreEnemigo() const
+{
+    return m_enemigo ? m_enemigo->getNombre() : "";
+}
+
+void Combatir::cargarPanel(PanelConImagen& panel,
+                            sf::Text& txtAccionHeroe,
+                            sf::Text& txtAccionEnemigo) const
+{
+    txtAccionHeroe.setString(m_ultimaAccionHeroe);
+    txtAccionEnemigo.setString(m_ultimaAccionEnemigo);
+
+    sf::Vector2f pos = panel.obtenerCoordenadasDebajoImagen();
+    txtAccionHeroe.setPosition(pos.x, pos.y);
+    txtAccionEnemigo.setPosition(pos.x, pos.y + txtAccionHeroe.getGlobalBounds().height + 10.f);
 }
 
 const char* Combatir::devolverRuta(int id, int tipoJug) const
 {
-    //if (id==0) id++;
-    //if (tipoJug==0) tipoJug++;
-
     switch (tipoJug)
     {
     case 1:
-        std::cerr << "Error combate.cpp: "<< id << " " << NOMBRES[id]<< "\n";
-        return rutaImaChicas[id-1];
-        break;
+        std::cerr << "Error combate.cpp: " << id << " " << NOMBRES[id] << "\n";
+        return rutaImaChicas[id - 1];
 
     case 2:
-        std::cerr << "Error combate.cpp: "<< id <<"\n";
+        std::cerr << "Error combate.cpp: " << id << "\n";
         return plantillasEnemigos[id].imagen;
-        break;
 
     default:
-        return nullptr; // o un valor por defecto
+        return nullptr;
     }
 }
+
+bool Combatir::consumirMensajeVictoria(std::string& mensaje)
+{
+    if (!m_mensajeVictoriaPendiente)
+    {
+        return false;
+    }
+
+    mensaje = m_mensajeVictoria;
+    m_mensajeVictoriaPendiente = false;
+    return true;
+}
+
