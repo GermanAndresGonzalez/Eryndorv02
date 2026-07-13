@@ -25,6 +25,7 @@ public:
     void siguiente();
     void anterior();
 
+    int getCurrentIndex() const;
     void setPosition(float x, float y);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
