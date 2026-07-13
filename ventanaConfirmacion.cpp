@@ -1,5 +1,5 @@
-#include "Salida.h"
-#include "VentanaConfirmacion.h"
+#include "salida.h"
+#include "ventanaConfirmacion.h"
 #include "datosFuentes.h"
 #include <iostream>
 

@@ -1,6 +1,6 @@
 #include "salida.h"
 #include "centrar.h"
-#include "VentanaCraft.h"
+#include "ventanaCraft.h"
 #include "botonera.h"
 #include "PanelTexto.h"
 

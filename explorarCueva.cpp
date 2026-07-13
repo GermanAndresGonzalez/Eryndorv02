@@ -1,4 +1,4 @@
-#include "Partidas.h"
+#include "partidas.h"
 #include "explorarCueva.h"
 #include "datosArchivos.h"
 #include "ArchivoInventario.h"
