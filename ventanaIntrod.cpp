@@ -106,7 +106,16 @@ void VentanaIntro::ejecutarAccion(int i)
         break;
 
     case 1:
-        carousel.siguiente();
+        // Si estamos en la última diapositiva, pasar a selección de personaje
+        if (carousel.getCurrentIndex() >= 3)
+        {
+            m_gestor.ocultar("intro");
+            m_gestor.mostrar("jugador");
+        }
+        else
+        {
+            carousel.siguiente();
+        }
         break;
 
     case 2:
