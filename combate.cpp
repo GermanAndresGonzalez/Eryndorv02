@@ -1,4 +1,4 @@
-#include "Combate.h"
+#include "combate.h"
 
 #include "ArchivoInventario.h"
 
@@ -6,7 +6,7 @@
 
 namespace
 {
-const char* ARCHIVO_INVENTARIOS = "recursos/archivos/inventarios.dat";
+const char* ARCHIVO_INVENTARIOS = "recursos/archivos/inventarios4.dat";
 
 // Curacion fija de la pocion. Ajustar segun balance del juego.
 const int CURACION_POCION = 25;
