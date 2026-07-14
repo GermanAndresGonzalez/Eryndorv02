@@ -1,5 +1,5 @@
 #include "datosFuentes.h"
-#include "VentanaCargar.h"
+#include "ventanaCargar.h"
 #include "datosVenCargar.h"
 #include "datosBotonCargar.h"
 #include "centrar.h"

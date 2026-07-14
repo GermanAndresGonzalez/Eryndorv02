@@ -1,7 +1,7 @@
-#include "Combate.h"
+#include "combate.h"
 #include "datosArchivos.h"
 
-#include "ArchivoInventario.h"
+#include "archivoInventario.h"
 
 #include <iostream>
 

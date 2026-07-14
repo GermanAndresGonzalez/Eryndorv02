@@ -62,6 +62,11 @@ void Carousel::anterior()
     _sprite.setTexture(_textures[_currentIndex], true);
 }
 
+int Carousel::getCurrentIndex() const
+{
+    return _currentIndex;
+}
+
 void Carousel::setPosition(float x, float y)
 {
     _sprite.setPosition(x, y);

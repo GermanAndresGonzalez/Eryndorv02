@@ -1,4 +1,4 @@
-#include "Partidas.h"
+#include "partidas.h"
 #include "crafteoMan.h"
 #include "crafteo.h"
 #include "datosArchivos.h"
