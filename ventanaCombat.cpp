@@ -179,6 +179,12 @@ void VentanaCombat::ejecutarAccion(int i)
         std::cout << "Atacar\n";
         m_combate.atacar();
         actualizarEstado();
+
+        if (m_combate.combateFinalizado() && m_combate.esVictoria())
+        {
+            m_gestor.ocultar("combatir");
+            m_gestor.mostrar("explorar");
+        }
         break;
 
     case 1: // Curar

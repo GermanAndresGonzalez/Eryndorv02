@@ -1,4 +1,5 @@
 #include "Combate.h"
+#include "datosArchivos.h"
 
 #include "ArchivoInventario.h"
 
@@ -6,7 +7,7 @@
 
 namespace
 {
-const char* ARCHIVO_INVENTARIOS = "recursos/archivos/inventarios.dat";
+const char* ARCHIVO_INVENTARIOS = RUTA_DAT_INVN;
 
 // Curacion fija de la pocion. Ajustar segun balance del juego.
 const int CURACION_POCION = 25;
@@ -15,6 +16,7 @@ const int CURACION_POCION = 25;
 Combatir::Combatir(Partida* partida, int turnos)
     : m_partida(partida)
     , m_turnosIniciales(turnos)
+    , ArPartidas(RUTA_DAT_PART)
 {
     if (m_partida)
     {
@@ -28,6 +30,25 @@ Combatir::Combatir(Partida* partida, int turnos)
                 static_cast<unsigned int>(plantillasHeroes[indiceHeroe()].vidaMaxima);
         }
     }
+}
+
+bool Combatir::esCombateFinal() const
+{
+    return m_partida && m_partida->nivel == NIVEL_MAXIMO;
+}
+
+void Combatir::subirNivel()
+{
+    if (!m_partida) return;
+
+    if (m_partida->nivel < NIVEL_MAXIMO)
+    {
+        m_partida->nivel++;
+        m_partida->turnoJugador=10;
+        actualizarPartida();
+    }
+    // si ya estaba en NIVEL_MAXIMO (se ganó al Jefe), no sube mas:
+    // no hay mas enemigos en esta version acotada.
 }
 
 Combatir::~Combatir()
@@ -54,6 +75,17 @@ void Combatir::iniciarCombate()
     m_victoria           = false;
     m_ultimaAccionHeroe.clear();
     m_ultimaAccionEnemigo.clear();
+}
+void Combatir::actualizarPartida()
+{
+    if (!m_partida) return;
+
+    int posicion = ArPartidas.buscarPosicionPorID(m_partida->partida);
+    if (posicion >= 0)
+    {
+        Partidas registro(m_partida->partida, m_partida->id, m_partida->nivel);
+        ArPartidas.modificar(posicion, registro);
+    }
 }
 
 void Combatir::resetearInventario()
@@ -143,19 +175,28 @@ void Combatir::atacar()
         m_victoria           = true;
         m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ha sido derrotado.";
 
-        // Agregar oro al inventario del heroe
+        const bool eraJefe = esCombateFinal();   // chequear ANTES de subirNivel()
+
         const int idOro = m_inventario.obtenerID("ORO");
         if (idOro >= 0)
-        {
             m_inventario.agregarItem(idOro, m_enemigo->getOroOtorgado());
-        }
 
         guardarPartida();
+        subirNivel();
 
         m_mensajeVictoriaPendiente = true;
-        m_mensajeVictoria =
-            "!Has vencido a " + std::string(m_enemigo->getNombre()) + "! " +
-            "Ganaste " + std::to_string(m_enemigo->getOroOtorgado()) + " de oro.";
+        if (eraJefe)
+        {
+            m_mensajeVictoria =
+                "!Has derrotado al Jefe " + std::string(m_enemigo->getNombre()) + "! " +
+                "Ganaste " + std::to_string(m_enemigo->getOroOtorgado()) + " de oro. !Felicitaciones!";
+        }
+        else
+        {
+            m_mensajeVictoria =
+                "!Has vencido a " + std::string(m_enemigo->getNombre()) + "! " +
+                "Ganaste " + std::to_string(m_enemigo->getOroOtorgado()) + " de oro.";
+        }
 
         return;
     }
@@ -264,8 +305,8 @@ const char* Combatir::getNombreEnemigo() const
 }
 
 void Combatir::cargarPanel(PanelConImagen& panel,
-                            sf::Text& txtAccionHeroe,
-                            sf::Text& txtAccionEnemigo) const
+                           sf::Text& txtAccionHeroe,
+                           sf::Text& txtAccionEnemigo) const
 {
     txtAccionHeroe.setString(m_ultimaAccionHeroe);
     txtAccionEnemigo.setString(m_ultimaAccionEnemigo);

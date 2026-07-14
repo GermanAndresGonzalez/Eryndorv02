@@ -5,6 +5,7 @@
 #include "Partida.h"
 #include "Enemigos.h"
 #include "inventario.h"
+#include "ArchivoPartidas.h"
 #include "plantillaEnemigos.h"
 #include "plantillaHeroes.h"
 #include "nombres.h"
@@ -66,15 +67,20 @@ public:
     // 0-based con id 1/2), id directo para enemigo (nivel ya es 0-3).
     const char* devolverRuta(int id, int tipoJug) const;
 
+    bool esCombateFinal() const;
+
 private:
     void cargarEnemigo();
     void turnoEnemigo();
+    void subirNivel();
+    void actualizarPartida();
     int  indiceHeroe() const; // 0 = Kael, 1 = Lyra, segun Partida::id
 
     Partida*  m_partida = nullptr; // no es dueño
     Enemigos* m_enemigo = nullptr;
 
     Inventario m_inventario;
+    ArchivoPartidas ArPartidas;
 
     bool m_combateFinalizado = false;
     bool m_victoria           = false;
@@ -86,4 +92,7 @@ private:
 
     bool m_mensajeVictoriaPendiente = false;
     std::string m_mensajeVictoria;
+
+    static const unsigned int NIVEL_MAXIMO = 3;
+    bool m_eraJefe = false;
 };
