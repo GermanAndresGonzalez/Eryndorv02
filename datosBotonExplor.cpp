@@ -25,7 +25,7 @@ const std::string ETI_BOTONES_EXP[] = {
     "Explorar",
     "Agregar",
     "Craftear",
-    "Siguiente",
+    "Avanzar",
     "Volver"
 
 };
