@@ -19,6 +19,7 @@ public:
     void dibujar(sf::RenderWindow& ventana) override;
     void cargarRec();
     void v_explorar();
+    void v_curar();
     void v_agregar();
     void v_actualizar();
     void verBotones(int vidaActual);
@@ -49,6 +50,7 @@ private:
     sf::Text nombreCue;
     sf::Text txtPanelJug;
     sf::Text txtPanelJug2;
+    sf::Text txtVidaJugador;
 
     sf::Text txtPanelCue;
     std::string nomcadJug;

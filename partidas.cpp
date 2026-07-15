@@ -11,11 +11,12 @@ Partidas::Partidas()
     eliminado = false;
 }
 
-Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int idNivel, int vidaMaxima, int vidaActual)
+Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, int idNivel, int vidaMaxima, int vidaActual)
 {
     this->id = id;
     this->idPersonaje = idPersonaje;
     this->turnoJugador = turnoJugador;
+    this->vidasJugador = vidasJugador;
     this->idNivel = idNivel;
     this->vidaActual = vidaActual;
     this->vidaMaxima = vidaMaxima;
@@ -87,4 +88,15 @@ void Partidas::imprimirPartidas()
 
 }
 
-
+int Partidas::getVidasJugador() const
+{
+    return vidasJugador;
+}
+void Partidas::setVidasJugador(int vidas)
+{
+    vidasJugador = vidas;
+}
+void Partidas::agregarVidasJugador(int vidas)
+{
+    vidasJugador += vidas;
+}

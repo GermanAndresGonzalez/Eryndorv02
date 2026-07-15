@@ -26,6 +26,7 @@ Combatir::Combatir(Partida* partida, int turnos)
         // Nueva partida: la vida del heroe todavia no fue inicializada.
         if (m_partida->vidaActual == 0)
         {
+
             m_partida->vidaActual =
                 static_cast<unsigned int>(plantillasHeroes[indiceHeroe()].vidaMaxima);
         }
@@ -83,7 +84,7 @@ void Combatir::actualizarPartida()
     int posicion = ArPartidas.buscarPosicionPorID(m_partida->partida);
     if (posicion >= 0)
     {
-        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador, m_partida->nivel,m_partida->vidaMaxima,m_partida->vidaActual);
+        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador,m_partida->vidas, m_partida->nivel,m_partida->vidaMaxima,m_partida->vidaActual);
         ArPartidas.modificar(posicion, registro);
     }
 }
@@ -174,6 +175,7 @@ void Combatir::atacar()
         m_combateFinalizado = true;
         m_victoria           = true;
         m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ha sido derrotado.";
+        //m_h
 
         const bool eraJefe = esCombateFinal();   // chequear ANTES de subirNivel()
 

@@ -237,11 +237,11 @@ void VentanaCombat::actualizarVidas()
                        "/" + std::to_string(m_combate.getVidaMaximaEnemigo()));
 
     sf::FloatRect boundsImgJug = panelJug.getImagen().getGlobalBounds();
-    vidaJug.setPosition(boundsImgJug.left - vidaJug.getGlobalBounds().width - 60.0f,
+    vidaJug.setPosition(boundsImgJug.left - vidaJug.getGlobalBounds().width - 90.0f,
                          boundsImgJug.top);
 
     sf::FloatRect boundsImgEne = panelEne.getImagen().getGlobalBounds();
-    vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 60.0f,
+    vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 30.0f,
                          boundsImgEne.top);
 }
 

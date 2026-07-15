@@ -9,27 +9,15 @@
 
 void GestorPantallas::manejarEvento(const sf::Event& evento)
 {
-    {
-    const int MAX_PANTALLAS = 9; // ajustá según cuántas pantallas tenés en total
-    Pantalla* visibles[MAX_PANTALLAS];
+    Pantalla** visibles = new Pantalla*[m_pantallas.size()];
     int cantVisibles = 0;
 
-    // Snapshot: guardamos qué pantallas estaban visibles ANTES de procesar
-    // este evento, para no despachar el mismo evento dos veces si una
-    // acción cambia visibilidad en el medio (ver bug de "craftear"->"jugador").
     for (auto& par : m_pantallas)
     {
         if (par.second.visible)
         {
-            if (cantVisibles < MAX_PANTALLAS)
-            {
-                visibles[cantVisibles] = par.second.pantalla;
-                cantVisibles++;
-            }
-            else
-            {
-                std::cerr << "[GestorPantallas] manejarEvento(): se excedió MAX_PANTALLAS\n";
-            }
+            visibles[cantVisibles] = par.second.pantalla;
+            cantVisibles++;
         }
     }
 
@@ -37,14 +25,15 @@ void GestorPantallas::manejarEvento(const sf::Event& evento)
     {
         visibles[i]->manejarEvento(evento);
     }
-}
+
+    delete[] visibles;
 }
 
 //Cambié la segunda línea
 //, m_partida(new Partida{0, 1, 0})   // valores iniciales por defecto
 GestorPantallas::GestorPantallas(sf::RenderWindow& ventana)
     : m_ventana(ventana)
-    , m_partida(new Partida{-1, 0, 0, 0, 0,{}, {}})   // valores iniciales por defecto
+    , m_partida(new Partida{-1, 0, 0, 0, 0, 0,{},{}})   // valores iniciales por defecto
 {
 }
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1784126017 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\gestorpantallas.cpp
+1784147619 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\gestorpantallas.cpp
 	"GestorPantallas.h"
 	<stdexcept>
 	<iostream>
@@ -478,7 +478,7 @@
 	"Pantalla.h"
 	"GestorPantallas.h"
 
-1784041206 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
+1784154370 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
@@ -493,7 +493,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1784120229 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1784159188 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -654,7 +654,7 @@
 1781556965 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivopartidas.h
 	"partidas.h"
 
-1784122455 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
+1784128827 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
 
 1782992827 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.cpp
 	"inventario.h"
@@ -689,7 +689,7 @@
 1782859072 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.cpp
 	"items_juego.h"
 
-1784122075 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
+1784128976 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
 	"partidas.h"
 	<iostream>
 
@@ -725,15 +725,18 @@
 1781879127 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\centrar.h
 	<SFML/Graphics.hpp>
 
-1784122690 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
+1784159031 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
 	"partidas.h"
 	"explorarCueva.h"
 	"datosArchivos.h"
 	"ArchivoInventario.h"
 	"ArchivoPartidas.h"
+	"plantillaHeroes.h"
+	<string>
 	<iostream>
+	<SFML/Graphics.hpp>
 
-1784127676 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.h
+1784154948 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.h
 	"inventario.h"
 	"inventarioCueva.h"
 	"PanelTexto.h"
@@ -826,7 +829,7 @@
 	"inventario.h"
 	"items_juego.h"
 
-1784122708 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
+1784128997 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
 	"partidas.h"
 	"crafteoMan.h"
 	"crafteo.h"
@@ -868,7 +871,7 @@
 1784117493 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.h
 	<SFML/Graphics.hpp>
 
-1784123727 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
+1784148374 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
 	"combate.h"
 	"datosArchivos.h"
 	"archivoInventario.h"
@@ -906,7 +909,7 @@
 	"combate.h"
 	"material.h"
 
-1784039323 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
+1784150719 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCombat.h"
@@ -919,7 +922,7 @@
 	<iostream>
 	<string>
 
-1784126400 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosrutasimagenes.cpp
+1784148190 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosrutasimagenes.cpp
 	"datosRutasImagenes.h"
 
 1783770210 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosrutasimagenes.h

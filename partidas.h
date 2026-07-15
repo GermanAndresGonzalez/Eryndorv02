@@ -6,11 +6,16 @@ public:
 
 
     Partidas();
-    Partidas(int id, int idPersonaje, int turnoJugador, int idNivel, int vidaMaxima, int vidaActual);
+    Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, int idNivel, int vidaMaxima, int vidaActual);
 
     int getId() const;
     int getIdPersonaje() const;
     int getIdNivel() const;
+    
+    int getVidasJugador() const;
+    void setVidasJugador(int vidas);
+    void agregarVidasJugador(int vidas);
+
     int getVidaMaxima() const;
     int getVidaActual() const;
     int getTurnoJugador() const;
@@ -34,5 +39,6 @@ private:
     int vidaMaxima;
     int vidaActual;
     int turnoJugador;
+    int vidasJugador;
     bool eliminado;
 };

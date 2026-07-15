@@ -23,6 +23,7 @@ public:
 
     void cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje);
     void cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2);
+    void cargarVida(Panel& panel, sf::Text& texto2, sf::Text& texto3);
     void explorarCueva(Panel& panel, sf::Text& texto);
     Material obtenerMaterial();
     std::string Informar(Material& material);
@@ -33,6 +34,8 @@ public:
     bool guardarPartida();
     bool modificarPartida();
     void setTurnos(unsigned int _turnos);
+    bool curar(sf::Text& text);
+
     Inventario cargarInventario();
     Partidas construirRegistroPartida();
 

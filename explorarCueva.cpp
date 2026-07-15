@@ -3,8 +3,17 @@
 #include "datosArchivos.h"
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
+#include "plantillaHeroes.h"
+#include <string>
 
 #include <iostream>
+#include <SFML/Graphics.hpp>
+
+namespace
+{
+    const int CURACION_POCION = 25;
+}
+
 
 ExplorCueva::ExplorCueva(Partida* _partida, int turnos)
     :invCueva(999,999,999,999)
@@ -119,18 +128,73 @@ void ExplorCueva::cargarPanel(Panel& panel, sf::Text& texto, std::string mensaje
     texto.setString(mensaje);
 }
 
+void ExplorCueva::cargarVida(Panel& panel, sf::Text& texto2, sf::Text& texto3)
+{
+    sf::FloatRect limites = texto2.getGlobalBounds();
+    float posic_y = limites.top+limites.height;
+    texto3.setPosition(panel.getPosInternaX()+10.f, posic_y+10.f);
+    int vidACtual = partidaEx->vidaActual;
+    texto3.setString("Vida actual: "+std::to_string(vidACtual));
+
+}
+
+
 void ExplorCueva::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
 {
+
     cargarInventario();   // siempre desde disco, nunca desde cache stale
     texto.setPosition(panel.getPosInternaX()+10.f, panel.getPosInternaY()+50.f);
     texto.setString(inventarioJug.mostrarSlots("izquierda"));
     texto2.setPosition(panel.getPosInternaX()+230.f, panel.getPosInternaY()+25.f);
     texto2.setString(inventarioJug.mostrarSlots("derecha"));
+
 }
 
 void ExplorCueva::transferirMat()
 {
 }
+
+bool ExplorCueva::curar(sf::Text& text)
+{
+
+
+
+    const int idCura = inventarioJug.obtenerID("POCION CURATIVA");
+
+    // Guard igual al de Combatir::curar(): si no hay pociones, cortar acá
+    // y no tocar nada (ni vida ni inventario).
+    if (idCura < 0 || !inventarioJug.tieneCantidadNecesaria(idCura, 1))
+    {
+        return false;
+    }
+
+    const int vidMaxima = plantillasHeroes[partidaEx->id].vidaMaxima;
+    int vidaNueva = static_cast<int>(partidaEx->vidaActual) + CURACION_POCION;
+
+
+
+    if (vidaNueva > vidMaxima)
+    {
+        vidaNueva = vidMaxima;
+    }
+
+    if (static_cast<unsigned int>(vidaNueva) == partidaEx->vidaActual)
+    {
+        return false;
+    }
+
+    partidaEx->vidaActual = static_cast<unsigned int>(vidaNueva);
+    partidaEx->turnoJugador+=100;
+
+    if (inventarioJug.quitarItem(idCura, 1))
+    {
+        guardarInventario(inventarioJug);  // persiste la poción gastada
+        modificarPartida();                // persiste vidaActual (registro YA existente)
+        return true;
+    }
+    return false;
+}
+
 
 bool ExplorCueva::guardarInventario(Inventario& inventario)
 {
@@ -146,7 +210,7 @@ bool ExplorCueva::guardarInventario(Inventario& inventario)
 
 Partidas ExplorCueva::construirRegistroPartida()
 {
-    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->turnoJugador, partidaEx->nivel, partidaEx->vidaMaxima,partidaEx->vidaActual);
+    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->turnoJugador,partidaEx->vidas, partidaEx->nivel, partidaEx->vidaMaxima,partidaEx->vidaActual);
 }
 
 bool ExplorCueva::guardarPartida()
@@ -159,9 +223,9 @@ bool ExplorCueva::guardarPartida()
     if (ArPartidas.buscarPosicionPorID(partidaEx->partida) < 0)
     {
         Partidas registro = construirRegistroPartida();
-        return ArPartidas.agregar(registro);
+        return ArPartidas.agregar(registro);   // solo AGREGA si no existe
     }
-    return false;
+    return false;   // si ya existe el registro, no hace nada y devuelve false
 }
 
 bool ExplorCueva::modificarPartida()
