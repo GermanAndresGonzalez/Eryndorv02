@@ -44,7 +44,7 @@ void Combatir::subirNivel()
     if (m_partida->nivel < NIVEL_MAXIMO)
     {
         m_partida->nivel++;
-        m_partida->turnoJugador=10;
+        m_partida->turnoJugador+=10;
         actualizarPartida();
     }
     // si ya estaba en NIVEL_MAXIMO (se ganó al Jefe), no sube mas:
@@ -83,7 +83,7 @@ void Combatir::actualizarPartida()
     int posicion = ArPartidas.buscarPosicionPorID(m_partida->partida);
     if (posicion >= 0)
     {
-        Partidas registro(m_partida->partida, m_partida->id, m_partida->nivel);
+        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador, m_partida->nivel,m_partida->vidaMaxima,m_partida->vidaActual);
         ArPartidas.modificar(posicion, registro);
     }
 }
@@ -313,7 +313,7 @@ void Combatir::cargarPanel(PanelConImagen& panel,
 
     sf::Vector2f pos = panel.obtenerCoordenadasDebajoImagen();
     txtAccionHeroe.setPosition(pos.x, pos.y);
-    txtAccionEnemigo.setPosition(pos.x, pos.y + txtAccionHeroe.getGlobalBounds().height + 10.f);
+    txtAccionEnemigo.setPosition(pos.x-5.0f, pos.y + txtAccionHeroe.getGlobalBounds().height + 10.f);
 }
 
 const char* Combatir::devolverRuta(int id, int tipoJug) const

@@ -184,7 +184,12 @@ void VentanaCargar::obtenerDatos()
     std::cout << "Primero:" << datos->partida << std::endl;
     datos->partida=m_partidaSeleccionada.getId();
     datos->nivel=m_partidaSeleccionada.getIdNivel();
+    datos->turnoJugador=m_partidaSeleccionada.getTurnoJugador();
     datos->id=m_partidaSeleccionada.getIdPersonaje();
+    datos->vidaMaxima=m_partidaSeleccionada.getVidaMaxima();
+    datos->vidaActual=m_partidaSeleccionada.getVidaActual();
+
+
     const std::string& nombre = NOMBRES[m_partidaSeleccionada.getIdPersonaje() - 1];
     std::strncpy(datos->nombre, nombre.c_str(), 49);
     std::cout << "Segundo:" << datos->partida << std::endl;
@@ -385,9 +390,11 @@ void VentanaCargar::actualizarDetalle()
         "Partida #" + std::to_string(p.getId()));
 
     m_textoDetalleBody.setString(
-        "ID de partida  : " + std::to_string(p.getId())          + "\n" +
-        "ID de personaje: " + std::to_string(p.getIdPersonaje()) + "\n" +
-        "ID de nivel    : " + std::to_string(p.getIdNivel())      + "\n" +
+        "ID de partida   : " + std::to_string(p.getId())          + "\n" +
+        "ID de personaje : " + std::to_string(p.getIdPersonaje()) + "\n" +
+        "ID de nivel     : " + std::to_string(p.getIdNivel())      + "\n" +
+        "Cant. de turnos : " + std::to_string(p.getTurnoJugador())      + "\n" +
+        "Vida actual     : " + std::to_string(p.getVidaActual())      + "\n" +
         "Estado         : " + (p.estaEliminada() ? "Eliminada" : "Activa"));
 }
 

@@ -81,6 +81,8 @@ int main() {
 
     GestorPantallas gestor(principal);
 
+    // Si se agrega alguna pantalla más, hay que modificar MAX_PANTALLAS en GestorPantallas::manejarEvento
+
     gestor.agregar("principal", new VentanaPrincipal(gestor));
     gestor.agregar("intro", new VentanaIntro(gestor));
     gestor.agregar("jugador", new VentanaJug(gestor));

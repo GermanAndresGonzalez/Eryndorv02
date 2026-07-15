@@ -11,9 +11,11 @@ struct Partida
     unsigned int id;
     unsigned int turnoJugador;
     unsigned int turnoComput;
+    unsigned int vidas;
     std::string pantallaAnterior;
     char nombre[50];
     unsigned int vidaActual = 0;
+    unsigned int vidaMaxima = 0;
 };
 
 

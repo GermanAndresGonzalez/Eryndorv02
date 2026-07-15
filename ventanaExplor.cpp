@@ -37,6 +37,7 @@ void VentanaExplo::alMostrar()
     // ── Reset crítico: descarta inventario en memoria y carga el de
     //    la partida activa desde disco. Evita mostrar datos de otra partida.
     m_explorar.resetearInventario();
+    m_explorar.setTurnos(datos->turnoJugador);
 
     nombreJug.setString(datos->nombre);
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+25.f);
@@ -54,7 +55,7 @@ void VentanaExplo::alMostrar()
     else
         std::cout << "No se guardó la partida\n";
 
-    verBotones();
+    verBotones(datos->vidaActual);
     actualizarNombreJug(datos->nombre);
 }
 
@@ -64,13 +65,16 @@ void VentanaExplo::actualizarNombreJug(const std::string& nombre)
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
 }
 
-void VentanaExplo::verBotones()
+void VentanaExplo::verBotones(int vidaActual)
 {
     for (int i=0;i<CANT_BOTONES_EXP;i++)
     {
         botonera.setActivo(i,true);
     }
-
+    if (vidaActual >75)
+    {
+        botonera.setActivo(3,false);
+    }
 }
 void VentanaExplo::alOcultar()
 {
@@ -171,6 +175,7 @@ void VentanaExplo::cargarRec()
 
 void VentanaExplo::ejecutarAccion(int i)
 {
+
     std::cout << "Click\n";
     switch (i)
     {
@@ -191,6 +196,10 @@ void VentanaExplo::ejecutarAccion(int i)
         m_gestor.mostrar("combatir");
         break;
     case 4:
+        m_gestor.ocultar("explorar");
+        m_gestor.mostrar("combatir");
+        break;
+    case 5:
         m_explorar.modificarPartida();
         m_gestor.ocultar("explorar");
         m_gestor.mostrar("jugador");

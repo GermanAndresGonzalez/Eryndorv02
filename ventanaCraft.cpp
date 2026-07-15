@@ -68,11 +68,13 @@ void VentanaCrafteo::alOcultar()
 
 void VentanaCrafteo::actualizar(float dt)
 {
+    /*
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         m_gestor.ocultar("principal");
         m_gestor.mostrar("intro");
     }
+    */
 }
 
 void VentanaCrafteo::dibujar(sf::RenderWindow& ventana)
@@ -185,8 +187,6 @@ void VentanaCrafteo::ejecutarAccion(int i)
             obtenerVisibles();
             m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         }
-
-
         //return true;
         break;
     case 1:
@@ -195,8 +195,6 @@ void VentanaCrafteo::ejecutarAccion(int i)
             obtenerVisibles();
             m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         }
-
-
         break;
     case 2:
         if (m_craftear.espadaHierro(txtPanelCueDos))
@@ -204,12 +202,6 @@ void VentanaCrafteo::ejecutarAccion(int i)
             obtenerVisibles();
             m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         }
-
-        /*
-        std::cout << "Boton 3" << std::endl;
-        m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-        //return true;
-        */
         break;
     case 3:
         if (m_craftear.escudoMadera(txtPanelCueDos))
@@ -217,11 +209,6 @@ void VentanaCrafteo::ejecutarAccion(int i)
             obtenerVisibles();
             m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         }
-        /*
-        std::cout << "Boton 4" << std::endl;
-        m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-        //return true;
-        */
         break;
     case 4:
         if (m_craftear.escudoHierro(txtPanelCueDos))
@@ -229,17 +216,14 @@ void VentanaCrafteo::ejecutarAccion(int i)
             obtenerVisibles();
             m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
         }
-        /*
-        std::cout << "Boton 5" << std::endl;
-        m_craftear.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-        //return true;
-        */
         break;
     case 5:
         std::cout << "Boton 6" << std::endl;
-        m_craftear.modificarPartida();
-        m_gestor.ocultar("craftear");
-        m_gestor.mostrar("explorar");
+        if (m_craftear.modificarPartida())
+        {
+            m_gestor.ocultar("craftear");
+            m_gestor.mostrar("explorar");
+        }
         break;
     }
 }
@@ -284,8 +268,11 @@ void VentanaCrafteo::manejarEvento(const sf::Event& evento)
     if (evento.type == sf::Event::Closed)
     {
         if (Salida::Volver(m_gestor))
+        {
             m_gestor.ocultar("explorar");
-        m_gestor.mostrar("jugador");
+            m_gestor.mostrar("intro");
+        }
+
     }
 
     if (evento.type == sf::Event::MouseMoved)

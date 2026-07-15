@@ -73,12 +73,6 @@
 		<Unit filename="Pantalla.h">
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
-		<Unit filename="Partida.cpp">
-			<Option virtualFolder="GestorPantallas/" />
-		</Unit>
-		<Unit filename="Partida.h">
-			<Option virtualFolder="GestorPantallas/" />
-		</Unit>
 		<Unit filename="VentanaCombat.h">
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
@@ -195,6 +189,9 @@
 		</Unit>
 		<Unit filename="datosPanelJug.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosPartida.h">
+			<Option virtualFolder="GestorPantallas/" />
 		</Unit>
 		<Unit filename="datosRutasImagenes.cpp">
 			<Option virtualFolder="DatosGUI/Imagenes/" />

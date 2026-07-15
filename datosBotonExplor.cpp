@@ -2,7 +2,7 @@
 #include "datosBotonExplor.h"
 
 
-const int CANT_BOTONES_EXP=5;
+const int CANT_BOTONES_EXP=6;
 
 const sf::Color COLOR_FONDO_EXP = sf::Color::Transparent;
 const sf::Color COLOR_FONDO_RES_EXP = sf::Color(90, 140, 210);
@@ -25,6 +25,7 @@ const std::string ETI_BOTONES_EXP[] = {
     "Explorar",
     "Agregar",
     "Craftear",
+    "Curar",
     "Avanzar",
     "Volver"
 

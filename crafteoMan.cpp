@@ -141,7 +141,7 @@ bool CrafteoMan::guardarInventario(Inventario& inventario)
 
 Partidas CrafteoMan::construirRegistroPartida()
 {
-    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->nivel);
+    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->turnoJugador, partidaEx->nivel, partidaEx->vidaMaxima,partidaEx->vidaActual);
 }
 
 bool CrafteoMan::guardarPartida()

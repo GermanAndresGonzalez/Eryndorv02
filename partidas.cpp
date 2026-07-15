@@ -11,11 +11,14 @@ Partidas::Partidas()
     eliminado = false;
 }
 
-Partidas::Partidas(int id, int idPersonaje, int idNivel)
+Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int idNivel, int vidaMaxima, int vidaActual)
 {
     this->id = id;
     this->idPersonaje = idPersonaje;
+    this->turnoJugador = turnoJugador;
     this->idNivel = idNivel;
+    this->vidaActual = vidaActual;
+    this->vidaMaxima = vidaMaxima;
     eliminado = false;
 }
 
@@ -52,6 +55,22 @@ int Partidas::getIdNivel() const
 {
     return idNivel;
 }
+
+int Partidas::getVidaMaxima() const
+{
+    return vidaMaxima;
+}
+
+int Partidas::getVidaActual() const
+{
+    return vidaActual;
+}
+
+int Partidas::getTurnoJugador() const
+{
+    return turnoJugador;
+}
+
 
 bool Partidas::estaEliminada() const
 {

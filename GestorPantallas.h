@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <string>
-#include "Partida.h"
+#include "datosPartida.h"
 #include "Pantalla.h"  // interfaz base (ver abajo)
 
 // ─────────────────────────────────────────────────────────────────────────────

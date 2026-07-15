@@ -2,7 +2,7 @@
 #include "inventario.h"
 #include "inventarioCueva.h"
 #include "PanelTexto.h"
-#include "Partida.h"
+#include "datosPartida.h"
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
 #include "material.h"

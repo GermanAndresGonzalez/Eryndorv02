@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Partida.h"
+#include "datosPartida.h"
 #include "Enemigos.h"
 #include "inventario.h"
 #include "ArchivoPartidas.h"
