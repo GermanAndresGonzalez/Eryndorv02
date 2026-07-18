@@ -133,8 +133,8 @@ void VentanaExplo::cargarRec()
     m_turnos.setColor(CLR_RECUA_PA_EX_RES);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
-    panelJug   = Panel(160.f, 200.f, 300.f, 400.f);
-    panelCueva = Panel(490.f, 200.f, 300.f, 400.f);
+    panelJug   = Panel(110.f, 200.f, 300.f, 400.f);
+    panelCueva = Panel(490.f, 200.f, 400.f, 400.f);
 
     if (!texturaFondo.loadFromFile(RUTA_FONDO_EX))
         std::cerr << ERROR_FONDO_EX;
@@ -205,10 +205,7 @@ void VentanaExplo::ejecutarAccion(int i)
         break;
     case 3:
         v_curar();
-        /*
-        m_gestor.ocultar("explorar");
-        m_gestor.mostrar("combatir");
-        */
+        std::cout <<"\n\nCurar\n\n";
         break;
     case 4:
         m_gestor.ocultar("explorar");
@@ -231,14 +228,12 @@ void VentanaExplo::v_explorar()
 
 void VentanaExplo::v_curar()
 {
-
     if (m_explorar.curar(txtVidaJugador))
     {
        guardado = false;
+       m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+       m_explorar.cargarVida(panelJug,txtPanelJug2, txtVidaJugador);
     }
-
-    m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    m_explorar.cargarVida(panelJug,txtPanelJug2, txtVidaJugador);
 }
 
 

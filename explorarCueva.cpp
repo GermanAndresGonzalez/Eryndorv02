@@ -4,6 +4,7 @@
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
 #include "plantillaHeroes.h"
+#include "eventos.h"
 #include <string>
 
 #include <iostream>
@@ -11,7 +12,7 @@
 
 namespace
 {
-    const int CURACION_POCION = 25;
+const int CURACION_POCION = 25;
 }
 
 
@@ -57,9 +58,65 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
 {
     if (turnosCueva > 0)
     {
-        std::string mensaje="";
-        material=obtenerMaterial();
-        mensaje=Informar(material);
+        Evento ev=seleccionarEvento();
+        std::cout << ev.tipo << std::endl;
+        std::cout << ev.idMaterial << std::endl;
+        std::cout << ev.cantidad << std::endl;
+
+        //std::string mensaje="";
+        std::string mensaje=ev.mensaje;
+
+        if (ev.idMaterial>=0)
+        {
+            std::cout << "idMaterial>=0: " << ev.idMaterial << std::endl;
+            material.id=ev.idMaterial;
+            material.cantidad=ev.cantidad;
+            mensaje=Informar(material);
+        }
+        else
+        {
+            mensaje=ev.mensaje;
+            if ((ev.idMaterial==-1)&&(ev.tipo==2))
+            {
+                if (!curar(texto))
+                {
+                    mensaje= "No se pudo curar";
+                }
+                else
+                {
+                    mensaje=ev.mensaje;
+                    guardarPartida();
+                }
+            }
+            if ((ev.idMaterial==-1)&&(ev.tipo==3))
+            {
+                partidaEx->turnoComput+=ev.cantidad;
+                guardarPartida();
+                //mensaje= "No se pudo agregar\nturnos";
+
+            }
+
+        }
+
+        /*
+        std::cout << "Mensaje: "<< mensaje << std::endl;
+
+        std::cout << "Fin del mensaje.\n" << std::endl;
+
+        std::cout << "\nInicio mensaje struct:\n" << std::endl;
+        std::cout << ev.mensaje << std::endl;
+        std::cout << "Fin mensaje struct.\n" << std::endl;
+        */
+
+
+
+
+
+
+
+
+        //material=obtenerMaterial();
+        //mensaje=Informar(material);
         cargarInventario();
         cargarPanel(panel,texto,mensaje);
     }
@@ -152,34 +209,37 @@ void ExplorCueva::cargarPanel(Panel& panel, sf::Text& texto, sf::Text& texto2)
 
 void ExplorCueva::transferirMat()
 {
+    //Sin implementar
 }
 
 bool ExplorCueva::curar(sf::Text& text)
 {
-
-
-
     const int idCura = inventarioJug.obtenerID("POCION CURATIVA");
+    std::cout << "[curar] idCura=" << idCura << std::endl;
 
-    // Guard igual al de Combatir::curar(): si no hay pociones, cortar acá
-    // y no tocar nada (ni vida ni inventario).
     if (idCura < 0 || !inventarioJug.tieneCantidadNecesaria(idCura, 1))
     {
+        std::cout << "[curar] corta: no hay pocion o id invalido\n";
         return false;
     }
 
-    const int vidMaxima = plantillasHeroes[partidaEx->id].vidaMaxima;
+    const int vidMaxima = plantillasHeroes[partidaEx->id - 1].vidaMaxima;
     int vidaNueva = static_cast<int>(partidaEx->vidaActual) + CURACION_POCION;
 
-
+    std::cout << "[curar] vidaActual=" << partidaEx->vidaActual
+               << " vidMaxima=" << vidMaxima
+               << " vidaNueva(antes de clamp)=" << vidaNueva << std::endl;
 
     if (vidaNueva > vidMaxima)
     {
         vidaNueva = vidMaxima;
     }
 
+    std::cout << "[curar] vidaNueva(final)=" << vidaNueva << std::endl;
+
     if (static_cast<unsigned int>(vidaNueva) == partidaEx->vidaActual)
     {
+        std::cout << "[curar] corta: vidaNueva == vidaActual (ya esta al tope o no cambia)\n";
         return false;
     }
 
@@ -188,12 +248,15 @@ bool ExplorCueva::curar(sf::Text& text)
 
     if (inventarioJug.quitarItem(idCura, 1))
     {
-        guardarInventario(inventarioJug);  // persiste la poción gastada
-        modificarPartida();                // persiste vidaActual (registro YA existente)
+        guardarInventario(inventarioJug);
+        modificarPartida();
+        std::cout << "[curar] EXITO: vidaActual ahora=" << partidaEx->vidaActual << std::endl;
         return true;
     }
+    std::cout << "[curar] corta: quitarItem fallo\n";
     return false;
 }
+
 
 
 bool ExplorCueva::guardarInventario(Inventario& inventario)

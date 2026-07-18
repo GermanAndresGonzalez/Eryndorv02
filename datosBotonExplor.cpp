@@ -14,7 +14,7 @@ const sf::Color COLOR_RECUA_EXP = sf::Color::White;
 
 const unsigned int TAM_CARACTER_EXP=25;
 
-const float posBotonX_EXP=850;
+const float posBotonX_EXP=950;
 const float posBotonY_EXP=200;
 
 const float tamRectBotonX_EXP=260.f;
