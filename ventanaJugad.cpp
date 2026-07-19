@@ -11,6 +11,7 @@
 #include "nombres.h"
 #include "salida.h"
 #include "ventanaConfirmacion.h"
+#include "plantillaHeroes.h"
 #include <cstring>
 #include <iostream>
 
@@ -221,10 +222,13 @@ void VentanaJug::ejecutarAccion(int i)
         if (!conf.mostrar(m_gestor.obtenerVentana()))
             break;
 
-        datos->partida     = archivoPartidas.generarID();
-        datos->nivel       = 0;
-        datos->id          = jugadorId;
+        datos->partida      = archivoPartidas.generarID();
+        datos->nivel        = 0;
+        datos->id           = jugadorId;
         datos->turnoJugador = 10;
+        datos->vidas        = 3;
+        datos->vidaActual   = plantillasHeroes[jugadorId - 1].vidaMaxima;
+        datos->vidaMaxima   = plantillasHeroes[jugadorId - 1].vidaMaxima;
 
         const std::string& nombre = NOMBRES[jugadorId - 1];
         std::strncpy(datos->nombre, nombre.c_str(), 49);

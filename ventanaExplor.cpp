@@ -57,7 +57,8 @@ void VentanaExplo::alMostrar()
     else
         std::cout << "No se guardó la partida\n";
 
-    verBotones(datos->vidaActual);
+    bool vidaIgual=(datos->vidaActual==datos->vidaMaxima);
+    verBotones(vidaIgual);
     actualizarNombreJug(datos->nombre);
 
 }
@@ -68,16 +69,13 @@ void VentanaExplo::actualizarNombreJug(const std::string& nombre)
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
 }
 
-void VentanaExplo::verBotones(int vidaActual)
+void VentanaExplo::verBotones(bool vidaIgual)
 {
     for (int i=0; i<CANT_BOTONES_EXP; i++)
     {
         botonera.setActivo(i,true);
     }
-    if (vidaActual >75)
-    {
-        botonera.setActivo(3,false);
-    }
+    botonera.setActivo(3, !vidaIgual);
 }
 void VentanaExplo::alOcultar()
 {

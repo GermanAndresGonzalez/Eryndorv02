@@ -16,6 +16,7 @@ private:
 
     int _bonusAtaque;
     int _bonusDefensa;
+    int _vida;
     int _curacion;
 
 public:

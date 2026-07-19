@@ -22,7 +22,7 @@ public:
     void v_curar();
     void v_agregar();
     void v_actualizar();
-    void verBotones(int vidaActual);
+    void verBotones(bool vidaIgual);
 
     void ejecutarAccion(int i);
     void manejarEvento(const sf::Event& evento);

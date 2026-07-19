@@ -478,7 +478,7 @@
 	"Pantalla.h"
 	"GestorPantallas.h"
 
-1784154370 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
+1784435467 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
@@ -493,7 +493,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1784405518 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1784435801 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -519,7 +519,7 @@
 	"datosBotonIntro.h"
 	<iostream>
 
-1783608188 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
+1784467345 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
 	"datosFuentes.h"
 	"centrar.h"
 	"datosArchivos.h"
@@ -533,6 +533,7 @@
 	"nombres.h"
 	"salida.h"
 	"ventanaConfirmacion.h"
+	"plantillaHeroes.h"
 	<cstring>
 	<iostream>
 
@@ -725,7 +726,7 @@
 1781879127 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\centrar.h
 	<SFML/Graphics.hpp>
 
-1784405899 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
+1784467569 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
 	"partidas.h"
 	"explorarCueva.h"
 	"datosArchivos.h"

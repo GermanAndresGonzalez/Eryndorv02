@@ -98,18 +98,6 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
 
         }
 
-        /*
-        std::cout << "Mensaje: "<< mensaje << std::endl;
-
-        std::cout << "Fin del mensaje.\n" << std::endl;
-
-        std::cout << "\nInicio mensaje struct:\n" << std::endl;
-        std::cout << ev.mensaje << std::endl;
-        std::cout << "Fin mensaje struct.\n" << std::endl;
-        */
-
-
-
 
 
 
@@ -191,7 +179,10 @@ void ExplorCueva::cargarVida(Panel& panel, sf::Text& texto2, sf::Text& texto3)
     float posic_y = limites.top+limites.height;
     texto3.setPosition(panel.getPosInternaX()+10.f, posic_y+10.f);
     int vidACtual = partidaEx->vidaActual;
-    texto3.setString("Vida actual: "+std::to_string(vidACtual));
+    int vidMAxima = partidaEx->vidaMaxima;
+    const int vidMaxima = plantillasHeroes[partidaEx->id - 1].vidaMaxima;
+
+    texto3.setString("Vida actual: "+std::to_string(vidACtual)+"\nVida Maxima: "+std::to_string(vidMAxima));
 
 }
 
@@ -222,10 +213,17 @@ bool ExplorCueva::curar(sf::Text& text)
         std::cout << "[curar] corta: no hay pocion o id invalido\n";
         return false;
     }
+    /*
 
-    const int vidMaxima = plantillasHeroes[partidaEx->id - 1].vidaMaxima;
+    std::cout << "\nVidaMaxima: " << vidMaxima << "\n";
+    if (partidaEx->vidaMaxima <vidMaxima)
+    {
+        partidaEx->vidaMaxima=vidMaxima;
+        modificarPartida();
+    }
+    */
     int vidaNueva = static_cast<int>(partidaEx->vidaActual) + CURACION_POCION;
-
+    const int vidMaxima = plantillasHeroes[partidaEx->id - 1].vidaMaxima;
     std::cout << "[curar] vidaActual=" << partidaEx->vidaActual
                << " vidMaxima=" << vidMaxima
                << " vidaNueva(antes de clamp)=" << vidaNueva << std::endl;
