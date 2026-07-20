@@ -3,7 +3,7 @@
 
 
 extern const char* MENSAJE_COMBATE_EXITOSO;
-
+extern const char* MENSAJE_COMBATE_DERROTA;
 
 
 #endif

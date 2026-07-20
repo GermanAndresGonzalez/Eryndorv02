@@ -189,6 +189,17 @@ void VentanaCombat::ejecutarAccion(int i)
             m_gestor.ocultar("combatir");
             m_gestor.mostrar("explorar");
         }
+
+        if (m_combate.combateFinalizado() && !m_combate.esVictoria())
+        {
+            VentanaConfirmacion conf("Derrota!", MENSAJE_COMBATE_DERROTA);
+            if (!conf.mostrar(m_gestor.obtenerVentana()))
+                break;
+            m_gestor.ocultar("combatir");
+            m_gestor.mostrar("explorar");
+        }
+
+
         break;
 
     case 1: // Curar
@@ -241,7 +252,7 @@ void VentanaCombat::actualizarVidas()
                        "/" + std::to_string(m_combate.getVidaMaximaEnemigo()));
 
     sf::FloatRect boundsImgJug = panelJug.getImagen().getGlobalBounds();
-    vidaJug.setPosition(boundsImgJug.left - vidaJug.getGlobalBounds().width - 90.0f,
+    vidaJug.setPosition(boundsImgJug.left - vidaJug.getGlobalBounds().width - 70.0f,
                          boundsImgJug.top);
 
     sf::FloatRect boundsImgEne = panelEne.getImagen().getGlobalBounds();
