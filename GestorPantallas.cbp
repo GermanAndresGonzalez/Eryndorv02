@@ -223,6 +223,12 @@
 		<Unit filename="datosVenCombat.h">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
+		<Unit filename="datosVenCombate.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenCombate.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
 		<Unit filename="datosVenCraft.cpp">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>

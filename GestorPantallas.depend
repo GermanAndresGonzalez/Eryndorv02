@@ -912,16 +912,18 @@
 	"combate.h"
 	"material.h"
 
-1784150719 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
+1784515455 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCombat.h"
 	"botonera.h"
 	"panelTxtImg.h"
+	"ventanaConfirmacion.h"
 	"datosFuentes.h"
 	"datosVenCombat.h"
 	"datosBotonCombat.h"
 	"plantillaEnemigos.h"
+	"datosVenCombate.h"
 	<iostream>
 	<string>
 
@@ -973,7 +975,7 @@
 1784471778 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenar.cpp
 	"datosVenAr.h"
 
-1784471785 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenar.h
+1784515153 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenar.h
 	<SFML/Graphics.hpp>
 
 1784472671 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.cpp
@@ -999,4 +1001,9 @@
 	"botonera.h"
 	"explorarCueva.h"
 	"material.h"
+
+1784515400 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.cpp
+	"datosVenCombate.h"
+
+1784515530 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.h
 

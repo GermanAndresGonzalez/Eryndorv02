@@ -3,11 +3,12 @@
 #include "VentanaCombat.h"
 #include "botonera.h"
 #include "panelTxtImg.h"
-
+#include "ventanaConfirmacion.h"
 #include "datosFuentes.h"
 #include "datosVenCombat.h"
 #include "datosBotonCombat.h"
 #include "plantillaEnemigos.h"
+#include "datosVenCombate.h"
 
 #include <iostream>
 #include <string>
@@ -182,6 +183,9 @@ void VentanaCombat::ejecutarAccion(int i)
 
         if (m_combate.combateFinalizado() && m_combate.esVictoria())
         {
+            VentanaConfirmacion conf("Combate exitoso", MENSAJE_COMBATE_EXITOSO);
+            if (!conf.mostrar(m_gestor.obtenerVentana()))
+                break;
             m_gestor.ocultar("combatir");
             m_gestor.mostrar("explorar");
         }
@@ -241,7 +245,7 @@ void VentanaCombat::actualizarVidas()
                          boundsImgJug.top);
 
     sf::FloatRect boundsImgEne = panelEne.getImagen().getGlobalBounds();
-    vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 30.0f,
+    vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 90.0f,
                          boundsImgEne.top);
 }
 
