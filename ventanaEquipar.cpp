@@ -1,13 +1,13 @@
 
 #include "salida.h"
 #include "centrar.h"
-#include "ventanaExplor.h"
+#include "VentanaEquipar.h"
 #include "botonera.h"
 #include "PanelTexto.h"
 
 #include "datosFuentes.h"
-#include "datosVenEx.h"
-#include "datosBotonExplor.h"
+#include "datosVenAr.h"
+#include "datosBotonArmar.h"
 
 #include "ArchivoInventario.h"
 #include "ArchivoPartidas.h"
@@ -18,7 +18,8 @@
 #include <string>
 
 
-VentanaExplo::VentanaExplo(GestorPantallas& gestor)
+
+VentanaEquipar::VentanaEquipar(GestorPantallas& gestor)
     : m_gestor(gestor)
     , m_explorar(gestor.obtenerPartida(), 10)
 {
@@ -28,7 +29,7 @@ VentanaExplo::VentanaExplo(GestorPantallas& gestor)
     cargarRec();
 }
 
-void VentanaExplo::alMostrar()
+void VentanaEquipar::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
@@ -63,25 +64,25 @@ void VentanaExplo::alMostrar()
 
 }
 
-void VentanaExplo::actualizarNombreJug(const std::string& nombre)
+void VentanaEquipar::actualizarNombreJug(const std::string& nombre)
 {
     nombreJug.setString(nombre);
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
 }
 
-void VentanaExplo::verBotones(bool vidaIgual)
+void VentanaEquipar::verBotones(bool vidaIgual)
 {
-    for (int i=0; i<CANT_BOTONES_EXP; i++)
+    for (int i=0; i<CANT_BOTONES_ARMAR; i++)
     {
         botonera.setActivo(i,true);
     }
     botonera.setActivo(3, !vidaIgual);
 }
-void VentanaExplo::alOcultar()
+void VentanaEquipar::alOcultar()
 {
 }
 
-void VentanaExplo::actualizar(float dt)
+void VentanaEquipar::actualizar(float dt)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
@@ -90,7 +91,7 @@ void VentanaExplo::actualizar(float dt)
     }
 }
 
-void VentanaExplo::dibujar(sf::RenderWindow& ventana)
+void VentanaEquipar::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
@@ -113,14 +114,14 @@ void VentanaExplo::dibujar(sf::RenderWindow& ventana)
 
 }
 
-void VentanaExplo::cargarRec()
+void VentanaEquipar::cargarRec()
 {
     if (!m_fuente.loadFromFile(FUENTES))
-        std::cerr << ERROR_FUENTE << " VenExplor\n";
+        std::cerr << ERROR_FUENTE << " VenArmar\n";
     m_texto.setFont(m_fuente);
-    m_texto.setString(TEXTO_TIT);
+    m_texto.setString(TEXTO_TIT_ARMAR);
     m_texto.setCharacterSize(45);
-    m_texto.setColor(CLR_RECUA_PA_EX_RES);
+    m_texto.setColor(CLR_RECUA_PA_ARMAR_RES);
 
     sf::FloatRect rect = m_texto.getLocalBounds();
     m_texto.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
@@ -128,62 +129,62 @@ void VentanaExplo::cargarRec()
 
     m_turnos.setFont(m_fuente);
     m_turnos.setCharacterSize(35);
-    m_turnos.setColor(CLR_RECUA_PA_EX_RES);
+    m_turnos.setColor(CLR_RECUA_PA_ARMAR_RES);
     Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
 
     panelJug   = Panel(110.f, 200.f, 300.f, 400.f);
     panelCueva = Panel(490.f, 200.f, 400.f, 400.f);
 
-    if (!texturaFondo.loadFromFile(RUTA_FONDO_EX))
-        std::cerr << ERROR_FONDO_EX;
+    if (!texturaFondo.loadFromFile(RUTA_FONDO_ARMAR))
+        std::cerr << ERROR_FONDO_ARMAR;
     if (!fuenteBotonera.loadFromFile(FUENTES))
         std::cerr << ERROR_FUENTE;
 
     spriteFondo.setTexture(texturaFondo);
 
-    botonera.inicializar(CANT_BOTONES_EXP, fuenteBotonera);
-    botonera.seColoresBot(COLOR_FONDO_EXP, COLOR_RECUA_EXP);
-    botonera.inicializarRectangulos(tamRectBotonX_EXP, tamRectBotonY_EXP);
-    botonera.setTamCar(TAM_CARACTER_EXP);
-    botonera.setColorTexto(COLOR_LETRA_EXP);
-    botonera.inicializarEtiquetas(ETI_BOTONES_EXP, CANT_BOTONES_EXP);
-    botonera.inicializarBotones(posBotonX_EXP, posBotonY_EXP);
+    botonera.inicializar(CANT_BOTONES_ARMAR, fuenteBotonera);
+    botonera.seColoresBot(COLOR_FONDO_ARMAR, COLOR_RECUA_ARMAR);
+    botonera.inicializarRectangulos(tamRectBotonX_ARMAR, tamRectBotonY_ARMAR);
+    botonera.setTamCar(TAM_CARACTER_ARMAR);
+    botonera.setColorTexto(COLOR_LETRA_ARMAR);
+    botonera.inicializarEtiquetas(ETI_BOTONES_ARMAR, CANT_BOTONES_ARMAR);
+    botonera.inicializarBotones(posBotonX_ARMAR, posBotonY_ARMAR);
 
     nombreJug.setFont(m_fuente);
-    nombreJug.setCharacterSize(TAM_CAR_PARR_EX);
-    nombreJug.setColor(CLR_RECUA_PA_EX);
+    nombreJug.setCharacterSize(TAM_CAR_PARR_ARMAR);
+    nombreJug.setColor(CLR_RECUA_PA_ARMAR);
 
     nombreCue.setFont(m_fuente);
-    nombreCue.setCharacterSize(TAM_CAR_PARR_EX);
+    nombreCue.setCharacterSize(TAM_CAR_PARR_ARMAR);
     nombreCue.setString(nomcadCueva);
     Centrado::centrar(nombreCue, panelCueva.obtenerLimites(), panelCueva.getPosInternaY()+10.f);
-    nombreCue.setColor(CLR_RECUA_PA_EX);
+    nombreCue.setColor(CLR_RECUA_PA_ARMAR);
 
     txtPanelCue.setFont(m_fuente);
-    txtPanelCue.setCharacterSize(TAM_CAR_PARR_EX);
-    txtPanelCue.setColor(CLR_RECUA_PA_EX);
+    txtPanelCue.setCharacterSize(TAM_CAR_PARR_ARMAR);
+    txtPanelCue.setColor(CLR_RECUA_PA_ARMAR);
     txtPanelCue.setString(nomcadCueva);
 
     txtPanelJug.setFont(m_fuente);
-    txtPanelJug.setCharacterSize(TAM_CAR_PARR_EX);
-    txtPanelJug.setColor(CLR_RECUA_PA_EX);
+    txtPanelJug.setCharacterSize(TAM_CAR_PARR_ARMAR);
+    txtPanelJug.setColor(CLR_RECUA_PA_ARMAR);
     txtPanelJug.setString("");
 
     txtPanelJug2.setFont(m_fuente);
-    txtPanelJug2.setCharacterSize(TAM_CAR_PARR_EX);
-    txtPanelJug2.setColor(CLR_RECUA_PA_EX);
+    txtPanelJug2.setCharacterSize(TAM_CAR_PARR_ARMAR);
+    txtPanelJug2.setColor(CLR_RECUA_PA_ARMAR);
     txtPanelJug2.setString("");
 
 
     txtVidaJugador.setFont(m_fuente);
-    txtVidaJugador.setCharacterSize(TAM_CAR_PARR_EX);
-    txtVidaJugador.setColor(CLR_RECUA_PA_EX_RES);
+    txtVidaJugador.setCharacterSize(TAM_CAR_PARR_ARMAR);
+    txtVidaJugador.setColor(CLR_RECUA_PA_ARMAR_RES);
     txtVidaJugador.setString("Vida actual: ");
 
 
 }
 
-void VentanaExplo::ejecutarAccion(int i)
+void VentanaEquipar::ejecutarAccion(int i)
 {
 
     std::cout << "Click\n";
@@ -217,14 +218,14 @@ void VentanaExplo::ejecutarAccion(int i)
     }
 }
 
-void VentanaExplo::v_explorar()
+void VentanaEquipar::v_explorar()
 {
     m_explorar.explorarCueva(panelCueva, txtPanelCue);
     guardado = false;
     v_actualizar();
 }
 
-void VentanaExplo::v_curar()
+void VentanaEquipar::v_curar()
 {
     if (m_explorar.curar(txtVidaJugador))
     {
@@ -235,7 +236,7 @@ void VentanaExplo::v_curar()
 }
 
 
-void VentanaExplo::v_agregar()
+void VentanaEquipar::v_agregar()
 {
     if (!guardado)
     {
@@ -254,14 +255,13 @@ void VentanaExplo::v_agregar()
     }
 }
 
-void VentanaExplo::v_actualizar()
+void VentanaEquipar::v_actualizar()
 {
     for (int i=0; i<4; i++)
     {
         botonera.setActivo(i,true);
     }
     m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    m_explorar.cargarVida(panelJug,txtPanelJug2, txtVidaJugador);
     Partida* datos = m_gestor.obtenerPartida();
     std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
     m_turnos.setString(textoTurnos);
@@ -277,7 +277,7 @@ void VentanaExplo::v_actualizar()
 
 }
 
-void VentanaExplo::manejarEvento(const sf::Event& evento)
+void VentanaEquipar::manejarEvento(const sf::Event& evento)
 {
     if (evento.type == sf::Event::Closed)
     {
@@ -288,23 +288,23 @@ void VentanaExplo::manejarEvento(const sf::Event& evento)
 
     if (evento.type == sf::Event::MouseMoved)
     {
-        for (int i = 0; i < CANT_BOTONES_EXP; i++)
+        for (int i = 0; i < CANT_BOTONES_ARMAR; i++)
         {
             if (!botonera.obtPosicion(i).contains(
                         static_cast<float>(evento.mouseMove.x),
                         static_cast<float>(evento.mouseMove.y)))
             {
-                botonera.igualarBotones(COLOR_FONDO_EXP, COLOR_LETRA_EXP);
+                botonera.igualarBotones(COLOR_FONDO_ARMAR, COLOR_LETRA_ARMAR);
                 break;
             }
         }
-        for (int i = 0; i < CANT_BOTONES_EXP; i++)
+        for (int i = 0; i < CANT_BOTONES_ARMAR; i++)
         {
             if (botonera.obtPosicion(i).contains(
                         static_cast<float>(evento.mouseMove.x),
                         static_cast<float>(evento.mouseMove.y)))
             {
-                botonera.resaltarBoton(i, COLOR_FONDO_RES_EXP, COLOR_LETRA_RES_EXP);
+                botonera.resaltarBoton(i, COLOR_FONDO_RES_ARMAR, COLOR_LETRA_RES_ARMAR);
                 break;
             }
         }
@@ -314,7 +314,7 @@ void VentanaExplo::manejarEvento(const sf::Event& evento)
             evento.mouseButton.button == sf::Mouse::Left)
     {
         sf::Vector2i mousePos = sf::Mouse::getPosition(m_gestor.obtenerVentana());
-        for (int i = 0; i < CANT_BOTONES_EXP; i++)
+        for (int i = 0; i < CANT_BOTONES_ARMAR; i++)
         {
             if (botonera.obtPosicion(i).contains(
                         static_cast<float>(mousePos.x),

@@ -29,7 +29,7 @@ const float tamRectBotonY_INTRO=50.f;
 
 const std::string ETI_BOTONES_INTRO[] = {
     "Atras",
-    "Siguiente",
+    "Avanzar",
     "Saltear"
 };
 

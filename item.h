@@ -7,6 +7,8 @@ enum TipoItem //Esto los numera. recurso es 0 arma 1 armadura 2 y consumible 3.
     ARMADURA,
     CONSUMIBLE
 };
+
+
 class Item
 {
 private:
@@ -16,8 +18,8 @@ private:
 
     int _bonusAtaque;
     int _bonusDefensa;
-    int _vida;
     int _curacion;
+    int _vidaMaxima;   // usos antes de romperse (0 = no aplica: recursos/consumibles)
 
 public:
     Item();
@@ -26,7 +28,8 @@ public:
          TipoItem tipo,
          int bonusAtk = 0,
          int bonusDef = 0,
-         int curacion = 0);
+         int curacion = 0,
+         int vidaMaxima = 0);
 
     int getId() const;
     const char* getNombre() const;
@@ -35,7 +38,5 @@ public:
     int getBonusAtaque() const;
     int getBonusDefensa() const;
     int getCuracion() const;
+    int getVidaMaxima() const;
 };
-
-
-

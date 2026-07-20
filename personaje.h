@@ -10,13 +10,26 @@ private:
     bool eliminado;
     const Item* armaEquipada;
     const Item* armaduraEquipada;
+    int vidaArmaActual;
+    int vidaArmaduraActual;
 
 public:
     // Constructor
     Personaje(const char* nom, int niv, int vidaMax, int atk, int def, int oroInicial, bool elim);
 
+
+    // Equipo: armas y armaduras
+
     void equiparArma(const Item* arma);
     void equiparArmadura(const Item* armadura);
+
+    const Item* desequiparArma();
+    const Item* desequiparArmadura();
+
+    bool armaRota() const;
+    bool armaduraRota() const;
+    int getVidaArmaActual() const;
+    int getVidaArmaduraActual() const;
 
     // Métodos principales
     int atacar();

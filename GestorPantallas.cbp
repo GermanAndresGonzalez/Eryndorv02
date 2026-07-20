@@ -118,6 +118,12 @@
 		<Unit filename="datosArchivos.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
 		</Unit>
+		<Unit filename="datosBotonArmar.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonArmar.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
 		<Unit filename="datosBotonCargar.cpp">
 			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
@@ -198,6 +204,12 @@
 		</Unit>
 		<Unit filename="datosRutasImagenes.h">
 			<Option virtualFolder="DatosGUI/Imagenes/" />
+		</Unit>
+		<Unit filename="datosVenAr.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenAr.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenCargar.cpp">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
@@ -354,6 +366,12 @@
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaCueva.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaEquipar.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="ventanaEquipar.h">
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
 		<Unit filename="ventanaExplor.cpp">

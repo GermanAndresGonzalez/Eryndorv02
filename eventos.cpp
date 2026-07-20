@@ -72,7 +72,7 @@ Evento seleccionarEvento()
         {
             // EVENTO_COFRE
             ev.tipo       = EVENTO_COFRE;
-            ev.idMaterial = -1;
+            ev.idMaterial = 3;
             ev.cantidad   = helper.valorAleatorio(20, 60);
             ev.mensaje    = "Encontraste un cofre escondido!\n"
                             "Contiene "

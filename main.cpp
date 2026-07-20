@@ -30,7 +30,7 @@ int main()
 
     cout << endl << endl << "inventarios" << endl << endl;
     canReg=0;
-    ArchivoInventario ArInv("recursos/archivos/inventarios4.dat");
+    ArchivoInventario ArInv("recursos/archivos/inventarios.dat");
     Inventario invJug;
     canReg=ArInv.contarRegistros();
     cout << "Cant. registros: " << canReg << endl;
@@ -69,6 +69,7 @@ int main()
 #include "ventanaJugad.h"
 #include "ventanaCueva.h"
 #include "VentanaCombat.h"
+#include "VentanaEquipar.h"
 #include "ventanaExplor.h"
 #include "ventanaCargar.h"
 #include "ventanaCraft.h"
@@ -81,8 +82,6 @@ int main() {
 
     GestorPantallas gestor(principal);
 
-    // Si se agrega alguna pantalla más, hay que modificar MAX_PANTALLAS en GestorPantallas::manejarEvento
-
     gestor.agregar("principal", new VentanaPrincipal(gestor));
     gestor.agregar("intro", new VentanaIntro(gestor));
     gestor.agregar("jugador", new VentanaJug(gestor));
@@ -91,6 +90,7 @@ int main() {
     gestor.agregar("cargar", new VentanaCargar(gestor));
     gestor.agregar("craftear", new VentanaCrafteo(gestor));
     gestor.agregar("combatir", new VentanaCombat(gestor));
+    gestor.agregar("equipar", new VentanaEquipar(gestor));
     gestor.mostrar("principal");
 
     while (principal.isOpen()) {

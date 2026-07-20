@@ -58,7 +58,13 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
 {
     if (turnosCueva > 0)
     {
-        Evento ev=seleccionarEvento();
+        Evento ev;
+        do
+        {
+            ev=seleccionarEvento();
+        }
+        while ((partidaEx->vidaActual==partidaEx->vidaMaxima)&& ev.tipo==1);
+
         std::cout << ev.tipo << std::endl;
         std::cout << ev.idMaterial << std::endl;
         std::cout << ev.cantidad << std::endl;
@@ -71,12 +77,13 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
             std::cout << "idMaterial>=0: " << ev.idMaterial << std::endl;
             material.id=ev.idMaterial;
             material.cantidad=ev.cantidad;
+
             mensaje=Informar(material);
         }
         else
         {
             mensaje=ev.mensaje;
-            if ((ev.idMaterial==-1)&&(ev.tipo==2))
+            if ((ev.idMaterial==-1)&&(ev.tipo==1))
             {
                 if (!curar(texto))
                 {
@@ -85,26 +92,18 @@ void ExplorCueva::explorarCueva(Panel& panel,sf::Text& texto)
                 else
                 {
                     mensaje=ev.mensaje;
-                    guardarPartida();
+                    modificarPartida();
                 }
             }
             if ((ev.idMaterial==-1)&&(ev.tipo==3))
             {
-                partidaEx->turnoComput+=ev.cantidad;
-                guardarPartida();
-                //mensaje= "No se pudo agregar\nturnos";
+                partidaEx->turnoJugador+=ev.cantidad;
+                modificarPartida();
 
             }
 
         }
 
-
-
-
-
-
-        //material=obtenerMaterial();
-        //mensaje=Informar(material);
         cargarInventario();
         cargarPanel(panel,texto,mensaje);
     }
@@ -213,15 +212,9 @@ bool ExplorCueva::curar(sf::Text& text)
         std::cout << "[curar] corta: no hay pocion o id invalido\n";
         return false;
     }
-    /*
 
-    std::cout << "\nVidaMaxima: " << vidMaxima << "\n";
-    if (partidaEx->vidaMaxima <vidMaxima)
-    {
-        partidaEx->vidaMaxima=vidMaxima;
-        modificarPartida();
-    }
-    */
+
+
     int vidaNueva = static_cast<int>(partidaEx->vidaActual) + CURACION_POCION;
     const int vidMaxima = plantillasHeroes[partidaEx->id - 1].vidaMaxima;
     std::cout << "[curar] vidaActual=" << partidaEx->vidaActual
@@ -242,7 +235,7 @@ bool ExplorCueva::curar(sf::Text& text)
     }
 
     partidaEx->vidaActual = static_cast<unsigned int>(vidaNueva);
-    partidaEx->turnoJugador+=100;
+    //partidaEx->turnoJugador+=100;
 
     if (inventarioJug.quitarItem(idCura, 1))
     {
