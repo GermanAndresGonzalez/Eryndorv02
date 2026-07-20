@@ -45,10 +45,13 @@ void VentanaEquipar::alMostrar()
 
     refrescarPanel();
 
+    // guardarPartida() solo crea el registro si todavía no existe.
+    // Si ya existía, hay que sincronizarlo igual con el estado actual
+    // del puntero Partida (por si venimos de otra pantalla con cambios).
     if (m_equipar.guardarPartida())
-        std::cout << "Partida guardada\n";
+        std::cout << "Partida creada\n";
     else
-        std::cout << "No se guardó la partida\n";
+        guardarCambios();
 
     for (int i = 0; i < CANT_BOTONES_ARMAR; i++)
         botonera.setActivo(i, true);
@@ -59,6 +62,18 @@ void VentanaEquipar::alMostrar()
 void VentanaEquipar::refrescarPanel()
 {
     m_equipar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+}
+
+void VentanaEquipar::guardarCambios()
+{
+    // Persiste el registro de la partida (idArma/idArmadura/vidaArma/vidaArmadura, etc.)
+    // con el estado actual del puntero Partida. El inventario ya se guarda aparte
+    // dentro de Equipar::confirmarEquipar, pero lo dejamos explícito acá también
+    // para que quede centralizado y no dependa de la implementación interna.
+    if (!m_equipar.modificarPartida())
+        std::cout << "No se pudo guardar la partida (el registro no existe)\n";
+    else
+        std::cout << "Partida guardada\n";
 }
 
 void VentanaEquipar::actualizarNombreJug(const std::string& nombre)
@@ -149,6 +164,7 @@ void VentanaEquipar::ejecutarAccion(int i)
     case 4:
         // Avanzar al siguiente paso del flujo.
         // TODO: reemplazar "explorar" por el nombre real de la pantalla siguiente.
+
         m_gestor.ocultar("equipar");
         m_gestor.mostrar("combatir");
         break;
@@ -184,6 +200,7 @@ void VentanaEquipar::intentarEquipar(int idItem)
         if (m_equipar.confirmarEquipar(idItem))
         {
             refrescarPanel();
+            guardarCambios();
             std::cout << "Equipado: " << nombreNuevo << "\n";
         }
         break;
@@ -202,6 +219,7 @@ void VentanaEquipar::intentarEquipar(int idItem)
             if (m_equipar.confirmarEquipar(idItem))
             {
                 refrescarPanel();
+                guardarCambios();
                 std::cout << "Equipado: " << nombreNuevo << "\n";
             }
         }

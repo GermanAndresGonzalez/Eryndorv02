@@ -28,6 +28,9 @@ public:
     // Botones 0-3: intenta equipar idItem (ver Equipar::consultarEquipar/confirmarEquipar)
     void intentarEquipar(int idItem);
 
+    // Persiste en disco el estado actual de la partida (puntero Partida + inventario).
+    // Llamar siempre que refrescarPanel() refleje un cambio real (equipar, etc).
+    void guardarCambios();
 
     Panel panelJug;
 

@@ -25,21 +25,7 @@ bool Carousel::cargar()
 
     return true;
 
-    /*
-    for (int i = 0; i < CAROUSEL_SIZE; i++)
-    {
-        if (!_textures[i].loadFromFile(_filenames[i]))
-            return false;
-    }
 
-    _sprite.setTexture(_textures[_currentIndex], true);
-
-    sf::FloatRect r = _sprite.getLocalBounds();
-
-    _sprite.setOrigin(r.width / 2.f, r.height / 2.f);
-
-    return true;
-    */
 }
 
 void Carousel::siguiente()

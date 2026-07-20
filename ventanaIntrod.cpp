@@ -102,7 +102,16 @@ void VentanaIntro::ejecutarAccion(int i)
     switch (i)
     {
     case 0:
-        carousel.anterior();
+        if (carousel.getCurrentIndex() != 0)
+        {
+            carousel.anterior();
+        }
+        else
+        {
+            m_gestor.ocultar("intro");
+            m_gestor.mostrar("principal");
+        }
+
         break;
 
     case 1:

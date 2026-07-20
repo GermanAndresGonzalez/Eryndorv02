@@ -510,7 +510,7 @@
 	<iostream>
 	<string>
 
-1784117493 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
+1784556053 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaintrod.cpp
 	"datosFuentes.h"
 	"ventanaIntrod.h"
 	"botonera.h"
@@ -861,26 +861,27 @@
 1782415532 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\enemigos.h
 	<cstddef>
 
-1784469774 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\personaje.cpp
+1784527678 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\personaje.cpp
 	"personaje.h"
 	<cstring>
 
-1784469548 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\personaje.h
+1784527694 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\personaje.h
 	"item.h"
 
-1784117493 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.cpp
+1784555818 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.cpp
 	"carousel.h"
 
 1784117493 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.h
 	<SFML/Graphics.hpp>
 
-1784522183 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
+1784554692 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
 	"combate.h"
 	"datosArchivos.h"
 	"archivoInventario.h"
+	"items_juego.h"
 	<iostream>
 
-1784127671 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.h
+1784527390 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.h
 	<string>
 	"datosPartida.h"
 	"Enemigos.h"
@@ -890,6 +891,7 @@
 	"plantillaHeroes.h"
 	"nombres.h"
 	"panelTxtImg.h"
+	"personaje.h"
 
 1783772274 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotoncombat.cpp
 	"datosBotonCombat.h"
@@ -904,7 +906,7 @@
 1783773573 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombat.h
 	<SFML/Graphics.hpp>
 
-1783798551 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.h
+1784527500 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"panelTxtImg.h"
@@ -912,7 +914,7 @@
 	"combate.h"
 	"material.h"
 
-1784516763 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
+1784527727 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCombat.h"
@@ -965,7 +967,7 @@
 	<string>
 	"material.h"
 
-1784517853 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonarmar.cpp
+1784532174 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonarmar.cpp
 	"datosBotonArmar.h"
 
 1784471431 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonarmar.h
@@ -992,7 +994,7 @@
 	<iostream>
 	<string>
 
-1784532174 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.h
+1784566332 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"

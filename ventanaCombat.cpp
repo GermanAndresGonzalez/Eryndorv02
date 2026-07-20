@@ -92,6 +92,8 @@ void VentanaCombat::dibujar(sf::RenderWindow& ventana)
     ventana.draw(nombreEne);
     ventana.draw(vidaJug);
     ventana.draw(vidaEne);
+    ventana.draw(infoArma);      // Dibujar información del arma
+    ventana.draw(infoArmadura);  // Dibujar información de la armadura
     ventana.draw(txtPanelCue);
     ventana.draw(txtPanelJug);
     ventana.draw(txtPanelJug2);
@@ -147,6 +149,7 @@ void VentanaCombat::cargarRec()
     Centrado::centrar(nombreEne, panelEne.obtenerLimites(), panelEne.getPosInternaY() + 10.f);
     nombreEne.setColor(CLR_RECUA_PA_COM);
 
+    // Inicializar textos de vida
     vidaJug.setFont(m_fuente);
     vidaJug.setCharacterSize(TAM_CAR_PARR_COM);
     vidaJug.setColor(CLR_RECUA_PA_COM);
@@ -154,6 +157,17 @@ void VentanaCombat::cargarRec()
     vidaEne.setFont(m_fuente);
     vidaEne.setCharacterSize(TAM_CAR_PARR_COM);
     vidaEne.setColor(CLR_RECUA_PA_COM);
+
+    // Inicializar textos de información de equipamiento
+    infoArma.setFont(m_fuente);
+    infoArma.setCharacterSize(18); // Tamaño más pequeño para no saturar
+    infoArma.setColor(sf::Color::White);
+    infoArma.setString("");
+
+    infoArmadura.setFont(m_fuente);
+    infoArmadura.setCharacterSize(18);
+    infoArmadura.setColor(sf::Color::White);
+    infoArmadura.setString("");
 
     txtPanelCue.setFont(m_fuente);
     txtPanelCue.setCharacterSize(TAM_CAR_PARR_COM);
@@ -199,7 +213,6 @@ void VentanaCombat::ejecutarAccion(int i)
             m_gestor.mostrar("explorar");
         }
 
-
         break;
 
     case 1: // Curar
@@ -229,6 +242,7 @@ void VentanaCombat::actualizarEstado()
 {
     m_combate.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
     actualizarVidas();
+    actualizarEquipamiento();
 
     std::string mensajeVictoria;
     if (m_combate.consumirMensajeVictoria(mensajeVictoria))
@@ -258,6 +272,42 @@ void VentanaCombat::actualizarVidas()
     sf::FloatRect boundsImgEne = panelEne.getImagen().getGlobalBounds();
     vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 90.0f,
                          boundsImgEne.top);
+}
+
+void VentanaCombat::actualizarEquipamiento()
+{
+    // Actualizar información del arma
+    std::string textoArma = "Arma: ";
+    if (m_combate.tieneArma())
+    {
+        textoArma += m_combate.getNombreArma() + " (" + 
+                     std::to_string(m_combate.getVidaArma()) + "/" +
+                     std::to_string(m_combate.getVidaMaximaArma()) + ")";
+    }
+    else
+    {
+        textoArma += "Sin arma";
+    }
+    infoArma.setString(textoArma);
+
+    // Actualizar información de la armadura
+    std::string textoArmadura = "Armadura: ";
+    if (m_combate.tieneArmadura())
+    {
+        textoArmadura += m_combate.getNombreArmadura() + " (" + 
+                         std::to_string(m_combate.getVidaArmadura()) + "/" +
+                         std::to_string(m_combate.getVidaMaximaArmadura()) + ")";
+    }
+    else
+    {
+        textoArmadura += "Sin armadura";
+    }
+    infoArmadura.setString(textoArmadura);
+
+    // Posicionar los textos debajo de la vida del jugador
+    sf::FloatRect boundsVidaJug = vidaJug.getGlobalBounds();
+    infoArma.setPosition(boundsVidaJug.left, boundsVidaJug.top + boundsVidaJug.height + 5);
+    infoArmadura.setPosition(boundsVidaJug.left, infoArma.getGlobalBounds().top + infoArma.getGlobalBounds().height + 5);
 }
 
 void VentanaCombat::manejarEvento(const sf::Event& evento)

@@ -26,6 +26,7 @@ public:
 private:
     void actualizarEstado();
     void actualizarVidas();
+    void actualizarEquipamiento(); // Nuevo método
 
     GestorPantallas& m_gestor;
     Botonera botonera;
@@ -44,6 +45,8 @@ private:
 
     sf::Text vidaJug;
     sf::Text vidaEne;
+    sf::Text infoArma;      // Nuevo: para mostrar información del arma
+    sf::Text infoArmadura;  // Nuevo: para mostrar información de la armadura
 
     std::string nomcadJug;
     std::string nomcadEnemigo;

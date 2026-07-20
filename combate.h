@@ -10,6 +10,7 @@
 #include "plantillaHeroes.h"
 #include "nombres.h"
 #include "panelTxtImg.h"
+#include "personaje.h"
 
 // ---------------------------------------------------------------------------
 // Combatir
@@ -41,8 +42,6 @@ public:
     // Acciones de la botonera
     void atacar();
     void curar();
-    // Huir y Volver no requieren logica de combate: los maneja VentanaCombat
-    // directamente cambiando de pantalla.
 
     // Estado
     bool combateFinalizado() const { return m_combateFinalizado; }
@@ -56,6 +55,16 @@ public:
 
     const char* getNombreHeroe()   const;
     const char* getNombreEnemigo() const;
+
+    // Nuevos getters para el estado del arma y armadura
+    int getVidaArma() const;
+    int getVidaArmadura() const;
+    int getVidaMaximaArma() const;
+    int getVidaMaximaArmadura() const;
+    std::string getNombreArma() const;
+    std::string getNombreArmadura() const;
+    bool tieneArma() const;
+    bool tieneArmadura() const;
 
     // Vuelca el ultimo mensaje de accion del heroe/enemigo en los sf::Text
     // dados, posicionados debajo de la imagen del panel.
@@ -75,9 +84,18 @@ private:
     void subirNivel();
     void actualizarPartida();
     int  indiceHeroe() const; // 0 = Kael, 1 = Lyra, segun Partida::id
+    
+    // Nuevos métodos para la gestión de equipamiento
+    void inicializarPersonaje();
+    void equiparArmaDelInventario();
+    void equiparArmaduraDelInventario();
+    void verificarYReemplazarArma();
+    void verificarYReemplazarArmadura();
+    int obtenerMejorItemPorTipo(TipoItem tipo) const;
 
     Partida*  m_partida = nullptr; // no es dueño
     Enemigos* m_enemigo = nullptr;
+    Personaje* m_personaje = nullptr; // Nuevo: personaje del jugador
 
     Inventario m_inventario;
     ArchivoPartidas ArPartidas;

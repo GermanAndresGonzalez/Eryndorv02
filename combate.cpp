@@ -1,13 +1,11 @@
 #include "combate.h"
 #include "datosArchivos.h"
-
 #include "archivoInventario.h"
-
+#include "items_juego.h"
 #include <iostream>
 
 namespace
 {
-const char* ARCHIVO_INVENTARIOS = RUTA_DAT_INVN;
 
 // Curacion fija de la pocion. Ajustar segun balance del juego.
 const int CURACION_POCION = 25;
@@ -17,20 +15,28 @@ Combatir::Combatir(Partida* partida, int turnos)
     : m_partida(partida)
     , m_turnosIniciales(turnos)
     , ArPartidas(RUTA_DAT_PART)
+    , m_personaje(nullptr)
 {
     if (m_partida)
     {
         resetearInventario();
         cargarEnemigo();
+        inicializarPersonaje();
 
         // Nueva partida: la vida del heroe todavia no fue inicializada.
         if (m_partida->vidaActual == 0)
         {
-
-            m_partida->vidaActual =
-                static_cast<unsigned int>(plantillasHeroes[indiceHeroe()].vidaMaxima);
+            const PlantillaHeroe& datosHeroe = plantillasHeroes[indiceHeroe()];
+            m_partida->vidaActual = static_cast<unsigned int>(datosHeroe.vidaMaxima);
+            m_partida->vidaMaxima = static_cast<unsigned int>(datosHeroe.vidaMaxima);
         }
     }
+}
+
+Combatir::~Combatir()
+{
+    delete m_enemigo;
+    delete m_personaje;
 }
 
 bool Combatir::esCombateFinal() const
@@ -45,21 +51,196 @@ void Combatir::subirNivel()
     if (m_partida->nivel < NIVEL_MAXIMO)
     {
         m_partida->nivel++;
-        m_partida->turnoJugador+=10;
+        m_partida->turnoJugador += 10;
         actualizarPartida();
     }
-    // si ya estaba en NIVEL_MAXIMO (se ganó al Jefe), no sube mas:
-    // no hay mas enemigos en esta version acotada.
-}
-
-Combatir::~Combatir()
-{
-    delete m_enemigo;
 }
 
 int Combatir::indiceHeroe() const
 {
     return (m_partida && m_partida->id == 2) ? 1 : 0;
+}
+
+void Combatir::inicializarPersonaje()
+{
+    if (!m_partida) return;
+
+    delete m_personaje;
+
+    const PlantillaHeroe& datosHeroe = plantillasHeroes[indiceHeroe()];
+
+    // Crear personaje con los datos base
+    m_personaje = new Personaje(
+        m_partida->nombre,
+        1, // nivel base (se actualizará después)
+        static_cast<int>(m_partida->vidaMaxima),
+        datosHeroe.ataque,
+        datosHeroe.defensa,
+        0, // oro inicial (se maneja aparte)
+        false
+    );
+
+    // Restaurar vida actual
+    m_personaje->curar(static_cast<int>(m_partida->vidaActual));
+
+    // Equipar arma si existe
+    if (m_partida->idArma != 0)
+    {
+        Item arma = obtenerItemPorId(static_cast<int>(m_partida->idArma));
+        if (arma.getId() != 0) // Item válido
+        {
+            // Buscar el arma en el inventario
+            int cantidad = m_inventario.obtenerCantidad(arma.getId());
+            if (cantidad > 0)
+            {
+                m_inventario.quitarItem(arma.getId(), 1);
+                m_personaje->equiparArma(new Item(arma)); // Nota: esto crea una copia
+                m_partida->vidaArma = m_personaje->getVidaArmaActual();
+                // Guardar el ID del arma equipada
+                m_partida->idArma = arma.getId();
+            }
+            else
+            {
+                // No está en el inventario, limpiar ID
+                m_partida->idArma = 0;
+                m_partida->vidaArma = 0;
+            }
+        }
+    }
+
+    // Equipar armadura si existe
+    if (m_partida->idArmadura != 0)
+    {
+        Item armadura = obtenerItemPorId(static_cast<int>(m_partida->idArmadura));
+        if (armadura.getId() != 0) // Item válido
+        {
+            int cantidad = m_inventario.obtenerCantidad(armadura.getId());
+            if (cantidad > 0)
+            {
+                m_inventario.quitarItem(armadura.getId(), 1);
+                m_personaje->equiparArmadura(new Item(armadura)); // Nota: esto crea una copia
+                m_partida->vidaArmadura = m_personaje->getVidaArmaduraActual();
+                // Guardar el ID de la armadura equipada
+                m_partida->idArmadura = armadura.getId();
+            }
+            else
+            {
+                // No está en el inventario, limpiar ID
+                m_partida->idArmadura = 0;
+                m_partida->vidaArmadura = 0;
+            }
+        }
+    }
+
+    // Actualizar nivel del personaje
+    // Nota: El nivel del personaje puede ser diferente al nivel de la partida
+    // Si necesitas que el nivel del personaje afecte al ataque/defensa, ajusta aquí
+    // Por ahora, usamos el nivel de la partida
+    // m_personaje->setNivel(m_partida->nivel); // Necesitarías agregar setNivel a Personaje
+}
+
+void Combatir::equiparArmaDelInventario()
+{
+    if (!m_personaje || !m_partida) return;
+
+    // Buscar la primera arma en el inventario
+    for (int i = 0; i < 100; i++) // Tamaño máximo del inventario
+    {
+        int cantidad = m_inventario.obtenerCantidad(i);
+        if (cantidad > 0)
+        {
+            Item item = obtenerItemPorId(i);
+            if (item.getId() != 0 && item.getTipo() == ARMA)
+            {
+                // Equipar el arma
+                m_inventario.quitarItem(i, 1);
+                m_personaje->equiparArma(new Item(item));
+                m_partida->idArma = i;
+                m_partida->vidaArma = m_personaje->getVidaArmaActual();
+                actualizarPartida();
+                guardarPartida();
+                return;
+            }
+        }
+    }
+
+    // No hay arma en el inventario
+    m_personaje->equiparArma(nullptr);
+    m_partida->idArma = 0;
+    m_partida->vidaArma = 0;
+    actualizarPartida();
+    guardarPartida();
+}
+
+void Combatir::equiparArmaduraDelInventario()
+{
+    if (!m_personaje || !m_partida) return;
+
+    // Buscar la primera armadura en el inventario
+    for (int i = 0; i < 100; i++)
+    {
+        int cantidad = m_inventario.obtenerCantidad(i);
+        if (cantidad > 0)
+        {
+            Item item = obtenerItemPorId(i);
+            if (item.getId() != 0 && item.getTipo() == ARMADURA)
+            {
+                // Equipar la armadura
+                m_inventario.quitarItem(i, 1);
+                m_personaje->equiparArmadura(new Item(item));
+                m_partida->idArmadura = i;
+                m_partida->vidaArmadura = m_personaje->getVidaArmaduraActual();
+                actualizarPartida();
+                guardarPartida();
+                return;
+            }
+        }
+    }
+
+    // No hay armadura en el inventario
+    m_personaje->equiparArmadura(nullptr);
+    m_partida->idArmadura = 0;
+    m_partida->vidaArmadura = 0;
+    actualizarPartida();
+    guardarPartida();
+}
+
+void Combatir::verificarYReemplazarArma()
+{
+    if (!m_personaje || !m_partida) return;
+
+    if (m_personaje->armaRota())
+    {
+        m_ultimaAccionHeroe = "El arma se ha roto! Buscando reemplazo...";
+        equiparArmaDelInventario();
+        if (m_personaje->armaRota())
+        {
+            m_ultimaAccionHeroe = "No hay armas disponibles. Atacando sin arma.";
+        }
+        else
+        {
+            m_ultimaAccionHeroe = "Nueva arma equipada.";
+        }
+    }
+}
+
+void Combatir::verificarYReemplazarArmadura()
+{
+    if (!m_personaje || !m_partida) return;
+
+    if (m_personaje->armaduraRota())
+    {
+        m_ultimaAccionEnemigo = "La armadura se ha roto! Buscando reemplazo...";
+        equiparArmaduraDelInventario();
+        if (m_personaje->armaduraRota())
+        {
+            m_ultimaAccionEnemigo = "No hay armaduras disponibles. Defensa reducida.";
+        }
+        else
+        {
+            m_ultimaAccionEnemigo = "Nueva armadura equipada.";
+        }
+    }
 }
 
 void Combatir::iniciarCombate()
@@ -70,13 +251,15 @@ void Combatir::iniciarCombate()
     }
 
     resetearInventario();
-    cargarEnemigo(); // el enemigo siempre arranca a vida completa
+    cargarEnemigo();
+    inicializarPersonaje();
 
     m_combateFinalizado = false;
     m_victoria           = false;
     m_ultimaAccionHeroe.clear();
     m_ultimaAccionEnemigo.clear();
 }
+
 void Combatir::actualizarPartida()
 {
     if (!m_partida) return;
@@ -84,7 +267,11 @@ void Combatir::actualizarPartida()
     int posicion = ArPartidas.buscarPosicionPorID(m_partida->partida);
     if (posicion >= 0)
     {
-        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador,m_partida->vidas, m_partida->nivel,m_partida->vidaMaxima,m_partida->vidaActual,m_partida->idArma, m_partida->idArmadura,m_partida->vidaArma,m_partida->vidaArmadura);
+        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador,
+                         m_partida->vidas, m_partida->nivel,
+                         m_partida->vidaMaxima, m_partida->vidaActual,
+                         m_partida->idArma, m_partida->idArmadura,
+                         m_partida->vidaArma, m_partida->vidaArmadura);
         ArPartidas.modificar(posicion, registro);
     }
 }
@@ -96,7 +283,7 @@ void Combatir::resetearInventario()
         return;
     }
 
-    ArchivoInventario archivo(ARCHIVO_INVENTARIOS);
+    ArchivoInventario archivo(RUTA_DAT_INVN);
     Inventario cargado;
 
     if (archivo.buscarPorID(m_partida->partida, cargado))
@@ -114,7 +301,7 @@ void Combatir::resetearInventario()
 
 bool Combatir::guardarPartida()
 {
-    ArchivoInventario archivo(ARCHIVO_INVENTARIOS);
+    ArchivoInventario archivo(RUTA_DAT_INVN);
 
     int posicion = archivo.buscarPosicionPorID(m_inventario.id);
     if (posicion >= 0)
@@ -157,27 +344,35 @@ void Combatir::cargarEnemigo()
 
 void Combatir::atacar()
 {
-    if (!m_enemigo || !m_partida || m_combateFinalizado)
+    if (!m_enemigo || !m_partida || !m_personaje || m_combateFinalizado)
     {
         return;
     }
 
-    const PlantillaHeroe& datosHeroe = plantillasHeroes[indiceHeroe()];
+    // Verificar si el arma está rota antes de atacar
+    verificarYReemplazarArma();
 
-    int danio = datosHeroe.ataque;
-    m_enemigo->recibirDanio(danio); // Enemigos::recibirDanio ya resta su defensa
+    // Realizar ataque
+    int danio = m_personaje->atacar();
+
+    // Actualizar la vida del arma en la partida
+    m_partida->vidaArma = m_personaje->getVidaArmaActual();
+
+    m_enemigo->recibirDanio(danio);
 
     m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ataca por " +
                           std::to_string(danio) + " de danio.";
+
+    // Verificar si el arma se rompió después del ataque
+    verificarYReemplazarArma();
 
     if (m_enemigo->estaEliminado())
     {
         m_combateFinalizado = true;
         m_victoria           = true;
         m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ha sido derrotado.";
-        //m_h
 
-        const bool eraJefe = esCombateFinal();   // chequear ANTES de subirNivel()
+        const bool eraJefe = esCombateFinal();
 
         const int idOro = m_inventario.obtenerID("ORO");
         if (idOro >= 0)
@@ -200,6 +395,7 @@ void Combatir::atacar()
                 "Ganaste " + std::to_string(m_enemigo->getOroOtorgado()) + " de oro.";
         }
 
+        actualizarPartida();
         return;
     }
 
@@ -208,7 +404,7 @@ void Combatir::atacar()
 
 void Combatir::curar()
 {
-    if (!m_enemigo || !m_partida || m_combateFinalizado)
+    if (!m_enemigo || !m_partida || !m_personaje || m_combateFinalizado)
     {
         return;
     }
@@ -220,70 +416,67 @@ void Combatir::curar()
         return;
     }
 
-    const int vidaMaxima = plantillasHeroes[indiceHeroe()].vidaMaxima;
-    int vidaNueva = static_cast<int>(m_partida->vidaActual) + CURACION_POCION;
-    if (vidaNueva > vidaMaxima)
+    if (m_personaje->curar(CURACION_POCION))
     {
-        vidaNueva = vidaMaxima;
-    }
+        m_inventario.quitarItem(idCura, 1);
+        m_partida->vidaActual = m_personaje->getVidaActual();
+        guardarPartida();
+        actualizarPartida();
 
-    if (static_cast<unsigned int>(vidaNueva) == m_partida->vidaActual)
+        m_ultimaAccionHeroe = std::string(m_partida->nombre) + " se cura " +
+                              std::to_string(CURACION_POCION) + " puntos de vida.";
+
+        turnoEnemigo();
+    }
+    else
     {
         m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ya tiene la vida al maximo.";
-        return;
     }
-
-    m_partida->vidaActual = static_cast<unsigned int>(vidaNueva);
-    m_inventario.quitarItem(idCura, 1);
-    guardarPartida();
-
-    m_ultimaAccionHeroe = std::string(m_partida->nombre) + " se cura " +
-                          std::to_string(CURACION_POCION) + " puntos de vida.";
-
-    turnoEnemigo();
 }
 
 void Combatir::turnoEnemigo()
 {
-    if (!m_enemigo || !m_partida || m_combateFinalizado)
+    if (!m_enemigo || !m_partida || !m_personaje || m_combateFinalizado)
     {
         return;
     }
 
-    const PlantillaHeroe& datosHeroe = plantillasHeroes[indiceHeroe()];
+    // Verificar si la armadura está rota antes de recibir daño
+    verificarYReemplazarArmadura();
 
-    int danio = m_enemigo->atacar() - datosHeroe.defensa;
-    if (danio < 0)
-    {
-        danio = 0;
-    }
+    int danioEnemigo = m_enemigo->atacar();
 
-    int vidaRestante = static_cast<int>(m_partida->vidaActual) - danio;
-    if (vidaRestante < 0)
-    {
-        vidaRestante = 0;
-    }
-    m_partida->vidaActual = static_cast<unsigned int>(vidaRestante);
+    // El personaje recibe el daño (esto ya maneja la defensa y la armadura internamente)
+    m_personaje->recibirDanio(danioEnemigo);
+
+    // Actualizar la vida de la armadura en la partida
+    m_partida->vidaArmadura = m_personaje->getVidaArmaduraActual();
+    m_partida->vidaActual = m_personaje->getVidaActual();
 
     m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ataca por " +
-                            std::to_string(danio) + " de danio.";
+                            std::to_string(danioEnemigo) + " de danio.";
 
-    if (m_partida->vidaActual == 0)
+    // Verificar si la armadura se rompió después de recibir daño
+    verificarYReemplazarArmadura();
+
+    if (m_personaje->estaEliminado())
     {
         m_combateFinalizado = true;
         m_victoria           = false;
         m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ha sido derrotado...";
     }
+
+    actualizarPartida();
 }
 
 int Combatir::getVidaActualHeroe() const
 {
-    return m_partida ? static_cast<int>(m_partida->vidaActual) : 0;
+    return m_personaje ? m_personaje->getVidaActual() : 0;
 }
 
 int Combatir::getVidaMaximaHeroe() const
 {
-    return plantillasHeroes[indiceHeroe()].vidaMaxima;
+    return m_personaje ? m_personaje->getVidaMaxima() : 0;
 }
 
 int Combatir::getVidaActualEnemigo() const
@@ -294,6 +487,55 @@ int Combatir::getVidaActualEnemigo() const
 int Combatir::getVidaMaximaEnemigo() const
 {
     return m_enemigo ? m_enemigo->getVidaMaxima() : 0;
+}
+
+int Combatir::getVidaArma() const
+{
+    return m_personaje ? m_personaje->getVidaArmaActual() : 0;
+}
+
+int Combatir::getVidaArmadura() const
+{
+    return m_personaje ? m_personaje->getVidaArmaduraActual() : 0;
+}
+
+int Combatir::getVidaMaximaArma() const
+{
+    if (!m_personaje || m_personaje->armaRota()) return 0;
+    // Necesitarías acceder al Item equipado para obtener la vida máxima
+    // Como Personaje no expone el Item directamente, podrías agregar un método
+    // o almacenar la vida máxima en otro lado.
+    // Por ahora, retornamos 0 si no está equipada.
+    return 0;
+}
+
+int Combatir::getVidaMaximaArmadura() const
+{
+    if (!m_personaje || m_personaje->armaduraRota()) return 0;
+    return 0;
+}
+
+std::string Combatir::getNombreArma() const
+{
+    if (!m_personaje || m_personaje->armaRota()) return "Sin arma";
+    // Similar al caso anterior, necesitarías acceso al Item
+    return "Arma equipada"; // Placeholder
+}
+
+std::string Combatir::getNombreArmadura() const
+{
+    if (!m_personaje || m_personaje->armaduraRota()) return "Sin armadura";
+    return "Armadura equipada"; // Placeholder
+}
+
+bool Combatir::tieneArma() const
+{
+    return m_personaje && !m_personaje->armaRota();
+}
+
+bool Combatir::tieneArmadura() const
+{
+    return m_personaje && !m_personaje->armaduraRota();
 }
 
 const char* Combatir::getNombreHeroe() const
@@ -346,4 +588,3 @@ bool Combatir::consumirMensajeVictoria(std::string& mensaje)
     m_mensajeVictoriaPendiente = false;
     return true;
 }
-
