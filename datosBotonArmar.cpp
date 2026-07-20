@@ -14,18 +14,18 @@ const sf::Color COLOR_RECUA_ARMAR = sf::Color::White;
 
 const unsigned int TAM_CARACTER_ARMAR=25;
 
-const float posBotonX_ARMAR=950;
+const float posBotonX_ARMAR=750;
 const float posBotonY_ARMAR=200;
 
-const float tamRectBotonX_ARMAR=260.f;
+const float tamRectBotonX_ARMAR=330.f;
 const float tamRectBotonY_ARMAR=50.f;
 
 
 const std::string ETI_BOTONES_ARMAR[] = {
-    "Agregar Espada Madera",
-    "Agregar Espada Hierro",
-    "Agregar Espada Madera",
-    "Agregar Espada Hierro",
+    "Espada de Madera",
+    "Espada de Hierro",
+    "Escudo de Madera",
+    "Escudo de Hierro",
     "Avanzar",
     "Volver"
 

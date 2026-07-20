@@ -4,8 +4,7 @@
 #include "GestorPantallas.h"
 #include "PanelTexto.h"
 #include "botonera.h"
-#include "explorarCueva.h"
-#include "material.h"
+#include "equipar.h"
 
 
 class VentanaEquipar : public Pantalla
@@ -18,48 +17,34 @@ public:
     void actualizar(float dt) override;
     void dibujar(sf::RenderWindow& ventana) override;
     void cargarRec();
-    void v_explorar();
-    void v_curar();
-    void v_agregar();
-    void v_actualizar();
-    void verBotones(bool vidaIgual);
 
     void ejecutarAccion(int i);
     void manejarEvento(const sf::Event& evento);
-    //void ManejoPartida();
     void actualizarNombreJug(const std::string& nombre);
 
+    // Vuelve a leer el inventario y redibuja el panel (llamar tras cualquier cambio)
+    void refrescarPanel();
 
+    // Botones 0-3: intenta equipar idItem (ver Equipar::consultarEquipar/confirmarEquipar)
+    void intentarEquipar(int idItem);
 
 
     Panel panelJug;
-    Panel panelCueva;
 
 
 private:
     GestorPantallas& m_gestor;
     Botonera botonera;
-    bool partidaNueva=false;
     sf::Sprite spriteFondo;
     sf::Texture texturaFondo;
     sf::Font fuenteBotonera;
     sf::Font m_fuente;
     sf::Text m_texto;
-    sf::Text m_turnos;
     sf::Text nombreJug;
-    sf::Text nombreCue;
     sf::Text txtPanelJug;
     sf::Text txtPanelJug2;
-    sf::Text txtVidaJugador;
 
-    sf::Text txtPanelCue;
     std::string nomcadJug;
-    std::string nomcadCueva;
-    bool guardado=false;
 
-
-    ExplorCueva m_explorar;
-    Material materiales;
-
-
+    Equipar m_equipar;
 };

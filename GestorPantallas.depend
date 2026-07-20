@@ -494,7 +494,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1784474048 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1784516964 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -520,7 +520,7 @@
 	"datosBotonIntro.h"
 	<iostream>
 
-1784467345 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
+1784519172 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanajugad.cpp
 	"datosFuentes.h"
 	"centrar.h"
 	"datosArchivos.h"
@@ -656,7 +656,7 @@
 1781556965 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivopartidas.h
 	"partidas.h"
 
-1784128827 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
+1784522458 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
 
 1782992827 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.cpp
 	"inventario.h"
@@ -691,7 +691,7 @@
 1784469223 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.cpp
 	"items_juego.h"
 
-1784128976 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
+1784522463 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
 	"partidas.h"
 	<iostream>
 
@@ -727,7 +727,7 @@
 1781879127 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\centrar.h
 	<SFML/Graphics.hpp>
 
-1784513909 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
+1784522254 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\explorarcueva.cpp
 	"partidas.h"
 	"explorarCueva.h"
 	"datosArchivos.h"
@@ -757,7 +757,7 @@
 	"ArchivoPartidas.h"
 	"partidas.h"
 
-1784122982 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+1784522098 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
 	"datosFuentes.h"
 	"ventanaCargar.h"
 	"datosVenCargar.h"
@@ -802,7 +802,7 @@
 	"crafteo.h"
 	"crafteoMan.h"
 
-1784124709 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacraft.cpp
+1784522793 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacraft.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaCraft.h"
@@ -832,7 +832,7 @@
 	"inventario.h"
 	"items_juego.h"
 
-1784128997 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
+1784522354 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\crafteoman.cpp
 	"partidas.h"
 	"crafteoMan.h"
 	"crafteo.h"
@@ -874,7 +874,7 @@
 1784117493 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.h
 	<SFML/Graphics.hpp>
 
-1784148374 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
+1784522183 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
 	"combate.h"
 	"datosArchivos.h"
 	"archivoInventario.h"
@@ -952,7 +952,7 @@
 1783798436 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaheroes.cpp
 	"plantillaHeroes.h"
 
-1784379275 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospartida.h
+1784518677 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datospartida.h
 	<string>
 
 1784509943 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\eventos.cpp
@@ -965,45 +965,64 @@
 	<string>
 	"material.h"
 
-1784472834 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonarmar.cpp
+1784517853 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonarmar.cpp
 	"datosBotonArmar.h"
 
 1784471431 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonarmar.h
 	<SFML/Graphics.hpp>
 	<string>
 
-1784471778 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenar.cpp
+1784517605 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenar.cpp
 	"datosVenAr.h"
 
 1784515153 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenar.h
 	<SFML/Graphics.hpp>
 
-1784472671 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.cpp
+1784523022 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaEquipar.h"
 	"botonera.h"
 	"PanelTexto.h"
+	"ventanaConfirmacion.h"
 	"datosFuentes.h"
 	"datosVenAr.h"
 	"datosBotonArmar.h"
-	"ArchivoInventario.h"
-	"ArchivoPartidas.h"
-	"inventarioCueva.h"
-	"explorarCueva.h"
+	"items_juego.h"
 	<iostream>
 	<string>
 
-1784472403 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.h
+1784532174 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaequipar.h
 	"Pantalla.h"
 	"GestorPantallas.h"
 	"PanelTexto.h"
 	"botonera.h"
-	"explorarCueva.h"
-	"material.h"
+	"equipar.h"
 
 1784516423 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.cpp
 	"datosVenCombate.h"
 
 1784516385 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.h
+
+1784522212 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\equipar.cpp
+	"partidas.h"
+	"equipar.h"
+	"datosArchivos.h"
+	"ArchivoInventario.h"
+	"ArchivoPartidas.h"
+	"plantillaHeroes.h"
+	"eventos.h"
+	<string>
+	<iostream>
+	<SFML/Graphics.hpp>
+
+1784532174 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\equipar.h
+	"inventario.h"
+	"PanelTexto.h"
+	"datosPartida.h"
+	"ArchivoInventario.h"
+	"ArchivoPartidas.h"
+	"material.h"
+	"items_juego.h"
+	<SFML/Graphics.hpp>
 

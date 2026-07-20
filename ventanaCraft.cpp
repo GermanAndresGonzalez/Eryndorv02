@@ -157,9 +157,6 @@ void VentanaCrafteo::cargarRec()
     txtPanelCueDos.setColor(CLR_RECUA_PA_RES_CR);
 
 
-
-
-
     txtPanelJug.setFont(m_fuente);
     txtPanelJug.setCharacterSize(TAM_CAR_PARR_CR);
     txtPanelJug.setColor(CLR_RECUA_PA_CR);

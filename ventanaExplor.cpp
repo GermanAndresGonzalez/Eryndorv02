@@ -206,8 +206,10 @@ void VentanaExplo::ejecutarAccion(int i)
         std::cout <<"\n\nCurar\n\n";
         break;
     case 4:
+
         m_gestor.ocultar("explorar");
-        m_gestor.mostrar("combatir");
+        //m_gestor.mostrar("combatir");
+        m_gestor.mostrar("equipar");
         break;
     case 5:
         m_explorar.modificarPartida();

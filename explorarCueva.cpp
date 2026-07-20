@@ -264,7 +264,7 @@ bool ExplorCueva::guardarInventario(Inventario& inventario)
 
 Partidas ExplorCueva::construirRegistroPartida()
 {
-    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->turnoJugador,partidaEx->vidas, partidaEx->nivel, partidaEx->vidaMaxima,partidaEx->vidaActual);
+    return Partidas(partidaEx->partida, partidaEx->id, partidaEx->turnoJugador,partidaEx->vidas, partidaEx->nivel, partidaEx->vidaMaxima,partidaEx->vidaActual,partidaEx->idArma, partidaEx->idArmadura,partidaEx->vidaArma,partidaEx->vidaArmadura);
 }
 
 bool ExplorCueva::guardarPartida()

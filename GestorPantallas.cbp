@@ -265,6 +265,12 @@
 		<Unit filename="datosVentana.h">
 			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
+		<Unit filename="equipar.cpp">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
+		<Unit filename="equipar.h">
+			<Option virtualFolder="AccionesVentanas/" />
+		</Unit>
 		<Unit filename="eventos.cpp">
 			<Option virtualFolder="AccionesVentanas/" />
 		</Unit>

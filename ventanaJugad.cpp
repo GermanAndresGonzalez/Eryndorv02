@@ -230,6 +230,12 @@ void VentanaJug::ejecutarAccion(int i)
         datos->vidaActual   = plantillasHeroes[jugadorId - 1].vidaMaxima;
         datos->vidaMaxima   = plantillasHeroes[jugadorId - 1].vidaMaxima;
 
+        datos->idArma       = 0;
+        datos->idArmadura   = 0;
+        datos->vidaArma     = 0;
+        datos->vidaArmadura = 0;
+
+
         const std::string& nombre = NOMBRES[jugadorId - 1];
         std::strncpy(datos->nombre, nombre.c_str(), 49);
         datos->nombre[49] = '\0';

@@ -395,7 +395,9 @@ void VentanaCargar::actualizarDetalle()
         "ID de nivel     : " + std::to_string(p.getIdNivel())      + "\n" +
         "Cant. de turnos : " + std::to_string(p.getTurnoJugador())      + "\n" +
         "Vida actual     : " + std::to_string(p.getVidaActual())      + "\n" +
-        "Estado         : " + (p.estaEliminada() ? "Eliminada" : "Activa"));
+        "Arma            : " + std::to_string(p.getArma())        + "\n" +
+        "Armadura        : " + std::to_string(p.getArmadura())        + "\n" +
+        "Estado          : " + (p.estaEliminada() ? "Eliminada" : "Activa"));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -84,7 +84,7 @@ void Combatir::actualizarPartida()
     int posicion = ArPartidas.buscarPosicionPorID(m_partida->partida);
     if (posicion >= 0)
     {
-        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador,m_partida->vidas, m_partida->nivel,m_partida->vidaMaxima,m_partida->vidaActual);
+        Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador,m_partida->vidas, m_partida->nivel,m_partida->vidaMaxima,m_partida->vidaActual,m_partida->idArma, m_partida->idArmadura,m_partida->vidaArma,m_partida->vidaArmadura);
         ArPartidas.modificar(posicion, registro);
     }
 }

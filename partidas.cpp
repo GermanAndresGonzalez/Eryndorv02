@@ -11,7 +11,8 @@ Partidas::Partidas()
     eliminado = false;
 }
 
-Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, int idNivel, int vidaMaxima, int vidaActual)
+Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, int idNivel, int vidaMaxima, int vidaActual, int Arma, int Armadura, int vidaArma, int vidaArmadura)
+
 {
     this->id = id;
     this->idPersonaje = idPersonaje;
@@ -20,6 +21,10 @@ Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, 
     this->idNivel = idNivel;
     this->vidaActual = vidaActual;
     this->vidaMaxima = vidaMaxima;
+    this->Arma = Arma;
+    this->vidaArma = vidaArma;
+    this->Armadura = Armadura;
+    this->vidaArmadura = vidaArmadura;
     eliminado = false;
 }
 
@@ -45,6 +50,24 @@ int Partidas::getId() const
 int Partidas::ContarRegistros() const
 {
     return id;
+}
+
+int Partidas::getArma() const
+{
+    return Arma;
+}
+int Partidas::getVidaArma() const
+{
+    return vidaArma;
+}
+
+int Partidas::getArmadura() const
+{
+    return Armadura;
+}
+int Partidas::getVidaArmadura() const
+{
+    return vidaArmadura;
 }
 
 int Partidas::getIdPersonaje() const

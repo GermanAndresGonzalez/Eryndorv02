@@ -4,28 +4,30 @@
 #include "VentanaEquipar.h"
 #include "botonera.h"
 #include "PanelTexto.h"
+#include "ventanaConfirmacion.h"
 
 #include "datosFuentes.h"
 #include "datosVenAr.h"
 #include "datosBotonArmar.h"
 
-#include "ArchivoInventario.h"
-#include "ArchivoPartidas.h"
-#include "inventarioCueva.h"
-#include "explorarCueva.h"
+#include "items_juego.h"
 
 #include <iostream>
 #include <string>
 
 
+namespace
+{
+// Botones 0-3 de la botonera -> id de item que equipan (ver datosBotonArmar.cpp,
+// tienen que ir en el mismo orden que ETI_BOTONES_ARMAR).
+const int ITEMS_BOTON_ARMAR[4] = { ESPADA_MADERA, ESPADA_HIERRO, ESCUDO_MADERA, ESCUDO_HIERRO };
+}
+
 
 VentanaEquipar::VentanaEquipar(GestorPantallas& gestor)
     : m_gestor(gestor)
-    , m_explorar(gestor.obtenerPartida(), 10)
+    , m_equipar(gestor.obtenerPartida(), 0)   // el 2do parámetro (turnos) no se usa en esta pantalla
 {
-    nomcadCueva = "Cueva";
-    Botonera botonera;
-
     cargarRec();
 }
 
@@ -33,35 +35,30 @@ void VentanaEquipar::alMostrar()
 {
     Partida* datos = m_gestor.obtenerPartida();
     nomcadJug = datos->nombre;
-    //datos->turnoJugador = 10;
-    guardado = false;   // resetear flag de turno al entrar
 
-    // ── Reset crítico: descarta inventario en memoria y carga el de
-    //    la partida activa desde disco. Evita mostrar datos de otra partida.
-    m_explorar.resetearInventario();
-    m_explorar.setTurnos(datos->turnoJugador);
+    // Reset crítico: descarta cualquier inventario en memoria y carga el de
+    // la partida activa desde disco. Evita mostrar datos de otra partida.
+    m_equipar.resetearInventario();
 
     nombreJug.setString(datos->nombre);
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+25.f);
 
-    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
-    std::cout << "\n" << textoTurnos << std::endl;
-    m_turnos.setString(textoTurnos);
-    Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
+    refrescarPanel();
 
-    m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    m_explorar.explorarCueva(panelCueva, txtPanelCue);
-    m_explorar.cargarVida(panelJug,txtPanelJug2, txtVidaJugador);
-
-    if (m_explorar.guardarPartida())
+    if (m_equipar.guardarPartida())
         std::cout << "Partida guardada\n";
     else
         std::cout << "No se guardó la partida\n";
 
-    bool vidaIgual=(datos->vidaActual==datos->vidaMaxima);
-    verBotones(vidaIgual);
-    actualizarNombreJug(datos->nombre);
+    for (int i = 0; i < CANT_BOTONES_ARMAR; i++)
+        botonera.setActivo(i, true);
 
+    actualizarNombreJug(datos->nombre);
+}
+
+void VentanaEquipar::refrescarPanel()
+{
+    m_equipar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
 }
 
 void VentanaEquipar::actualizarNombreJug(const std::string& nombre)
@@ -70,48 +67,26 @@ void VentanaEquipar::actualizarNombreJug(const std::string& nombre)
     Centrado::centrar(nombreJug, panelJug.obtenerLimites(), panelJug.getPosInternaY()+10);
 }
 
-void VentanaEquipar::verBotones(bool vidaIgual)
-{
-    for (int i=0; i<CANT_BOTONES_ARMAR; i++)
-    {
-        botonera.setActivo(i,true);
-    }
-    botonera.setActivo(3, !vidaIgual);
-}
 void VentanaEquipar::alOcultar()
 {
 }
 
 void VentanaEquipar::actualizar(float dt)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-    {
-        m_gestor.ocultar("principal");
-        m_gestor.mostrar("intro");
-    }
 }
 
 void VentanaEquipar::dibujar(sf::RenderWindow& ventana)
 {
     ventana.draw(spriteFondo);
     ventana.draw(m_texto);
-    ventana.draw(m_turnos);
 
     ventana.draw(panelJug);
-    ventana.draw(panelCueva);
 
-    //panelJug.dibujar(m_gestor.obtenerVentana());
-    //panelCueva.dibujar(m_gestor.obtenerVentana());
     ventana.draw(nombreJug);
-    ventana.draw(nombreCue);
-    ventana.draw(txtPanelCue);
     ventana.draw(txtPanelJug);
     ventana.draw(txtPanelJug2);
-    ventana.draw(txtVidaJugador);
 
     ventana.draw(botonera);
-
-
 }
 
 void VentanaEquipar::cargarRec()
@@ -127,13 +102,7 @@ void VentanaEquipar::cargarRec()
     m_texto.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
     m_texto.setPosition(sf::Vector2f(m_gestor.obtenerVentana().getSize().x / 2.0f, 50.f));
 
-    m_turnos.setFont(m_fuente);
-    m_turnos.setCharacterSize(35);
-    m_turnos.setColor(CLR_RECUA_PA_ARMAR_RES);
-    Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
-
-    panelJug   = Panel(110.f, 200.f, 300.f, 400.f);
-    panelCueva = Panel(490.f, 200.f, 400.f, 400.f);
+    panelJug = Panel(210.f, 200.f, 450.f, 400.f);
 
     if (!texturaFondo.loadFromFile(RUTA_FONDO_ARMAR))
         std::cerr << ERROR_FONDO_ARMAR;
@@ -154,17 +123,6 @@ void VentanaEquipar::cargarRec()
     nombreJug.setCharacterSize(TAM_CAR_PARR_ARMAR);
     nombreJug.setColor(CLR_RECUA_PA_ARMAR);
 
-    nombreCue.setFont(m_fuente);
-    nombreCue.setCharacterSize(TAM_CAR_PARR_ARMAR);
-    nombreCue.setString(nomcadCueva);
-    Centrado::centrar(nombreCue, panelCueva.obtenerLimites(), panelCueva.getPosInternaY()+10.f);
-    nombreCue.setColor(CLR_RECUA_PA_ARMAR);
-
-    txtPanelCue.setFont(m_fuente);
-    txtPanelCue.setCharacterSize(TAM_CAR_PARR_ARMAR);
-    txtPanelCue.setColor(CLR_RECUA_PA_ARMAR);
-    txtPanelCue.setString(nomcadCueva);
-
     txtPanelJug.setFont(m_fuente);
     txtPanelJug.setCharacterSize(TAM_CAR_PARR_ARMAR);
     txtPanelJug.setColor(CLR_RECUA_PA_ARMAR);
@@ -174,107 +132,82 @@ void VentanaEquipar::cargarRec()
     txtPanelJug2.setCharacterSize(TAM_CAR_PARR_ARMAR);
     txtPanelJug2.setColor(CLR_RECUA_PA_ARMAR);
     txtPanelJug2.setString("");
-
-
-    txtVidaJugador.setFont(m_fuente);
-    txtVidaJugador.setCharacterSize(TAM_CAR_PARR_ARMAR);
-    txtVidaJugador.setColor(CLR_RECUA_PA_ARMAR_RES);
-    txtVidaJugador.setString("Vida actual: ");
-
-
 }
 
 void VentanaEquipar::ejecutarAccion(int i)
 {
-
     std::cout << "Click\n";
     switch (i)
     {
     case 0:
-        std::cout << "explorar\n";
-        v_explorar();
-        break;
     case 1:
-        std::cout << "agregar\n";
-        v_agregar();
-        break;
     case 2:
-        m_gestor.ocultar("explorar");
-        m_gestor.mostrar("craftear");
-        break;
     case 3:
-        v_curar();
-        std::cout <<"\n\nCurar\n\n";
+        intentarEquipar(ITEMS_BOTON_ARMAR[i]);
         break;
+
     case 4:
-        m_gestor.ocultar("explorar");
+        // Avanzar al siguiente paso del flujo.
+        // TODO: reemplazar "explorar" por el nombre real de la pantalla siguiente.
+        m_gestor.ocultar("equipar");
         m_gestor.mostrar("combatir");
         break;
+
     case 5:
-        m_explorar.modificarPartida();
-        m_gestor.ocultar("explorar");
-        m_gestor.mostrar("jugador");
+        // Volver, con confirmación (mismo patrón que el resto de las pantallas).
+        if (Salida::Volver(m_gestor))
+        {
+            m_gestor.ocultar("equipar");
+            // TODO: reemplazar "jugador" por el nombre real de la pantalla anterior.
+            m_gestor.mostrar("jugador");
+        }
         break;
     }
 }
 
-void VentanaEquipar::v_explorar()
+void VentanaEquipar::intentarEquipar(int idItem)
 {
-    m_explorar.explorarCueva(panelCueva, txtPanelCue);
-    guardado = false;
-    v_actualizar();
-}
+    InfoEquipar info = m_equipar.consultarEquipar(idItem);
+    std::string nombreNuevo = obtenerItemPorId(idItem).getNombre();
 
-void VentanaEquipar::v_curar()
-{
-    if (m_explorar.curar(txtVidaJugador))
+    switch (info.resultado)
     {
-       guardado = false;
-       m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-       m_explorar.cargarVida(panelJug,txtPanelJug2, txtVidaJugador);
-    }
-}
+    case ResultadoEquipar::SinItemEnInventario:
+        Salida::Mensaje(m_gestor, "", "No tenés " + nombreNuevo + " en el inventario.");
+        break;
 
+    case ResultadoEquipar::YaEquipadoMaximo:
+        Salida::Mensaje(m_gestor, "", "Ya tenés " + nombreNuevo + " equipado con la vida máxima.");
+        break;
 
-void VentanaEquipar::v_agregar()
-{
-    if (!guardado)
-    {
-        if (m_explorar.agregarInventario())
+    case ResultadoEquipar::Equipado:
+        if (m_equipar.confirmarEquipar(idItem))
         {
-            std::cout << "Agregar\n";
-            txtPanelCue.setString("\nAgregado.");
-            guardado = true;
-            Partida* datos = m_gestor.obtenerPartida();
-            datos->turnoJugador--;
-            m_explorar.setTurnos(datos->turnoJugador);
-            v_actualizar();
-            std::cout << "Turnos jugador: " << datos->turnoJugador << std::endl;
-            m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
+            refrescarPanel();
+            std::cout << "Equipado: " << nombreNuevo << "\n";
         }
-    }
-}
+        break;
 
-void VentanaEquipar::v_actualizar()
-{
-    for (int i=0; i<4; i++)
+    case ResultadoEquipar::RequiereConfirmacion:
     {
-        botonera.setActivo(i,true);
-    }
-    m_explorar.cargarPanel(panelJug, txtPanelJug, txtPanelJug2);
-    Partida* datos = m_gestor.obtenerPartida();
-    std::string textoTurnos = "Te quedan " + std::to_string(datos->turnoJugador) + " turnos para llenar tu mochila.";
-    m_turnos.setString(textoTurnos);
-    Centrado::centrar(m_turnos, m_gestor.obtenerVentana(), 120.f);
-    if (datos->turnoJugador==0)
-    {
-        for (int i=0; i<2; i++)
+        std::string nombreActual = obtenerItemPorId(info.idActual).getNombre();
+        std::string mensaje =
+            "Tenés equipado " + nombreActual + " (" +
+            std::to_string(info.vidaActual) + "/" + std::to_string(info.vidaMaximaActual) +
+            " de vida).\n¿Querés cambiarlo por " + nombreNuevo + "?";
+
+        VentanaConfirmacion dialogo("", mensaje);
+        if (dialogo.mostrar(m_gestor.obtenerVentana()))
         {
-            botonera.setActivo(i,false);
+            if (m_equipar.confirmarEquipar(idItem))
+            {
+                refrescarPanel();
+                std::cout << "Equipado: " << nombreNuevo << "\n";
+            }
         }
-        //std::cout << "Turnos: 0\n";
+        break;
     }
-
+    }
 }
 
 void VentanaEquipar::manejarEvento(const sf::Event& evento)
@@ -282,8 +215,10 @@ void VentanaEquipar::manejarEvento(const sf::Event& evento)
     if (evento.type == sf::Event::Closed)
     {
         if (Salida::Volver(m_gestor))
-            m_gestor.ocultar("explorar");
-        m_gestor.mostrar("jugador");
+        {
+            m_gestor.ocultar("equipar");
+            m_gestor.mostrar("jugador");
+        }
     }
 
     if (evento.type == sf::Event::MouseMoved)

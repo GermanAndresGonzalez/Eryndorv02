@@ -16,6 +16,11 @@ struct Partida
     char nombre[50];
     unsigned int vidaActual = 0;
     unsigned int vidaMaxima = 0;
+    unsigned int idArma = 0;
+    unsigned int idArmadura = 0;
+    unsigned int vidaArma = 0;
+    unsigned int vidaArmadura = 0;
+
 };
 
 
