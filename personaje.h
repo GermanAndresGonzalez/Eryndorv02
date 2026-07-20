@@ -19,8 +19,10 @@ public:
     ~Personaje(); // Agregar destructor para liberar los Items
 
     // Equipo: armas y armaduras
-    void equiparArma(Item* arma);      // Cambiar a Item*
-    void equiparArmadura(Item* armadura); // Cambiar a Item*
+    // vidaActual: si es >= 0, restaura esa vida en vez de dejarlo a full
+    // (uso: recargar un item con desgaste ya guardado, ej. al re-entrar a combate)
+    void equiparArma(Item* arma, int vidaActual = -1);
+    void equiparArmadura(Item* armadura, int vidaActual = -1);
 
     Item* desequiparArma();    // Cambiar a Item*
     Item* desequiparArmadura(); // Cambiar a Item*
@@ -46,7 +48,7 @@ public:
     int getVidaMaxima() const;
     int getOro() const;
     bool estaEliminado() const;
-    
+
     // Nuevos getters para el equipamiento
     const Item* getArmaEquipada() const;
     const Item* getArmaduraEquipada() const;

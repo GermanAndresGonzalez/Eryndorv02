@@ -87,24 +87,17 @@ void Combatir::inicializarPersonaje()
     if (m_partida->idArma != 0)
     {
         Item arma = obtenerItemPorId(static_cast<int>(m_partida->idArma));
-        if (arma.getId() != 0) // Item válido
+        if (arma.getId() != 0) // Item válido en la tabla de items
         {
-            // Buscar el arma en el inventario
-            int cantidad = m_inventario.obtenerCantidad(arma.getId());
-            if (cantidad > 0)
-            {
-                m_inventario.quitarItem(arma.getId(), 1);
-                m_personaje->equiparArma(new Item(arma)); // Nota: esto crea una copia
-                m_partida->vidaArma = m_personaje->getVidaArmaActual();
-                // Guardar el ID del arma equipada
-                m_partida->idArma = arma.getId();
-            }
-            else
-            {
-                // No está en el inventario, limpiar ID
-                m_partida->idArma = 0;
-                m_partida->vidaArma = 0;
-            }
+            // Restaurar el desgaste ya guardado, no reparar a full
+            m_personaje->equiparArma(new Item(arma), static_cast<int>(m_partida->vidaArma));
+            m_partida->vidaArma = m_personaje->getVidaArmaActual();
+        }
+        else
+        {
+            // El id guardado no corresponde a ningún item real: sí limpiar
+            m_partida->idArma = 0;
+            m_partida->vidaArma = 0;
         }
     }
 
@@ -112,31 +105,22 @@ void Combatir::inicializarPersonaje()
     if (m_partida->idArmadura != 0)
     {
         Item armadura = obtenerItemPorId(static_cast<int>(m_partida->idArmadura));
-        if (armadura.getId() != 0) // Item válido
+        if (armadura.getId() != 0) // Item válido en la tabla de items
         {
-            int cantidad = m_inventario.obtenerCantidad(armadura.getId());
-            if (cantidad > 0)
-            {
-                m_inventario.quitarItem(armadura.getId(), 1);
-                m_personaje->equiparArmadura(new Item(armadura)); // Nota: esto crea una copia
-                m_partida->vidaArmadura = m_personaje->getVidaArmaduraActual();
-                // Guardar el ID de la armadura equipada
-                m_partida->idArmadura = armadura.getId();
-            }
-            else
-            {
-                // No está en el inventario, limpiar ID
-                m_partida->idArmadura = 0;
-                m_partida->vidaArmadura = 0;
-            }
+            // La armadura equipada ya fue descontada del inventario al
+            // equiparse (ver Equipar::confirmarEquipar); no hay que volver
+            // a chequear/descontar stock acá, solo restaurar el desgaste
+            // ya guardado en vez de repararla a full.
+            m_personaje->equiparArmadura(new Item(armadura), static_cast<int>(m_partida->vidaArmadura));
+            m_partida->vidaArmadura = m_personaje->getVidaArmaduraActual();
+        }
+        else
+        {
+            // El id guardado no corresponde a ningún item real: sí limpiar
+            m_partida->idArmadura = 0;
+            m_partida->vidaArmadura = 0;
         }
     }
-
-    // Actualizar nivel del personaje
-    // Nota: El nivel del personaje puede ser diferente al nivel de la partida
-    // Si necesitas que el nivel del personaje afecte al ataque/defensa, ajusta aquí
-    // Por ahora, usamos el nivel de la partida
-    // m_personaje->setNivel(m_partida->nivel); // Necesitarías agregar setNivel a Personaje
 }
 
 void Combatir::equiparArmaDelInventario()
@@ -144,7 +128,7 @@ void Combatir::equiparArmaDelInventario()
     if (!m_personaje || !m_partida) return;
 
     // Buscar la primera arma en el inventario
-    for (int i = 0; i < 100; i++) // Tamaño máximo del inventario
+    for (int i = 0; i < 100; i++)
     {
         int cantidad = m_inventario.obtenerCantidad(i);
         if (cantidad > 0)
@@ -154,8 +138,10 @@ void Combatir::equiparArmaDelInventario()
             {
                 // Equipar el arma
                 m_inventario.quitarItem(i, 1);
-                m_personaje->equiparArma(new Item(item));
+                Item* armaNueva = new Item(item);
+                m_personaje->equiparArma(armaNueva);
                 m_partida->idArma = i;
+                // La durabilidad se inicializa al máximo al equipar del inventario
                 m_partida->vidaArma = m_personaje->getVidaArmaActual();
                 actualizarPartida();
                 guardarPartida();
@@ -268,10 +254,10 @@ void Combatir::actualizarPartida()
     if (posicion >= 0)
     {
         Partidas registro(m_partida->partida, m_partida->id, m_partida->turnoJugador,
-                         m_partida->vidas, m_partida->nivel,
-                         m_partida->vidaMaxima, m_partida->vidaActual,
-                         m_partida->idArma, m_partida->idArmadura,
-                         m_partida->vidaArma, m_partida->vidaArmadura);
+                          m_partida->vidas, m_partida->nivel,
+                          m_partida->vidaMaxima, m_partida->vidaActual,
+                          m_partida->idArma, m_partida->idArmadura,
+                          m_partida->vidaArma, m_partida->vidaArmadura);
         ArPartidas.modificar(posicion, registro);
     }
 }
@@ -364,12 +350,19 @@ void Combatir::atacar()
                           std::to_string(danio) + " de danio.";
 
     // Verificar si el arma se rompió después del ataque
-    verificarYReemplazarArma();
+    if (m_personaje->armaRota())
+    {
+        m_ultimaAccionHeroe += "\nEl arma se ha roto!";
+        verificarYReemplazarArma();
+        // Actualizar la partida después de reemplazar
+        actualizarPartida();
+        guardarPartida();
+    }
 
     if (m_enemigo->estaEliminado())
     {
         m_combateFinalizado = true;
-        m_victoria           = true;
+        m_victoria = true;
         m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " fue derrotado.";
 
         const bool eraJefe = esCombateFinal();
@@ -446,7 +439,7 @@ void Combatir::turnoEnemigo()
 
     int danioEnemigo = m_enemigo->atacar();
 
-    // El personaje recibe el daño (esto ya maneja la defensa y la armadura internamente)
+    // El personaje recibe el daño
     m_personaje->recibirDanio(danioEnemigo);
 
     // Actualizar la vida de la armadura en la partida
@@ -457,17 +450,25 @@ void Combatir::turnoEnemigo()
                             std::to_string(danioEnemigo) + " de danio.";
 
     // Verificar si la armadura se rompió después de recibir daño
-    verificarYReemplazarArmadura();
+    if (m_personaje->armaduraRota())
+    {
+        m_ultimaAccionEnemigo += "\nLa armadura se ha roto!";
+        verificarYReemplazarArmadura();
+        // Actualizar la partida después de reemplazar
+        actualizarPartida();
+        guardarPartida();
+    }
 
     if (m_personaje->estaEliminado())
     {
         m_combateFinalizado = true;
-        m_victoria           = false;
+        m_victoria = false;
         m_ultimaAccionHeroe = std::string(m_partida->nombre) + " fue derrotado...";
     }
 
     actualizarPartida();
 }
+
 
 int Combatir::getVidaActualHeroe() const
 {
@@ -519,7 +520,7 @@ std::string Combatir::getNombreArma() const
 {
     if (!m_personaje || m_personaje->armaRota()) return "Sin arma";
     if (m_partida->idArma>0)
-         return m_inventario.obtenerNombre(m_partida->idArma);
+        return m_inventario.obtenerNombre(m_partida->idArma);
     return "Arma equipada"; // Placeholder
 
 
@@ -529,7 +530,7 @@ std::string Combatir::getNombreArmadura() const
 {
     if (!m_personaje || m_personaje->armaduraRota()) return "Sin armadura";
     if (m_partida->idArmadura>0)
-         return m_inventario.obtenerNombre(m_partida->idArmadura);
+        return m_inventario.obtenerNombre(m_partida->idArmadura);
     return "Armadura equipada"; // Placeholder
 }
 

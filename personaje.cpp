@@ -25,21 +25,29 @@ Personaje::~Personaje()
     delete armaduraEquipada;
 }
 
-void Personaje::equiparArma(Item* arma)
+void Personaje::equiparArma(Item* arma, int vidaActual)
 {
-    // Liberar el arma anterior si existe
     delete armaEquipada;
     armaEquipada = arma;
-    vidaArmaActual = (arma != nullptr) ? arma->getVidaMaxima() : 0;
+
+    if (arma == nullptr)
+        vidaArmaActual = 0;
+    else
+        vidaArmaActual = (vidaActual >= 0) ? vidaActual : arma->getVidaMaxima();
 }
 
-void Personaje::equiparArmadura(Item* armadura)
+void Personaje::equiparArmadura(Item* armadura, int vidaActual)
 {
-    // Liberar la armadura anterior si existe
     delete armaduraEquipada;
     armaduraEquipada = armadura;
-    vidaArmaduraActual = (armadura != nullptr) ? armadura->getVidaMaxima() : 0;
+
+    if (armadura == nullptr)
+        vidaArmaduraActual = 0;
+    else
+        vidaArmaduraActual = (vidaActual >= 0) ? vidaActual : armadura->getVidaMaxima();
 }
+
+
 
 Item* Personaje::desequiparArma()
 {
