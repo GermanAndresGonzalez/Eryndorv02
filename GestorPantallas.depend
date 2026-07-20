@@ -494,7 +494,7 @@
 	"datosVenCueva.h"
 	<iostream>
 
-1784516964 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
+1784556975 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaexplor.cpp
 	"salida.h"
 	"centrar.h"
 	"ventanaExplor.h"
@@ -874,7 +874,7 @@
 1784117493 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\carousel.h
 	<SFML/Graphics.hpp>
 
-1784554692 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
+1784559887 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\combate.cpp
 	"combate.h"
 	"datosArchivos.h"
 	"archivoInventario.h"
@@ -914,7 +914,7 @@
 	"combate.h"
 	"material.h"
 
-1784527727 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
+1784562714 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacombat.cpp
 	"salida.h"
 	"centrar.h"
 	"VentanaCombat.h"
@@ -946,7 +946,7 @@
 
 1783782551 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaenemigos.h
 
-1784126499 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaenemigos.cpp
+1784561398 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaenemigos.cpp
 	"plantillaEnemigos.h"
 
 1783798423 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\plantillaheroes.h
@@ -1001,12 +1001,12 @@
 	"botonera.h"
 	"equipar.h"
 
-1784516423 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.cpp
+1784561728 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.cpp
 	"datosVenCombate.h"
 
-1784516385 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.h
+1784561795 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvencombate.h
 
-1784522212 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\equipar.cpp
+1784563365 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\equipar.cpp
 	"partidas.h"
 	"equipar.h"
 	"datosArchivos.h"

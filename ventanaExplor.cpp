@@ -198,6 +198,7 @@ void VentanaExplo::ejecutarAccion(int i)
         v_agregar();
         break;
     case 2:
+        std::cout << "hacer clic craftear\n";
         m_gestor.ocultar("explorar");
         m_gestor.mostrar("craftear");
         break;
@@ -214,7 +215,7 @@ void VentanaExplo::ejecutarAccion(int i)
     case 5:
         m_explorar.modificarPartida();
         m_gestor.ocultar("explorar");
-        m_gestor.mostrar("jugador");
+        m_gestor.mostrar("principal");
         break;
     }
 }

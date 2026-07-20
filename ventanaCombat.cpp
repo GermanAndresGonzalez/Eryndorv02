@@ -73,11 +73,13 @@ void VentanaCombat::alOcultar()
 
 void VentanaCombat::actualizar(float dt)
 {
+    /*
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         m_gestor.ocultar("principal");
         m_gestor.mostrar("intro");
     }
+    */
 }
 
 void VentanaCombat::dibujar(sf::RenderWindow& ventana)
@@ -194,6 +196,17 @@ void VentanaCombat::ejecutarAccion(int i)
         std::cout << "Atacar\n";
         m_combate.atacar();
         actualizarEstado();
+        if (m_combate.esCombateFinal() && m_combate.esVictoria())
+        {
+            m_combate.guardarPartida();
+            VentanaConfirmacion conf("Combate exitoso", MENSAJE_COMBATE_FINAL);
+            if (!conf.mostrar(m_gestor.obtenerVentana()))
+                break;
+            m_gestor.ocultar("combatir");
+            m_gestor.mostrar("principal");
+            break;
+        }
+
 
         if (m_combate.combateFinalizado() && m_combate.esVictoria())
         {
@@ -265,13 +278,19 @@ void VentanaCombat::actualizarVidas()
     vidaEne.setString("Vida: " + std::to_string(m_combate.getVidaActualEnemigo()) +
                        "/" + std::to_string(m_combate.getVidaMaximaEnemigo()));
 
-    sf::FloatRect boundsImgJug = panelJug.getImagen().getGlobalBounds();
-    vidaJug.setPosition(boundsImgJug.left - vidaJug.getGlobalBounds().width - 70.0f,
-                         boundsImgJug.top);
+    sf::FloatRect limAbajImag = panelJug.getImagen().getGlobalBounds();
+    //getImagen().getGlobalBounds();
+    vidaJug.setPosition(limAbajImag.left - vidaJug.getGlobalBounds().width - 70.0f,
+                         limAbajImag.top);
 
-    sf::FloatRect boundsImgEne = panelEne.getImagen().getGlobalBounds();
-    vidaEne.setPosition(boundsImgEne.left - vidaEne.getGlobalBounds().width - 90.0f,
-                         boundsImgEne.top);
+
+    sf::FloatRect limImgEne = panelEne.getImagen().getGlobalBounds();
+    float limitesX = limImgEne.left - vidaEne.getGlobalBounds().width - 90.0f;
+    if (idEnemigo==3)
+    {
+        limitesX+=60;
+    }
+    vidaEne.setPosition(limitesX, limImgEne.top);
 }
 
 void VentanaCombat::actualizarEquipamiento()
@@ -280,7 +299,7 @@ void VentanaCombat::actualizarEquipamiento()
     std::string textoArma = "Arma: ";
     if (m_combate.tieneArma())
     {
-        textoArma += m_combate.getNombreArma() + " (" + 
+        textoArma += m_combate.getNombreArma() + " (" +
                      std::to_string(m_combate.getVidaArma()) + "/" +
                      std::to_string(m_combate.getVidaMaximaArma()) + ")";
     }
@@ -294,7 +313,7 @@ void VentanaCombat::actualizarEquipamiento()
     std::string textoArmadura = "Armadura: ";
     if (m_combate.tieneArmadura())
     {
-        textoArmadura += m_combate.getNombreArmadura() + " (" + 
+        textoArmadura += m_combate.getNombreArmadura() + " (" +
                          std::to_string(m_combate.getVidaArmadura()) + "/" +
                          std::to_string(m_combate.getVidaMaximaArmadura()) + ")";
     }
@@ -305,9 +324,16 @@ void VentanaCombat::actualizarEquipamiento()
     infoArmadura.setString(textoArmadura);
 
     // Posicionar los textos debajo de la vida del jugador
+    /*
     sf::FloatRect boundsVidaJug = vidaJug.getGlobalBounds();
     infoArma.setPosition(boundsVidaJug.left, boundsVidaJug.top + boundsVidaJug.height + 5);
     infoArmadura.setPosition(boundsVidaJug.left, infoArma.getGlobalBounds().top + infoArma.getGlobalBounds().height + 5);
+    */
+    sf::Vector2f pos = panelJug.obtenerCoordenadasDebajoImagen();
+    infoArma.setPosition(pos.x, pos.y);
+    infoArmadura.setPosition(pos.x, pos.y+25.0f);
+
+
 }
 
 void VentanaCombat::manejarEvento(const sf::Event& evento)

@@ -211,11 +211,11 @@ void Combatir::verificarYReemplazarArma()
 
     if (m_personaje->armaRota())
     {
-        m_ultimaAccionHeroe = "El arma se ha roto! Buscando reemplazo...";
+        m_ultimaAccionHeroe = "El arma se ha roto!\nBuscando reemplazo...";
         equiparArmaDelInventario();
         if (m_personaje->armaRota())
         {
-            m_ultimaAccionHeroe = "No hay armas disponibles. Atacando sin arma.";
+            m_ultimaAccionHeroe = "No hay armas disponibles.\nAtacando sin arma.";
         }
         else
         {
@@ -230,11 +230,11 @@ void Combatir::verificarYReemplazarArmadura()
 
     if (m_personaje->armaduraRota())
     {
-        m_ultimaAccionEnemigo = "La armadura se ha roto! Buscando reemplazo...";
+        m_ultimaAccionEnemigo = "La armadura se ha roto!\nBuscando reemplazo...";
         equiparArmaduraDelInventario();
         if (m_personaje->armaduraRota())
         {
-            m_ultimaAccionEnemigo = "No hay armaduras disponibles. Defensa reducida.";
+            m_ultimaAccionEnemigo = "No hay armaduras disponibles.\nDefensa reducida.";
         }
         else
         {
@@ -370,7 +370,7 @@ void Combatir::atacar()
     {
         m_combateFinalizado = true;
         m_victoria           = true;
-        m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " ha sido derrotado.";
+        m_ultimaAccionEnemigo = std::string(m_enemigo->getNombre()) + " fue derrotado.";
 
         const bool eraJefe = esCombateFinal();
 
@@ -463,7 +463,7 @@ void Combatir::turnoEnemigo()
     {
         m_combateFinalizado = true;
         m_victoria           = false;
-        m_ultimaAccionHeroe = std::string(m_partida->nombre) + " ha sido derrotado...";
+        m_ultimaAccionHeroe = std::string(m_partida->nombre) + " fue derrotado...";
     }
 
     actualizarPartida();
@@ -518,13 +518,18 @@ int Combatir::getVidaMaximaArmadura() const
 std::string Combatir::getNombreArma() const
 {
     if (!m_personaje || m_personaje->armaRota()) return "Sin arma";
-    // Similar al caso anterior, necesitarías acceso al Item
+    if (m_partida->idArma>0)
+         return m_inventario.obtenerNombre(m_partida->idArma);
     return "Arma equipada"; // Placeholder
+
+
 }
 
 std::string Combatir::getNombreArmadura() const
 {
     if (!m_personaje || m_personaje->armaduraRota()) return "Sin armadura";
+    if (m_partida->idArmadura>0)
+         return m_inventario.obtenerNombre(m_partida->idArmadura);
     return "Armadura equipada"; // Placeholder
 }
 
@@ -556,8 +561,9 @@ void Combatir::cargarPanel(PanelConImagen& panel,
     txtAccionEnemigo.setString(m_ultimaAccionEnemigo);
 
     sf::Vector2f pos = panel.obtenerCoordenadasDebajoImagen();
-    txtAccionHeroe.setPosition(pos.x, pos.y);
-    txtAccionEnemigo.setPosition(pos.x-5.0f, pos.y + txtAccionHeroe.getGlobalBounds().height + 10.f);
+    txtAccionHeroe.setPosition(pos.x, pos.y+85.0f);
+    //txtAccionEnemigo.setPosition(pos.x-5.0f, pos.y + txtAccionHeroe.getGlobalBounds().height + 10.f);
+    txtAccionEnemigo.setPosition(pos.x+450.0f, pos.y + txtAccionHeroe.getGlobalBounds().height+75.0f);
 }
 
 const char* Combatir::devolverRuta(int id, int tipoJug) const

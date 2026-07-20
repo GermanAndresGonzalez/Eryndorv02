@@ -176,12 +176,21 @@ bool Equipar::guardarPartida()
     std::cout << partidaEx->partida<<std::endl;
     std::cout << partidaEx->nombre <<std::endl;
 
+
     if (ArPartidas.buscarPosicionPorID(partidaEx->partida) < 0)
     {
         Partidas registro = construirRegistroPartida();
-        return ArPartidas.agregar(registro);   // solo AGREGA si no existe
+        bool ok = ArPartidas.agregar(registro);
+
+        if (ok)
+            partidaEx->partida = registro.getId(); // sincronizar con el ID autogenerado
+
+        return ok;
     }
-    return false;   // si ya existe el registro, no hace nada y devuelve false
+    return false;
+
+
+      // si ya existe el registro, no hace nada y devuelve false
 }
 
 bool Equipar::modificarPartida()
