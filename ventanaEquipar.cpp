@@ -1,4 +1,3 @@
-
 #include "salida.h"
 #include "centrar.h"
 #include "VentanaEquipar.h"
@@ -171,12 +170,10 @@ void VentanaEquipar::ejecutarAccion(int i)
 
     case 5:
         // Volver, con confirmación (mismo patrón que el resto de las pantallas).
-        if (Salida::Volver(m_gestor))
-        {
-            m_gestor.ocultar("equipar");
-            // TODO: reemplazar "jugador" por el nombre real de la pantalla anterior.
-            m_gestor.mostrar("jugador");
-        }
+        m_gestor.ocultar("equipar");
+        // TODO: reemplazar "jugador" por el nombre real de la pantalla anterior.
+        m_gestor.mostrar("explorar");
+
         break;
     }
 }
