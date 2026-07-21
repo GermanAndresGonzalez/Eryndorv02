@@ -29,7 +29,7 @@ Partidas::Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, 
 }
 
 
-bool Partidas::getEliminado()
+bool Partidas::getEliminado() const
 {
     return eliminado;
 }

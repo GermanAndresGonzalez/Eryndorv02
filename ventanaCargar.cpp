@@ -106,6 +106,7 @@ void VentanaCargar::manejarEvento(const sf::Event& evento)
         float mx = static_cast<float>(mousePos.x);
         float my = static_cast<float>(mousePos.y);
 
+
         // ¿Clickeó en una fila de la lista?
         int fila = filaEnPosicion(mx, my);
         if (fila >= 0)

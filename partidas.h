@@ -4,7 +4,6 @@ class Partidas
 {
 public:
 
-
     Partidas();
     Partidas(int id, int idPersonaje, int turnoJugador, int vidasJugador, int idNivel, int vidaMaxima, int vidaActual, int Arma, int Armadura, int vidaArma, int vidaArmadura);
 
@@ -17,7 +16,6 @@ public:
     void agregarVidasJugador(int vidas);
 
     int getVidaMaxima() const;
-
 
     int getArma() const;
     int getVidaArma() const;
@@ -33,7 +31,7 @@ public:
     void setEliminado(bool _eliminado);
 
 
-    bool getEliminado();
+    bool getEliminado() const;
 
 
     int ContarRegistros() const;

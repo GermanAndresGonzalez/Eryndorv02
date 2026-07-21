@@ -71,7 +71,7 @@
 			<Option virtualFolder="Auxiliares/" />
 		</Unit>
 		<Unit filename="Pantalla.h">
-			<Option virtualFolder="Auxiliares/" />
+			<Option virtualFolder="GestorPantallas/" />
 		</Unit>
 		<Unit filename="VentanaCombat.h">
 			<Option virtualFolder="Ventanas/" />

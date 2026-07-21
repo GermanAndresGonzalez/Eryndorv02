@@ -4,7 +4,7 @@
 	<stdexcept>
 	<iostream>
 
-1784127673 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\gestorpantallas.h
+1784660053 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\gestorpantallas.h
 	<SFML/Graphics.hpp>
 	<unordered_map>
 	<string>
@@ -656,7 +656,7 @@
 1781556965 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\archivopartidas.h
 	"partidas.h"
 
-1784522458 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
+1784663114 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.h
 
 1782992827 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\inventario.cpp
 	"inventario.h"
@@ -691,7 +691,7 @@
 1784469223 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\items_juego.cpp
 	"items_juego.h"
 
-1784522463 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
+1784662210 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partidas.cpp
 	"partidas.h"
 	<iostream>
 
@@ -757,7 +757,7 @@
 	"ArchivoPartidas.h"
 	"partidas.h"
 
-1784522098 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
+1784660402 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanacargar.cpp
 	"datosFuentes.h"
 	"ventanaCargar.h"
 	"datosVenCargar.h"

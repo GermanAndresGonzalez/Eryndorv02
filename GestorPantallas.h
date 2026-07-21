@@ -55,9 +55,6 @@ public:
     sf::RenderWindow& obtenerVentana();
 
 
-
-
-
 private:
     struct Entrada {
         Pantalla* pantalla;   // dueño del puntero
