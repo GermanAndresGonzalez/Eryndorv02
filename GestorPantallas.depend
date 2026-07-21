@@ -426,12 +426,7 @@
 1781782404 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\pantalla.h
 	<SFML/Graphics.hpp>
 
-1784473468 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\main.cpp
-	"ArchivoInventario.h"
-	"ArchivoPartidas.h"
-	"partidas.h"
-	"inventario.h"
-	<iostream>
+1784664244 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\main.cpp
 	"GestorPantallas.h"
 	"salida.h"
 	"ventanaPrincipal.h"
@@ -442,6 +437,7 @@
 	"VentanaEquipar.h"
 	"ventanaExplor.h"
 	"ventanaCargar.h"
+	"VentanaAcerca.h"
 	"ventanaCraft.h"
 
 1781817025 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.h
@@ -452,7 +448,7 @@
 1781778954 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\partida.cpp
 	"Partida.h"
 
-1783609200 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.cpp
+1784664332 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaprincipal.cpp
 	"datosFuentes.h"
 	"salida.h"
 	"ventanaPrincipal.h"
@@ -1027,4 +1023,31 @@
 	"material.h"
 	"items_juego.h"
 	<SFML/Graphics.hpp>
+
+1784675306 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaacerca.h
+	"Pantalla.h"
+	"botonera.h"
+	"GestorPantallas.h"
+	"PanelTexto.h"
+
+1784664767 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenacerca.cpp
+	"datosVenAcerca.h"
+
+1784674992 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosvenacerca.h
+	<SFML/Graphics.hpp>
+
+1784664656 source:c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\ventanaacerca.cpp
+	"datosFuentes.h"
+	"VentanaAcerca.h"
+	"botonera.h"
+	"PanelTexto.h"
+	"datosVenAcerca.h"
+	"datosBotonAcerca.h"
+	"datosVenIntro.h"
+	"centrar.h"
+	<iostream>
+
+1784674992 c:\users\tradu\downloads\emule\incoming\pruebascpp\temporal\gestorpantallas\datosbotonacerca.h
+	<SFML/Graphics.hpp>
+	<string>
 

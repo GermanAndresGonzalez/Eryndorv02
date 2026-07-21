@@ -1,67 +1,3 @@
-/*
-
-
-#include "ArchivoInventario.h"
-#include "ArchivoPartidas.h"
-#include "partidas.h"
-#include "inventario.h"
-#include <iostream>
-
-using namespace std;
-
-
-int main()
-{
-    int canReg=0;
-    ArchivoPartidas arPartidas("recursos/archivos/partidas.dat");
-    Partidas parti;
-    canReg=arPartidas.contarRegistros();
-    cout << "Cant. registros: " << canReg << endl;
-    for (int i=0;i<canReg;i++)
-    {
-        arPartidas.leer(i,parti);
-        parti.imprimirPartidas();
-        cout << endl << endl;
-
-
-    }
-
-
-
-    cout << endl << endl << "inventarios" << endl << endl;
-    canReg=0;
-    ArchivoInventario ArInv("recursos/archivos/inventarios.dat");
-    Inventario invJug;
-    canReg=ArInv.contarRegistros();
-    cout << "Cant. registros: " << canReg << endl;
-    for (int i=0;i<canReg;i++)
-    {
-        ArInv.leer(i, invJug);
-        invJug.imprimirSlots();
-        //invJug.imprimirSlots();
-    }
-
-
-
-
-
-    return 0;
-}
-
-
-
-
-*/
-
-
-
-
-
-
-
-
-
-
 #include "GestorPantallas.h"
 #include "salida.h"
 #include "ventanaPrincipal.h"
@@ -72,6 +8,7 @@ int main()
 #include "VentanaEquipar.h"
 #include "ventanaExplor.h"
 #include "ventanaCargar.h"
+#include "VentanaAcerca.h"
 #include "ventanaCraft.h"
 
 
@@ -90,6 +27,7 @@ int main() {
     gestor.agregar("cargar", new VentanaCargar(gestor));
     gestor.agregar("craftear", new VentanaCrafteo(gestor));
     gestor.agregar("combatir", new VentanaCombat(gestor));
+    gestor.agregar("acerca", new VentanaAcerca(gestor));
     gestor.agregar("equipar", new VentanaEquipar(gestor));
     gestor.mostrar("principal");
 

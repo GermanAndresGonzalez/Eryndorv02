@@ -73,6 +73,12 @@
 		<Unit filename="Pantalla.h">
 			<Option virtualFolder="GestorPantallas/" />
 		</Unit>
+		<Unit filename="VentanaAcerca.cpp">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
+		<Unit filename="VentanaAcerca.h">
+			<Option virtualFolder="Ventanas/" />
+		</Unit>
 		<Unit filename="VentanaCombat.h">
 			<Option virtualFolder="Ventanas/" />
 		</Unit>
@@ -117,6 +123,12 @@
 		</Unit>
 		<Unit filename="datosArchivos.h">
 			<Option virtualFolder="DatosGUI/Auxiliares/" />
+		</Unit>
+		<Unit filename="datosBotonAcerca.cpp">
+			<Option virtualFolder="DatosGUI/Botones/" />
+		</Unit>
+		<Unit filename="datosBotonAcerca.h">
+			<Option virtualFolder="DatosGUI/Botones/" />
 		</Unit>
 		<Unit filename="datosBotonArmar.cpp">
 			<Option virtualFolder="DatosGUI/Botones/" />
@@ -204,6 +216,12 @@
 		</Unit>
 		<Unit filename="datosRutasImagenes.h">
 			<Option virtualFolder="DatosGUI/Imagenes/" />
+		</Unit>
+		<Unit filename="datosVenAcerca.cpp">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
+		</Unit>
+		<Unit filename="datosVenAcerca.h">
+			<Option virtualFolder="DatosGUI/Ventanas/" />
 		</Unit>
 		<Unit filename="datosVenAr.cpp">
 			<Option virtualFolder="DatosGUI/Ventanas/" />

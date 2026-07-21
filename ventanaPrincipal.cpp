@@ -85,8 +85,8 @@ void VentanaPrincipal::ejecutarAccion(int i)
         break;
     case 3:
         std::cout << "Opción: 3";
-        //m_gestor.ocultar("principal");
-        //m_gestor.mostrar("cargar");
+        m_gestor.ocultar("principal");
+        m_gestor.mostrar("acerca");
         break;
 
 
